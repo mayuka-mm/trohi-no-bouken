@@ -2965,7 +2965,7 @@ function showPanel(kind){
   if(kind==="title"){
     const h=document.createElement("h1");h.textContent="トロヒの\nぼうけん";h.style.whiteSpace="pre-line";
     const s=document.createElement("p");s.textContent="りゅうの なみだを さがして";
-    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ24にち・ミニゲーム 2）";v.style.fontSize=".7em";v.style.opacity=".8";
+    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ24にち・セーブ うつし）";v.style.fontSize=".7em";v.style.opacity=".8";
     p.append(h,s,v);
     panelBtn(p,"あそぶ",showSlots);
   }
@@ -2993,7 +2993,34 @@ function showSlots(){
     b.addEventListener("click",()=>{audio();if(!name)askName(n,sv);else if(sv)showSlot(n);else{G.slot=n;p.hidden=true;p.className="";startGame(null)}});
     p.append(b);
   }
+  if(!ON_NET&&[1,2,3,4].some(n=>loadSave(n))){const m=el("button","セーブを ネットの ばんへ うつす");m.type="button";m.className="sub";m.addEventListener("click",moveAsk);p.append(m)}
   const b=el("button","もどる");b.type="button";b.className="sub";b.addEventListener("click",()=>showPanel("title"));p.append(b);
+}
+/* いえの ばんの セーブを ネットの ばんへ うつす（# の うしろに のせるので そとへは おくられない） */
+const NET_URL="https://mayuka-mm.github.io/trohi-no-bouken/",ON_NET=/github\.io$/.test(location.hostname);
+function moveAsk(){
+  const p=titlePanel("セーブを うつす");
+  p.append(el("p","そとでも あそべる 「ネットの ばん」へ、\nいまの セーブを ぜんぶ もって いくよ。\n\nネットの ばんに ある セーブは\nうわがき されるよ。"));
+  const a=el("button","うつす");a.type="button";a.addEventListener("click",()=>{
+    const d={names:slotNames(),saves:{}};for(let n=1;n<=SLOTS;n++){const v=loadSave(n);if(v)d.saves[n]=v}
+    location.href=NET_URL+"#s="+btoa(unescape(encodeURIComponent(JSON.stringify(d))));
+  });
+  const b=el("button","やめる");b.type="button";b.className="sub";b.addEventListener("click",showSlots);p.append(a,b);
+}
+function moveCheck(){
+  if(!/^#s=/.test(location.hash))return;
+  let d=null;try{d=JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(3)))))}catch(e){}
+  try{history.replaceState(null,"",location.pathname)}catch(e){}
+  if(!d||!d.saves)return;
+  const p=titlePanel("セーブが とどいたよ");
+  const who=Object.keys(d.saves).map(n=>(d.names||[])[n-1]||n+"ばん").join("・");
+  p.append(el("p",`${who} の セーブを うけとる？\n\nここに ある セーブは うわがき されるよ。`));
+  const a=el("button","うけとる");a.type="button";a.addEventListener("click",()=>{
+    try{Object.entries(d.saves).forEach(([n,v])=>localStorage.setItem(saveKey(n),JSON.stringify(v)));
+      const nm=slotNames();(d.names||[]).forEach((x,i)=>{if(x&&d.saves[i+1])nm[i]=x});localStorage.setItem(NAME_KEY,JSON.stringify(nm))}catch(e){}
+    SFX.item();showSlots();
+  });
+  const b=el("button","やめる");b.type="button";b.className="sub";b.addEventListener("click",()=>showPanel("title"));p.append(a,b);
 }
 function showSlot(n){
   const p=titlePanel(slotNames()[n-1]||n+"ばん"),sv=loadSave(n);
@@ -3058,7 +3085,7 @@ function fit(){
   document.documentElement.style.setProperty("--fs",Math.max(13,Math.round(s.width/176*8.6))+"px");
 }
 addEventListener("resize",fit);fit();
-buildMaps();setupScreen("mura");clearGoalOnTitle();showPanel("title");
+buildMaps();setupScreen("mura");clearGoalOnTitle();showPanel("title");moveCheck();
 function clearGoalOnTitle(){$("goal").textContent="りゅうの なみだを さがす ぼうけんへ"}
 let last=performance.now();
 function frame(now){
