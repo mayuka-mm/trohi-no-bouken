@@ -555,10 +555,11 @@ function photoImg(k){
   const c=document.createElement("canvas");c.width=352;c.height=168;const g=c.getContext("2d");g.imageSmoothingEnabled=false;
   g.save();g.scale(2,2);
   if(k==="tokyo")drawTokyo(g,true);
+  if(k==="tokyo_top")drawTop(g);if(k==="tokyo_eki")drawEki(g);if(k==="tokyo_kokkai")drawKokkai(g);
   if(k==="kanagawa")drawMon(g);
   if(k==="shizuoka"){drawFuji(g);g.fillStyle="#62bd4d";g.fillRect(0,48,176,36);for(let y=52;y<84;y+=9){g.fillStyle="#2f8a3a";g.fillRect(0,y,176,5);g.fillStyle="#58b84a";g.fillRect(0,y,176,1)}}
   g.restore();
-  const T=HERO.down[1],who=k==="kanagawa"?[MOMOJII,MOMOBAA,AKANEBAA,T,HARUNA,HARUMAMA]:k==="shizuoka"?[T,CHAKO]:k==="tokyo"?[T,MIYAKO]:[T];
+  const T=HERO.down[1],who=k==="kanagawa"?[MOMOJII,MOMOBAA,AKANEBAA,T,HARUNA,HARUMAMA]:k==="shizuoka"?[T,CHAKO]:k==="tokyo"?[T,MIYAKO]:/^tokyo_/.test(k)?[NACCHAN,T,ICCHAN,SHOUCHAN]:[T];
   const gap=36,x0=Math.round(176-who.length*gap/2);
   who.forEach((im,i)=>{const x=x0+i*gap+2,y=168-36;g.fillStyle="rgba(0,0,0,.22)";g.fillRect(x+4,y+30,24,4);g.drawImage(im,x,y,32,32)});
   return c;
@@ -571,7 +572,7 @@ const CHAKO=sprite(["................","................","................","..
 const KEN={shizuoka:{name:"しずおか",start:"shizu1",miyage:"ocha"},kanagawa:{name:"かながわ",start:"kana1",miyage:"kamaboko",need:"shizuoka"},tokyo:{name:"とうきょう",start:"tokyo1",miyage:"ningyoyaki",need:"kanagawa"}};
 const kenOf=nm=>Object.keys(KEN).find(k=>KEN[k].name===nm&&(!KEN[k].need||kenDone(KEN[k].need)));
 const MIYAGE={ningyoyaki:{ken:"とうきょうと",note:"あさくさの めいぶつの おかし。とうきょうは にほんの しゅと",name:"にんぎょうやき",img:sprite(["........","..oooo..",".oOooOo.",".oooooo.",".oOOOOo.","..oooo.."],P)},kamaboko:{ken:"かながわけん",note:"おだわらの かまぼこが ゆうめい。よこはまには おおきな みなとが ある",name:"おだわらの かまぼこ",img:sprite(["........","..pppp..",".pwwwwp.",".pwwwwp.",".pwwwwp.","nnnnnnnn","nnnnnnnn"],P)},ocha:{ken:"しずおかけん",note:"あたたかくて、おちゃの はたけが たくさん ある",name:"しずおかの おちゃ",img:sprite(["..w..w..","...w.w..","........","cccccccc","cllllllc","cllllllc",".cllllc.","..cccc.."],P)}};
-const PHOTO={shizuoka:"ふじさんと ちゃばたけ（しずおか）",kanagawa:"よこはま ちゅうかがいの もん（かながわ）",tokyo:"とうきょうタワー（とうきょう）"};
+const PHOTO={shizuoka:"ふじさんと ちゃばたけ（しずおか）",kanagawa:"よこはま ちゅうかがいの もん（かながわ）",tokyo:"とうきょうタワー（とうきょう）",tokyo_top:"とうきょうタワーの うえ（とうきょう）",tokyo_eki:"とうきょうえき（とうきょう）",tokyo_kokkai:"こっかいぎじどう（とうきょう）"};
 const KEN_ALL=[["ほっかいどう・とうほく",["ほっかいどう","あおもり","いわて","みやぎ","あきた","やまがた","ふくしま"]],["かんとう",["いばらき","とちぎ","ぐんま","さいたま","ちば","とうきょう","かながわ"]],["ちゅうぶ",["にいがた","とやま","いしかわ","ふくい","やまなし","ながの","ぎふ","しずおか","あいち"]],["きんき",["みえ","しが","きょうと","おおさか","ひょうご","なら","わかやま"]],["ちゅうごく・しこく",["とっとり","しまね","おかやま","ひろしま","やまぐち","とくしま","かがわ","えひめ","こうち"]],["きゅうしゅう・おきなわ",["ふくおか","さが","ながさき","くまもと","おおいた","みやざき","かごしま","おきなわ"]]];
 /* にほんちずの かたち：Natural Earth（パブリックドメイン）の けんざかいを ちいさく した もの */
 const JMAP={"ほっかいどう":"M587,97L588,98L582,100L579,106L571,106L565,108L565,110L566,110L563,112L561,112L561,114L557,114L554,111L552,114L553,116L552,117L542,116L538,113L528,116L523,120L512,130L505,142L504,151L501,158L491,151L474,144L464,136L461,136L452,130L446,130L439,132L424,143L422,142L424,141L416,132L406,132L402,137L401,144L409,151L415,150L424,159L432,164L425,167L419,165L415,166L415,163L413,163L411,166L406,169L405,175L400,177L398,181L392,179L390,173L394,164L395,163L396,156L392,151L384,145L383,142L386,136L385,129L388,127L392,127L396,124L398,121L400,123L401,123L404,118L408,114L407,110L402,105L403,100L405,100L407,98L418,105L425,104L425,106L430,107L435,105L439,100L440,96L437,91L438,89L436,83L438,80L443,78L447,74L447,60L450,54L452,44L450,34L445,22L445,19L447,15L447,10L448,13L453,12L457,8L477,29L480,34L492,47L505,55L506,58L519,63L516,64L517,67L525,67L527,66L531,66L533,67L530,70L532,71L535,66L536,70L540,73L552,75L555,74L568,63L572,57L573,61L566,73L563,81L568,89L571,98L574,101L569,100L572,102L578,104L578,102L580,99L587,97ZM436,22L433,25L429,22L429,21L432,19L436,22ZM375,145L374,152L372,153L371,151L372,147L375,145ZM427,10L426,18L425,12L424,10L427,10Z","あおもり":"M389,221L389,217L386,214L392,207L395,208L400,206L402,196L403,198L403,196L405,196L402,196L401,193L399,192L402,191L402,186L406,190L409,188L412,189L414,202L416,204L420,202L420,200L419,199L421,197L429,203L431,201L432,198L434,191L432,186L430,186L427,190L422,190L418,192L417,190L422,174L434,183L438,182L440,179L438,191L439,209L441,216L444,217L448,220L444,224L435,224L425,231L422,229L423,220L420,219L413,222L409,222L405,219L401,221L393,220L389,221Z","いわて":"M448,220L453,230L452,232L455,234L453,236L457,240L459,250L457,256L460,255L461,258L457,262L459,263L460,261L460,264L457,265L457,266L455,268L458,267L458,268L455,270L455,271L457,271L456,272L455,273L456,274L453,275L456,277L452,278L454,279L453,279L454,280L449,280L450,283L448,283L448,282L446,282L442,282L440,289L439,290L436,289L432,292L429,289L429,287L417,283L418,279L416,277L418,274L413,265L418,255L418,251L419,248L417,246L420,245L419,237L421,230L422,229L425,230L435,224L444,224L448,220Z","みやぎ":"M446,283L448,288L446,286L445,286L445,289L442,291L444,294L440,296L443,297L441,299L443,302L441,305L441,307L443,307L442,308L443,312L440,311L439,307L436,306L432,307L430,310L429,308L427,308L426,310L427,311L424,315L422,321L422,328L420,329L420,332L416,333L413,328L400,325L400,322L404,320L406,317L407,312L411,304L409,297L411,296L412,292L409,286L418,284L424,287L429,287L429,290L432,292L436,289L439,290L440,289L442,282L446,283Z","あきた":"M387,277L392,260L393,251L390,244L388,244L383,245L380,240L385,241L390,234L392,224L389,221L393,220L401,221L405,219L409,222L413,222L420,219L423,220L424,223L422,229L420,232L420,245L417,246L419,248L418,251L418,254L413,265L418,274L416,277L418,279L417,283L409,287L402,281L398,281L392,277L387,277Z","やまがた":"M375,301L377,296L383,289L387,277L392,277L395,279L405,282L412,291L411,296L409,297L411,304L407,312L406,317L400,322L400,332L398,334L394,335L388,331L384,332L379,329L378,327L380,316L384,314L386,311L381,307L381,303L375,301Z","ふくしま":"M422,328L425,335L426,350L423,367L418,370L418,372L410,369L410,371L406,374L399,369L397,363L388,359L369,370L364,369L365,360L362,356L364,351L364,347L370,346L371,344L376,344L375,339L381,331L388,331L390,334L395,335L400,333L400,325L413,328L414,332L417,333L420,332L420,328L422,328Z","いばらき":"M418,372L412,386L412,392L410,396L413,407L420,419L409,412L397,414L390,411L384,404L381,403L379,399L383,398L386,395L390,392L397,390L399,386L398,379L400,377L399,369L406,374L410,371L410,369L418,372Z","とちぎ":"M372,396L368,391L372,383L367,380L369,373L368,371L369,370L387,360L394,361L397,363L399,366L400,377L398,379L399,386L397,391L389,392L381,399L379,399L377,396L372,396Z","ぐんま":"M360,364L364,368L369,370L368,371L369,373L367,380L372,383L368,392L372,396L377,397L380,401L361,396L358,402L349,406L347,409L344,406L344,403L342,400L343,400L344,391L342,390L338,391L336,389L336,386L340,378L350,376L356,370L356,367L360,364Z","さいたま":"M361,396L373,400L378,400L382,404L386,412L386,417L383,416L375,418L375,417L370,418L357,413L352,414L347,412L347,409L348,407L358,402L361,396Z","ちば":"M420,419L420,421L419,419L413,420L407,426L404,433L405,437L404,442L402,444L395,444L390,449L388,453L385,454L382,451L386,449L385,442L386,439L386,437L383,436L385,434L387,434L387,432L394,426L390,421L388,422L389,423L387,424L386,423L386,413L382,404L384,404L390,411L395,414L409,412L420,419Z","とうきょう":"M386,423L384,423L384,424L383,422L384,428L375,424L372,424L373,426L373,429L370,426L366,425L358,420L354,414L357,412L370,418L383,416L386,417L386,423ZM371,459L372,460L372,463L369,461L369,458L371,459Z","かながわ":"M384,428L379,430L380,431L380,433L378,433L379,437L382,439L382,441L379,441L380,444L378,444L378,441L375,436L371,436L363,438L362,440L362,444L361,443L360,444L357,443L356,440L356,433L353,433L355,431L360,428L361,422L370,426L373,429L373,426L372,424L375,424L384,428Z","にいがた":"M310,366L319,363L326,358L331,358L342,350L348,340L352,331L359,325L364,324L371,317L373,306L375,301L381,303L381,307L386,310L386,311L384,314L380,316L378,327L381,331L375,339L376,344L371,344L370,346L364,347L363,357L365,360L364,368L359,364L356,367L356,370L353,372L350,376L346,377L345,372L341,365L335,366L332,372L324,373L322,370L318,369L316,374L314,375L312,369L310,366ZM338,320L342,320L342,322L339,328L335,331L330,331L332,330L334,325L333,324L331,324L331,320L339,310L340,310L338,320Z","とやま":"M290,367L288,371L289,372L294,375L299,376L302,374L303,369L310,366L312,369L314,375L313,383L308,392L300,389L299,390L298,388L293,390L287,396L286,393L284,393L282,395L281,394L281,377L285,369L290,367Z","いしかわ":"M263,395L269,389L277,380L281,371L280,360L278,359L279,352L283,349L287,349L293,345L299,343L301,344L301,347L297,347L298,351L297,353L293,353L289,358L287,356L285,360L284,362L288,363L290,361L291,367L285,369L281,377L281,394L283,398L279,404L276,405L273,402L266,400L263,395Z","ふくい":"M237,427L240,429L243,427L243,429L246,428L245,426L249,427L248,425L250,425L248,422L252,424L254,423L253,419L256,417L256,421L257,422L258,417L255,412L254,407L259,399L259,397L263,395L265,398L266,400L273,402L276,405L279,404L279,410L282,414L281,416L271,418L266,417L264,422L259,422L260,425L258,428L254,429L252,428L251,433L246,435L238,434L236,430L236,428L237,427Z","やまなし":"M335,409L337,410L338,412L342,412L344,414L347,412L354,414L357,419L361,422L360,428L355,431L353,433L346,435L341,432L340,439L340,441L337,443L334,437L331,436L331,428L329,421L329,416L335,409Z","ながの":"M346,377L340,379L337,381L336,388L338,391L344,391L344,394L342,401L347,412L344,414L343,412L338,412L337,410L335,409L329,416L329,423L327,426L327,434L316,441L308,441L307,439L308,434L309,433L309,429L307,427L304,419L300,416L302,412L305,412L308,406L307,402L310,394L308,392L313,383L314,375L316,374L318,369L322,370L324,373L332,372L335,366L340,365L342,365L343,369L345,372L346,377Z","ぎふ":"M298,388L299,390L300,389L308,392L310,394L307,402L308,406L305,412L302,412L300,416L304,418L306,422L309,433L308,434L307,438L303,440L299,438L295,439L287,433L282,435L281,435L278,439L278,444L273,440L268,441L268,430L264,422L266,417L271,418L281,416L282,414L279,410L279,404L283,398L281,395L284,393L287,394L287,396L294,389L298,388Z","しずおか":"M360,444L359,447L360,447L360,450L362,452L362,455L357,461L357,464L355,464L351,466L348,462L348,454L350,453L349,450L350,448L354,448L350,444L346,444L342,445L340,448L340,450L341,449L340,450L335,453L334,457L330,461L329,464L331,466L322,463L316,465L305,463L305,457L310,455L315,446L316,441L327,434L327,426L329,423L331,428L331,437L334,437L337,442L340,441L342,432L346,435L356,433L356,441L357,443L360,444Z","あいち":"M305,463L289,467L291,463L293,465L298,461L299,462L300,461L298,457L295,458L295,459L289,459L287,456L288,453L286,459L288,462L284,460L283,451L285,446L284,448L283,446L283,448L280,448L278,444L278,439L281,435L287,433L295,439L299,438L303,440L307,438L308,441L316,441L315,446L310,454L305,457L305,463Z","みえ":"M280,448L277,450L272,463L274,466L276,467L286,473L286,476L285,476L286,476L285,480L282,481L282,480L283,481L284,478L279,479L279,477L276,480L273,480L272,482L271,481L265,485L265,488L263,487L262,488L264,491L264,493L263,492L262,493L263,494L258,496L255,505L250,500L250,498L255,492L258,491L259,481L257,475L262,472L260,469L257,468L256,465L257,464L255,459L258,458L259,455L263,455L268,452L270,444L268,441L273,440L278,444L280,448Z","しが":"M264,422L268,430L268,440L270,444L268,452L265,454L259,455L258,458L255,459L250,453L249,449L249,438L246,435L251,433L252,428L254,429L259,426L259,422L264,422Z","きょうと":"M216,422L218,422L224,418L229,417L231,421L230,422L227,426L229,425L230,426L229,427L232,428L232,431L233,429L235,429L232,427L237,424L236,430L238,434L246,435L249,438L249,449L250,455L254,457L256,462L246,461L241,452L239,453L232,449L234,447L234,445L228,442L226,439L224,440L219,437L218,433L221,434L222,433L222,428L218,428L216,422Z","おおさか":"M224,479L230,476L235,469L236,453L233,451L233,450L236,450L239,453L240,453L240,451L243,454L245,458L242,468L244,472L243,475L227,480L224,479Z","ひょうご":"M199,424L205,421L216,422L218,428L222,428L222,433L221,434L218,433L218,437L224,440L226,439L228,442L233,444L234,446L232,448L236,453L236,461L234,463L232,462L228,462L229,464L227,463L222,465L211,459L205,459L204,458L201,461L197,462L197,459L196,456L196,449L200,443L200,440L202,440L204,438L199,424ZM221,466L222,467L217,476L219,480L212,483L211,481L210,481L209,479L210,478L221,466Z","なら":"M256,461L257,464L256,465L257,468L262,471L257,475L259,481L258,491L255,491L250,498L249,497L246,497L242,497L241,492L239,489L243,483L245,482L243,476L244,472L242,468L245,459L249,462L256,461Z","わかやま":"M255,505L253,509L248,512L247,515L247,513L236,510L232,505L234,503L229,501L225,496L223,496L224,493L223,492L226,490L224,489L225,487L225,486L227,485L223,480L224,479L227,480L243,476L245,482L243,483L239,489L241,492L241,497L249,497L250,500L255,505Z","とっとり":"M162,427L162,429L167,430L173,427L178,428L188,428L199,424L204,436L203,440L193,443L191,438L187,437L186,436L182,438L181,439L179,437L173,436L170,442L166,443L165,445L162,447L157,447L158,441L163,438L164,432L160,428L162,427Z","しまね":"M108,463L114,461L121,453L130,447L133,442L141,437L142,433L141,431L152,428L156,424L158,426L163,425L160,428L164,432L162,439L158,441L157,447L147,447L141,454L142,456L136,458L127,459L124,461L121,472L119,474L119,476L117,479L111,478L111,474L108,473L108,463ZM165,396L166,399L164,399L164,401L159,399L160,395L163,393L165,396Z","おかやま":"M197,462L194,461L196,462L192,465L193,465L192,466L185,467L185,468L187,466L188,467L185,472L180,473L177,469L169,474L171,471L168,472L163,453L162,447L166,445L166,443L170,442L173,436L178,437L181,439L186,436L187,437L191,438L193,443L200,440L200,443L196,449L196,456L197,459L197,462Z","ひろしま":"M168,472L162,478L164,476L162,475L161,473L159,477L159,480L156,480L155,478L159,476L156,475L155,477L148,479L147,478L145,480L145,482L141,483L140,482L138,483L136,479L137,477L131,477L126,481L127,483L123,481L120,471L124,462L127,459L136,458L142,456L141,453L149,446L162,447L168,472Z","やまぐち":"M127,483L126,487L126,492L124,494L124,498L120,501L123,499L122,497L114,491L111,493L113,490L110,489L105,490L105,492L101,490L100,492L98,492L98,490L94,495L92,493L91,494L88,490L86,489L82,495L81,494L82,489L80,487L82,485L81,480L81,477L86,475L83,475L84,473L89,474L91,476L91,473L94,473L95,474L93,474L92,476L99,474L100,470L105,465L105,464L108,463L108,473L111,474L111,478L117,479L121,472L123,481L127,483ZM127,497L125,495L127,493L130,496L134,494L132,496L132,498L130,496L127,497Z","とくしま":"M202,483L209,481L208,484L209,484L207,491L211,494L209,498L212,498L201,506L199,509L197,511L193,510L192,506L189,505L187,499L184,500L175,497L175,491L181,487L186,488L193,485L201,485L202,483Z","かがわ":"M173,490L175,488L175,484L172,481L177,482L185,476L190,477L192,475L193,478L194,477L196,478L196,479L200,481L202,483L201,485L193,485L186,488L181,487L175,491L173,490ZM199,468L199,473L197,473L198,472L195,474L195,472L193,472L193,470L199,468Z","えひめ":"M141,537L138,536L136,538L135,532L133,531L132,533L133,530L135,531L134,529L136,528L132,525L135,525L135,526L138,524L137,522L135,522L137,520L132,520L133,519L132,517L133,515L129,514L123,518L123,517L119,519L133,511L136,507L142,503L143,500L145,492L150,489L149,486L151,485L157,494L164,492L170,493L173,490L175,491L176,494L175,497L159,501L153,513L146,515L149,520L142,528L140,527L142,535L141,537Z","こうち":"M197,511L193,523L184,513L178,511L174,512L169,514L168,517L163,518L161,527L159,528L156,532L155,532L153,534L153,539L152,539L151,541L154,545L150,543L146,544L143,542L140,544L140,542L143,538L141,537L142,533L140,527L142,528L146,523L149,521L146,515L153,513L159,501L172,498L184,500L187,499L189,505L192,506L193,510L197,511Z","ふくおか":"M52,514L53,513L57,511L54,509L58,505L61,509L64,508L65,505L63,506L61,504L64,505L67,502L66,500L68,497L72,496L74,494L79,494L81,496L85,493L84,499L85,499L88,507L92,508L90,513L84,513L81,516L79,519L79,530L74,528L70,530L68,533L66,534L65,530L63,526L69,519L69,516L65,517L60,514L52,514Z","さが":"M45,519L46,522L47,517L44,514L45,513L47,515L46,510L49,511L49,513L51,515L60,514L65,517L69,516L69,519L64,523L63,527L59,525L55,528L59,534L58,536L53,535L48,531L49,528L45,526L43,522L45,519Z","ながさき":"M58,536L55,539L56,540L59,539L63,539L64,544L63,547L57,550L55,547L58,544L57,542L54,542L51,544L50,543L47,548L42,552L45,548L44,546L46,545L45,545L39,536L40,529L42,531L42,534L43,533L45,534L44,537L44,536L44,539L46,540L47,539L51,540L49,536L49,533L47,531L42,531L43,528L42,528L41,527L40,529L40,527L39,525L36,524L37,521L37,518L39,518L40,517L41,519L44,519L43,522L45,526L49,528L48,531L53,535L58,536ZM32,465L33,468L29,474L30,474L31,477L28,479L29,476L27,477L27,475L27,477L25,476L26,476L28,464L30,464L33,462L34,465L32,465ZM13,547L14,548L10,548L9,551L8,550L3,550L4,547L5,548L5,543L7,544L10,542L13,547ZM28,480L29,479L26,486L24,487L23,487L24,478L25,478L25,479L27,478L28,480ZM20,534L23,534L20,537L19,541L17,535L19,534L19,532L20,532L21,526L20,534ZM36,516L35,520L32,525L30,526L29,524L31,526L30,524L32,519L36,516ZM43,501L44,502L42,502L41,504L39,502L39,501L40,502L39,500L40,497L43,498L43,501Z","くまもと":"M63,569L67,561L68,561L70,556L70,555L71,554L70,552L74,548L66,549L72,546L71,541L66,537L66,534L68,533L70,530L74,528L84,532L85,530L84,527L86,526L89,527L94,539L96,541L93,542L85,555L88,562L87,565L88,569L79,572L75,572L71,569L65,571L63,569ZM56,552L58,561L51,567L51,565L50,565L52,563L53,563L50,561L52,555L51,553L56,552ZM65,554L67,554L63,560L63,558L59,559L58,557L63,553L65,554Z","おおいた":"M92,508L97,509L103,505L108,505L110,509L110,513L109,516L107,516L105,519L102,518L102,522L113,523L116,522L112,528L116,528L115,530L117,530L118,531L119,530L119,531L117,531L116,534L118,536L122,536L119,537L118,540L119,541L115,542L115,545L112,541L110,541L109,543L103,544L101,541L97,542L94,539L92,532L87,526L84,527L85,532L79,530L79,519L81,516L84,513L90,513L92,508Z","みやざき":"M115,545L108,553L110,555L107,555L108,558L106,559L105,563L100,581L102,584L100,591L98,594L96,602L93,601L92,598L90,598L91,592L86,590L75,573L88,569L87,565L88,562L85,556L86,552L88,551L93,542L96,541L101,541L103,544L109,543L111,541L115,545Z","かごしま":"M90,598L87,599L85,602L88,604L87,606L89,606L85,608L83,612L73,617L74,614L76,612L78,603L75,598L75,594L71,593L74,591L76,594L79,590L77,588L74,587L72,589L69,598L70,604L73,606L73,610L69,611L66,607L59,607L57,604L58,603L55,600L56,600L59,601L62,597L62,592L57,584L57,582L59,583L58,581L58,578L57,575L58,573L57,571L59,570L61,571L63,569L65,571L71,569L75,572L78,577L81,580L81,584L84,585L87,591L91,593L90,598ZM74,644L71,649L67,650L66,649L64,643L68,640L74,644ZM87,624L88,627L87,634L84,638L84,644L81,644L80,644L80,640L83,637L83,631L87,624ZM44,584L44,586L42,590L40,591L39,590L44,584Z","おきなわ":"M113,39L112,45L108,50L104,51L103,55L98,56L92,62L87,63L86,64L91,72L86,71L82,79L85,80L84,83L82,84L80,87L76,87L75,78L80,73L80,63L84,62L86,60L92,57L93,55L93,53L89,51L88,46L94,46L95,50L98,49L101,47L101,45L107,39L109,33L113,39ZM30,69L29,72L28,70L25,69L26,67L28,66L30,69Z"};
@@ -678,7 +679,7 @@ function setupScreen(name){
   (G.flags["clear_"+name]?back:foes).forEach(([type,tx,ty])=>G.enemies.push(enemy(type,tx,ty)));
   if(name==="mura"){
     G.npcs.push({id:"nauyu",x:3*TILE,y:5*TILE,img:NAUYU},{id:"granny",x:7*TILE,y:4*TILE,img:GRANNY},{id:"shop",x:7*TILE,y:6*TILE+2,img:MERCHANT},
-      {id:"mimi",x:1*TILE,y:6*TILE,img:MIMI},{id:"kaji",x:9*TILE,y:7*TILE-2,img:KUMA});
+      {id:"mimi",x:1*TILE,y:6*TILE,img:MIMI},{id:"kaji",x:9*TILE,y:7*TILE-2,img:KUMA},{id:"jiiji",x:2*TILE,y:7*TILE,img:JIIJI},{id:"baaba",x:3*TILE,y:7*TILE,img:BAABA});
     if(G.flags.cleared)G.npcs.push({id:"mother",x:1*TILE,y:4*TILE,img:MOTHER});
     /* りゅうの なみだを もって かえると、みんなが いえの まえに あつまって まっている */
     if(G.flags.ryuDown&&G.flags.koriDown&&!G.flags.cleared){
@@ -701,7 +702,7 @@ function setupScreen(name){
   if(/^kana/.test(name))G.enemies.forEach(e=>{e.hp*=4;e.dmg=2});
   if(/^tokyo/.test(name))G.enemies.forEach(e=>{e.hp*=5;e.dmg=2});
   if(name==="kana2"&&(G.flags.clear_kana2||kenDone("kanagawa")))G.npcs.push({id:"nikumanya",x:2*TILE,y:2*TILE,img:NIKUMANYA});
-  if(name==="tokyo1")G.npcs.push({id:"hikouki",x:112,y:104,img:HIKOUKI,big:1},{id:"miyako",x:2*TILE,y:4*TILE,img:MIYAKO});
+  if(name==="tokyo1")G.npcs.push({id:"hikouki",x:112,y:104,img:HIKOUKI,big:1},{id:"miyako",x:2*TILE,y:4*TILE,img:MIYAKO},{id:"nacchan",x:7*TILE,y:4*TILE,img:NACCHAN},{id:"icchan",x:8*TILE,y:4*TILE,img:ICCHAN},{id:"shouchan",x:9*TILE,y:4*TILE,img:SHOUCHAN});
   if(name==="tokyo2"&&!G.flags.clear_tokyo2)G.map.tokyo2[0][5]="^";
   if(name==="tokyo3"){
     if(!kenDone("tokyo")){G.map.tokyo3[8][5]="^";G.boss={kind:"kuma",rai:true,x:72,y:14,h:0,hp:36,state:"walk",t:2,ball:null,hitBy:-1,flash:0,calm:false,stunHits:0};}
@@ -824,6 +825,7 @@ function ch2Goal(){
     if(!(f.miyage||{}).ningyoyaki)return "とうきょうが はれた！ ミヤコに はなしかけよう";
     if(!f.kaminari)return "かみなりの たいこを ガンテツに もって いこう（たいこ 1・せんべい 3・100コイン）";
     if(f.camera&&!(f.album||{}).tokyo)return "とうきょうの しゃしんスポットで しゃしんを とろう";
+    if(kankoLeft())return "なっちゃんたちと とうきょう かんこうを しよう（あと "+kankoLeft()+"かしょ）";
     return "とうきょうは クリア！ つぎの けんは じゅんびちゅう";};
   if(tk)return tkGoal();
   const kn=G.screen.startsWith("kana"),knGoal=()=>{
@@ -1077,6 +1079,17 @@ function talkTo(id){
   }
   if(id==="kuma"&&G.boss&&G.boss.rai){say([["かみなりさま","とうきょうには、にほんじゅうから ひとが あつまって くる。\nあさくさは、むかしから にぎやかな まちなんじゃ。"]]);return}
   if(id==="nikumanya")say([["にくまんやの ホカホカさん","いらっしゃい！ ほかほかの にくまん、あるよ！\nおおぐい せんしゅけんも やってるよ！"]],openNikuman);
+  if(id==="nacchan"){
+    if(!kenDone("tokyo"))say([["なっちゃん","トロヒ、いらっしゃい！ なっちゃんだよ。\nおかあさんの いもうとの。おぼえてる？"],["なっちゃん","モヤが はれたら、みんなで とうきょう かんこうに いこうね！"]]);
+    else say([["なっちゃん",kankoLeft()?"モヤが はれたね！ ありがとう、トロヒ。\nさあ、みんなで とうきょう かんこうに いこう！":"また いっしょに でかける？"]],()=>openKanko());
+  }
+  if(id==="shouchan")say(kenDone("tokyo")?[["しょうちゃん","とうきょうには、でんしゃも ちかてつも たくさん はしって いるんだ。\nかんこうは なっちゃんに こえを かけてね。"]]:[["しょうちゃん","やあ、トロヒ。よく きたね。\nモヤの せいで、いっちゃんが タワーを みられなくて ざんねんがって いるんだ。"]]);
+  if(id==="icchan")say([["いっちゃん",kenDone("tokyo")?"タワー！ あかい！ たかーい！":"タワー、ない…… どこ？"],["いっちゃんは 2さい。なっちゃんと しょうちゃんの こどもだよ。"]]);
+  if(id==="jiiji")say(!f.cleared?[["じぃじ","トロヒ、おかあさんの ことは じぃじと ばぁばが みて いるから、あんしんして いって おいで。"],["じぃじ","でも むりは するなよ。つかれたら やどやで やすむんだぞ。"]]
+    :!f.nihon?[["じぃじ","トロヒ、よく やったなあ！\nおかあさんが げんきに なって、じぃじは うれしいよ。"]]
+    :[["じぃじ","にほんじゅうを まわって いるんだってな。たいした もんだ。"],["じぃじ","やまなしは、ぶどうと ももが たくさん とれる けん。\nかえって きたら、いっしょに たべような。"]]);
+  if(id==="baaba")say(!f.cleared?[["ばぁば","トロヒ、きを つけてね。\nばぁばは ここで まって いるからね。"]]
+    :[["ばぁば","おかえり、トロヒ。\nたびの はなし、また きかせてね。"],["ばぁば",f.nihon?"とおくへ いっても、やまなしが トロヒの うちだよ。\nいつでも かえって おいで。":"おなか すいたら、いつでも おいで。"]]);
   if(id==="miyako"){
     if(!kenDone("tokyo"))say([["あんないにんの ミヤコ","ようこそ、とうきょうへ！\nとうきょうは にほんの しゅと。くにの だいじな ことを きめる ところが あつまって いるの。"],["あんないにんの ミヤコ","でも ひがしの あさくさに くろい モヤが でて、おまつりが できないの。\nトロヒくん、おねがい できる？"]]);
     else if(!(f.miyage||{}).ningyoyaki)say([["あんないにんの ミヤコ","モヤが はれたわ！ ありがとう、トロヒくん。\nはい、これは あさくさの めいぶつ、にんぎょうやき。"],["あんないにんの ミヤコ","ママへの おみやげに どうぞ。"],["おみやげ「にんぎょうやき」を てに いれた！\n「もちもの」の おみやげの そうこで みられるよ。"]],
@@ -2791,6 +2804,7 @@ function openAlbum(fromShot){
 /* ---------- ミニゲーム（オリジナルの おちものパズル 2つ） ---------- */
 const MINI={
   kuda:{name:"くだもの つなぎ",how:"おなじ くだものを 4つ つなげると きえるよ。\nつづけて きえると 「れんさ」で たかとくてん！",bw:6,bh:12,cs:22,rate:100},
+  volley:{name:"バレー とっくん",how:"ボールの おちる ところへ うごいて レシーブ！\nアウトは みおくって、ブロックの いない ところへ うとう。"},
   ishi:{name:"いしがき つみ",how:"いしを ならべて、よこ 1れつ そろえると きえるよ。\nいちどに たくさん けすと たかとくてん！",bw:10,bh:18,cs:14,rate:300}
 };
 const KUDA_COL=["#f79ab0","#9a6ad8","#f6a531","#7ccf5c"],ISHI_COL=["#b9a98c","#9fb0b8","#c9a27a","#a3b58d","#c4b6c9","#d1c08a","#a9a39a"];
@@ -2808,6 +2822,7 @@ function openMini(){
 }
 function payMini(id){const f=G.flags;if((f.coins||0)<MINI_FEE){openMini();return}f.coins-=MINI_FEE;save();SFX.clink();startMini(id)}
 function startMini(id){
+  if(id==="volley"){startVolley();return}
   const m=MINI[id],f=G.flags,p=menuPanel(m.name),SIDE=50,W=m.bw*m.cs+SIDE,H=m.bh*m.cs;
   if(miniRun)miniRun.stop();
   const info=el("p","");
@@ -3048,6 +3063,248 @@ function startOogui(){
   p.append(info,cv,rank,pad);
   draw();raf=requestAnimationFrame(loop);
 }
+/* ---------- とうきょう かんこう・やまなしの じぃじ ばぁば・バレー とっくん ---------- */
+const NACCHAN=recolor(MOTHER,{"#3e93e6":"#ff9a3c","#2a65ad":"#d96a1c"});
+const SHOUCHAN=sprite(["................","................",".....kkkkkk.....","....kkkkkkkk....","....kssssssk....","....sesssses....","....ssssssss....",".....ssssss.....","....llllllll....","...slllllllls...","....llllllll....","....llllllll....","....KKKKKKKK....","....KK....KK....","....kk....kk....","................"],P);
+const ICCHAN=sprite(["................","................","................","................","................","................",".....kkkkkk.....","....kkkkkkkk....","....kssssssk....","....sesssses....","....ssssssss....",".....yyyyyy.....","....syyyyyys....",".....yyyyyy.....",".....bb..bb.....","................"],P);
+const JIIJI=sprite(["................","................",".....gggggg.....","....gggggggg....","....gssssssg....","....sesssses....","....ssssssss....",".....sggggs.....","....LLLLLLLL....","...sLLLLLLLLs...","....LLLLLLLL....","....LLLLLLLL....","....nnnnnnnn....","....nn....nn....","....kk....kk....","................"],P);
+const BAABA=recolor(GRANNY,{"#8b5fbf":"#3fa7a0","#67428f":"#2b7d78"});
+function drawEki(g){
+  g.fillStyle="#8fd0f5";g.fillRect(0,0,176,84);
+  g.fillStyle="#ffffff";[[16,8,24,3],[120,12,22,3]].forEach(([x,y,a,b])=>g.fillRect(x,y,a,b));
+  g.fillStyle="#a9b6cf";[[0,10,20],[150,6,26],[60,16,14],[100,12,16]].forEach(([x,y,a])=>g.fillRect(x,y,a,50-y));
+  /* あかレンガの えきしゃ */
+  g.fillStyle="#b5442e";g.fillRect(6,40,164,30);
+  g.fillStyle="#f1e6d2";g.fillRect(6,48,164,2);g.fillRect(6,58,164,2);
+  g.fillStyle="#34385a";for(let x=12;x<166;x+=8){g.fillRect(x,42,3,5);g.fillRect(x,51,3,6);g.fillRect(x,61,3,6)}
+  g.fillStyle="#4a4f66";[[30],[146]].forEach(([cx])=>{for(let y=0;y<12;y++){const h=Math.round(Math.sqrt(144-(12-y)*(12-y))*1.2);g.fillRect(cx-h,28+y,h*2,1)}g.fillRect(cx-1,23,2,6)});
+  g.fillStyle="#b5442e";g.fillRect(74,30,28,12);g.fillStyle="#4a4f66";for(let y=0;y<8;y++)g.fillRect(74+(7-y)*1.75,30-8+y,28-(7-y)*3.5,1);
+  g.fillStyle="#f1e6d2";g.fillRect(84,60,8,10);
+  g.fillStyle="#cfc8b8";g.fillRect(0,70,176,14);g.fillStyle="#b9b2a2";[[20,74],[70,79],[120,75],[156,80]].forEach(([x,y])=>g.fillRect(x,y,6,1));
+}
+function drawKokkai(g){
+  g.fillStyle="#8fd0f5";g.fillRect(0,0,176,84);
+  g.fillStyle="#ffffff";[[10,10,24,3],[130,8,26,3]].forEach(([x,y,a,b])=>g.fillRect(x,y,a,b));
+  g.fillStyle="#d9d4c4";g.fillRect(12,46,152,24);g.fillRect(12,42,34,6);g.fillRect(130,42,34,6);
+  g.fillStyle="#c2bcaa";g.fillRect(12,56,152,1);g.fillRect(12,46,152,1);
+  g.fillStyle="#7c7a70";for(let x=16;x<162;x+=6){g.fillRect(x,49,2,5);g.fillRect(x,59,2,7)}
+  /* まんなかの とう（だんだんの やね） */
+  g.fillStyle="#d9d4c4";g.fillRect(74,30,28,18);
+  for(let i=0;i<7;i++){g.fillStyle=i%2?"#c2bcaa":"#d9d4c4";g.fillRect(76+i*2,28-i*2,24-i*4,2)}
+  g.fillStyle="#f4f1e6";for(let x=77;x<100;x+=5)g.fillRect(x,34,2,12);
+  g.fillStyle="#7c7a70";g.fillRect(84,60,8,10);
+  g.fillStyle="#62bd4d";g.fillRect(0,70,176,14);g.fillStyle="#cfc8b8";g.fillRect(80,70,16,14);
+  g.fillStyle="#2f8a3a";[[8,66],[30,67],[140,67],[162,66]].forEach(([x,y])=>{g.fillRect(x,y,8,6);g.fillRect(x+2,y-3,4,3)});
+}
+function drawTop(g){
+  /* タワーの うえからの けしき */
+  g.fillStyle="#8fd0f5";g.fillRect(0,0,176,84);
+  g.fillStyle="#ffffff";[[14,10,28,3],[20,7,12,3],[96,16,24,3]].forEach(([x,y,a,b])=>g.fillRect(x,y,a,b));
+  g.fillStyle="#b8c6dd";for(let x=0;x<176;x+=7){const h=6+((x*37)%13);g.fillRect(x,58-h,6,h)}
+  g.fillStyle="#9aa6c0";for(let x=3;x<176;x+=11){const h=4+((x*17)%9);g.fillRect(x,60-h,7,h)}
+  g.fillStyle="#c9d3e6";g.fillRect(140,20,3,40);g.fillRect(141,12,1,8);g.fillStyle="#f4f8fc";g.fillRect(138,28,7,2);g.fillRect(139,33,5,2);
+  g.fillStyle="#7fbf7a";g.fillRect(0,58,176,4);
+  g.fillStyle="#e6483d";g.fillRect(0,62,176,3);g.fillStyle="#34385a";g.fillRect(0,65,176,19);
+  g.fillStyle="#e6483d";for(let x=10;x<176;x+=40)g.fillRect(x,0,3,65);
+}
+const KANKO={
+  tower:{name:"とうきょうタワーに のぼる",photo:"tokyo_top"},
+  eki:{name:"とうきょうえき",photo:"tokyo_eki",lines:[
+    ["なっちゃん","ここが とうきょうえき！\nあかレンガの えきしゃは 1914ねんに できたの。100ねん いじょう まえよ。"],
+    ["しょうちゃん","ここから しんかんせんが、きたへも にしへも はしって いくんだ。"],
+    ["いっちゃん","しんかんせん！ はやーい！"],
+    ["トロヒ","レンガの えき、かっこいいなあ。\nみんなで しゃしんを とろう！"]]},
+  kokkai:{name:"こっかいぎじどう",photo:"tokyo_kokkai",lines:[
+    ["なっちゃん","これが こっかいぎじどう。\nくにの きまり（ほうりつ）を、はなしあって きめる ところよ。"],
+    ["しょうちゃん","しょうめんから みて ひだりが しゅうぎいん、みぎが さんぎいん。\n1936ねんに できたんだ。"],
+    ["いっちゃん","おっきい おうち！"],
+    ["トロヒ","くにの だいじな ことを、ここで きめて いるんだね。\nみんなで しゃしんを とろう！"]]}
+};
+function kankoLeft(){const k=G.flags.kanko||{};return Object.keys(KANKO).filter(x=>!k[x]).length}
+function openKanko(msg){
+  const f=G.flags,k=f.kanko||{},p=menuPanel("とうきょう かんこう");
+  p.append(el("p",msg||"なっちゃん、しょうちゃん、いっちゃんと いっしょに でかけよう！\nどこへ いく？"));
+  Object.entries(KANKO).forEach(([id,v])=>{const b=el("button",(k[id]?"✓ ":"")+v.name);b.type="button";b.style.width="100%";
+    b.addEventListener("click",()=>id==="tower"?startTower():kankoShow(id,v.lines.slice()));p.append(b)});
+  const b=el("button","やめる");b.type="button";b.className="sub";b.addEventListener("click",closeMenu);p.append(b);
+}
+function kankoShow(id,lines){
+  const v=KANKO[id],p=menuPanel(v.name);
+  const im=new Image();im.src=photoImg(v.photo).toDataURL();im.alt="";im.style.cssText="width:100%;max-width:352px;image-rendering:pixelated;border:6px solid #fff8e6;border-radius:4px";
+  const who=el("b",""),tx=el("p",""),b=el("button","つぎへ");b.type="button";b.style.width="100%";
+  let i=0;
+  const show=()=>{who.textContent=lines[i][0];tx.textContent=lines[i][1];SFX.talk()};
+  b.addEventListener("click",()=>{i++;if(i<lines.length){show();return}kankoDone(id)});
+  p.append(im,who,tx,b);show();
+}
+function kankoDone(id){
+  const f=G.flags;f.kanko=f.kanko||{};f.album=f.album||{};
+  const first=!f.kanko[id];f.kanko[id]=true;f.album[KANKO[id].photo]=true;
+  let msg="カシャッ！ みんなで しゃしんを とった！\nアルバムで みられるよ。";
+  if(first&&!kankoLeft()){f.coins=(f.coins||0)+50;msg+="\n\n3つ ぜんぶ まわった！\nなっちゃん「たのしかったね！ これ、おこづかい」\nコインを 50まい もらった！"}
+  save();SFX.item();updateGoal();openKanko(msg);
+}
+function startTower(){
+  const f=G.flags,p=menuPanel("とうきょうタワーに のぼる");
+  if(miniRun)miniRun.stop();
+  const info=el("p","そとの かいだんで メインデッキまで のぼろう！\nかいだんは やく 600だん。");info.style.fontSize=".9em";
+  const cv=document.createElement("canvas");cv.width=352;cv.height=260;cv.style.cssText="width:100%;max-width:352px;border:3px solid #fff8e6;border-radius:6px;image-rendering:pixelated";
+  const c=cv.getContext("2d"),say2=el("p",""),pad=el("div");pad.className="row";pad.style.cssText="width:100%;flex-wrap:nowrap;gap:8px";
+  const S={dan:0,m:0,goal:0,stage:"kaidan",t:0};
+  const TALK=[[100,"いっちゃん「たかーい！」\n（いっちゃんは しょうちゃんが だっこ して いるよ）"],[300,"なっちゃん「はんぶん きたよ！ あと 300だん！」"],[500,"しょうちゃん「かぜが きもちいいな。もう すこしだ！」"]];
+  function draw(){
+    c.setTransform(2,0,0,2,0,0);c.imageSmoothingEnabled=false;
+    c.fillStyle="#8fd0f5";c.fillRect(0,0,176,130);
+    c.fillStyle="#ffffff";[[10,20,26,3],[126,44,22,3],[20,70,18,3]].forEach(([x,y,a,b])=>c.fillRect(x,y,a,b));
+    c.fillStyle="#9aa6c0";[[0,104,16],[18,110,12],[34,100,10],[128,108,14],[146,98,12],[160,106,16]].forEach(([x,y,a])=>c.fillRect(x,y,a,122-y));
+    c.fillStyle="#62bd4d";c.fillRect(0,122,176,8);
+    /* タワー：1メートル ＝ 0.33ドット。333メートルで 110ドット */
+    const Y=m=>122-m*.33;
+    for(let y=Math.round(Y(333));y<122;y++){const d=y-Y(333),h=Math.max(1,Math.round(d*d/420+1));c.fillStyle=Math.floor(d/8)%2?"#ffffff":"#e6483d";c.fillRect(88-h,y,h*2,1)}
+    c.fillStyle="#34385a";c.fillRect(80,Math.round(Y(150))-2,16,4);c.fillRect(84,Math.round(Y(250))-1,8,3);
+    c.font="bold 7px sans-serif";c.textAlign="left";c.fillStyle="#34385a";
+    c.fillText("てっぺん",104,Y(333)+6);c.fillText("333メートル",104,Y(333)+14);c.fillText("トップデッキ",104,Y(250)+1);c.fillText("250メートル",104,Y(250)+9);c.fillText("メインデッキ",112,Y(150)+1);c.fillText("150メートル",112,Y(150)+9);
+    /* トロヒ */
+    const ty=Y(S.m)-14;c.drawImage(HERO.up[Math.floor(S.dan/20)%3],S.stage==="kaidan"?64:80,ty,16,16);
+    c.fillStyle="#34385a";c.font="bold 9px sans-serif";c.fillText("いま "+Math.round(S.m)+"メートル",4,12);
+    if(S.stage==="kaidan")c.fillText(S.dan+"だん",4,24);
+  }
+  function step(){
+    if(S.stage!=="kaidan")return;
+    S.dan=Math.min(600,S.dan+20);S.m=S.dan/4;tone(300+S.dan*.6,.05,"square",.04);
+    const t=TALK.find(v=>v[0]===S.dan);if(t)say2.textContent=t[1];
+    if(S.dan>=600){S.stage="main";SFX.item();
+      say2.textContent="メインデッキに ついた！ たかさ 150メートル。\nなっちゃん「600だん、よく のぼったね！ ここからは エレベーターよ」";
+      up.textContent="エレベーターで トップデッキへ";}
+    draw();
+  }
+  function elev(){
+    if(S.stage!=="main")return;S.stage="elev";up.disabled=true;SFX.sword();
+    const tick=()=>{if(!alive)return;S.m=Math.min(250,S.m+1.4);draw();if(S.m<250){raf=requestAnimationFrame(tick);return}
+      S.stage="top";SFX.item();top()};
+    raf=requestAnimationFrame(tick);
+  }
+  function top(){
+    pad.remove();cv.remove();
+    const im=new Image();im.src=photoImg("tokyo_top").toDataURL();im.alt="";im.style.cssText="width:100%;max-width:352px;image-rendering:pixelated;border:6px solid #fff8e6;border-radius:4px";
+    info.textContent="トップデッキに ついた！ たかさ 250メートル。";
+    say2.textContent="しょうちゃん「むこうの ぎんいろの タワーが とうきょうスカイツリー。\n634メートルで、にほんで いちばん たかい タワーだよ」\n\nなっちゃん「とうきょうタワーは 333メートル。\nじゃあ クイズ！ スカイツリーは とうきょうタワーより なんメートル たかい？」";
+    const row=el("div");row.className="row";row.style.cssText="width:100%;flex-wrap:nowrap;gap:8px";
+    ["301","201","311"].sort(()=>Math.random()-.5).forEach(a=>{const b=el("button",a+"メートル");b.type="button";b.style.flex="1";
+      b.addEventListener("click",()=>{row.remove();const ok=a==="301";ok?SFX.item():SFX.hurt();
+        say2.textContent=(ok?"せいかい！":"おしい！")+"\n634 ひく 333 は 301。\nスカイツリーの ほうが 301メートル たかいよ。\n\nいっちゃん「ちっちゃい くるま！ ブーブー！」";
+        const n=el("button","みんなで しゃしんを とる");n.type="button";n.style.width="100%";n.addEventListener("click",()=>{run.stop();kankoDone("tower")});p.append(n)});
+      row.append(b)});
+    p.insertBefore(im,say2);p.append(row);
+  }
+  let raf=0,alive=true;
+  const run=miniRun={S,step,elev,stop(){alive=false;cancelAnimationFrame(raf);if(miniRun===run)miniRun=null}};
+  const up=el("button","のぼる！");up.type="button";up.style.cssText="flex:1;padding:.8em 0;font-size:1.2em;touch-action:none;user-select:none;-webkit-user-select:none";
+  up.addEventListener("pointerdown",e=>{e.preventDefault();audio();S.stage==="kaidan"?step():elev()});pad.append(up);
+  p.append(info,cv,say2,pad);draw();
+}
+/* バレー とっくん：レシーブ（はんしゃ）・アウトの みきわめ（はんだん）・ブロックの よみ（かんがえる） */
+function startVolley(){
+  const f=G.flags,p=menuPanel("バレー とっくん");
+  if(miniRun)miniRun.stop();
+  const info=el("p","");info.style.fontSize=".9em";
+  const cv=document.createElement("canvas");cv.width=352;cv.height=340;cv.style.cssText="width:100%;max-width:352px;border:3px solid #fff8e6;border-radius:6px;image-rendering:pixelated";
+  const c=cv.getContext("2d"),pad=el("div");pad.className="row";pad.style.cssText="width:100%;flex-wrap:nowrap;gap:8px";
+  const LX=[41,88,135],NET=76,BASE=150;
+  const S={score:0,life:3,phase:"wait",t:1.2,T:1,lane:0,out:false,from:1,ty:0,pos:-1,touched:false,blk:[0,1],mv:[0,0],free:2,msg:"",msgT:0,good:true,over:false};
+  const HINT={recv:"ボールの おちる ところへ うごこう！\nうしろの せんの そとなら「アウト」。さわらないで みおくろう。",
+    atk:"ブロックの いない ところへ うとう！\nやじるしが でたら、ブロックは そっちへ うごくよ。"};
+  function serve(){
+    S.phase="recv";S.lane=Math.floor(Math.random()*3);S.from=Math.floor(Math.random()*3);
+    S.out=S.score>=2&&Math.random()<.25;S.ty=S.out?BASE+5+Math.random()*7:BASE-8-Math.random()*40;
+    S.T=S.t=Math.max(.6,1.6-S.score*.04);S.pos=-1;S.touched=false;info.textContent=HINT.recv;tone(700,.06,"square",.04);
+  }
+  function attack(){
+    S.phase="atk";const a=Math.floor(Math.random()*3);let b=(a+1+Math.floor(Math.random()*2))%3;S.blk=[a,b].sort();S.mv=[0,0];
+    if(S.score>=5){
+      const opts=[];for(const x of[-1,0,1])for(const y of[-1,0,1]){const na=S.blk[0]+x,nb=S.blk[1]+y;if((x||y)&&na>=0&&nb<=2&&na<nb)opts.push([x,y])}
+      if(opts.length&&Math.random()<.75)S.mv=opts[Math.floor(Math.random()*opts.length)];
+    }
+    const fin=[S.blk[0]+S.mv[0],S.blk[1]+S.mv[1]];S.free=[0,1,2].find(i=>!fin.includes(i));
+    S.T=S.t=Math.max(1.3,3-S.score*.05);S.pos=-1;info.textContent=HINT.atk;
+  }
+  function result(good,msg,point){
+    S.phase="wait";S.t=1;S.msg=msg;S.msgT=1;S.good=good;
+    if(point){S.score++;SFX.heart()}
+    if(!good){S.life--;SFX.hurt();if(S.life<=0){finish();return}}
+  }
+  function press(i){
+    if(S.over)return;
+    if(S.phase==="recv"){S.pos=i;S.touched=true;tone(440,.04,"square",.03)}
+    else if(S.phase==="atk"){S.pos=i;S.lastAtk=true;S.blk=[S.blk[0]+S.mv[0],S.blk[1]+S.mv[1]];S.mv=[0,0];
+      if(i===S.free)result(true,"きまった！",true);else result(false,"ブロック された！",false)}
+  }
+  function draw(){
+    c.setTransform(2,0,0,2,0,0);c.imageSmoothingEnabled=false;
+    c.fillStyle="#3f9a8f";c.fillRect(0,0,176,170);
+    c.fillStyle="#e89a4a";c.fillRect(18,8,140,BASE-8);
+    c.strokeStyle="#ffffff";c.lineWidth=2;c.strokeRect(18,8,140,BASE-8);
+    c.fillStyle="#ffffff";c.fillRect(8,NET-1,160,3);c.fillStyle="#34385a";c.fillRect(6,NET-4,3,9);c.fillRect(167,NET-4,3,9);
+    c.font="bold 7px sans-serif";c.textAlign="center";c.fillStyle="#fff8e6";c.fillText("アウト",88,BASE+12);
+    /* あいて */
+    const blkX=i=>LX[S.blk[i]];
+    if(S.phase==="atk"||S.phase==="wait"&&S.lastAtk){
+      for(let i=0;i<2;i++){const x=blkX(i);c.fillStyle="#2a65ad";c.fillRect(x-8,NET-18,16,13);c.fillStyle="#f7cda6";c.fillRect(x-9,NET-26,4,9);c.fillRect(x+5,NET-26,4,9);c.fillRect(x-4,NET-24,8,7);
+        if(S.mv[i]){c.fillStyle="#ffd84d";const d=S.mv[i],ax=x+d*14;c.fillRect(Math.min(x,ax),NET-36,14,3);c.beginPath();c.moveTo(ax+d*6,NET-34.5);c.lineTo(ax,NET-40);c.lineTo(ax,NET-29);c.fill()}}
+    }else{c.fillStyle="#2a65ad";LX.forEach((x,i)=>{c.fillRect(x-6,30,12,12);c.fillStyle="#f7cda6";c.fillRect(x-4,22,8,8);c.fillStyle="#2a65ad"})}
+    /* ボール */
+    if(S.phase==="recv"){
+      const k=1-S.t/S.T,bx=LX[S.from]+(LX[S.lane]-LX[S.from])*k,by=36+(S.ty-36)*k,r=3+Math.sin(k*Math.PI)*4;
+      c.strokeStyle=S.out?"#ffd84d":"#ffd84d";c.lineWidth=1.5;c.beginPath();c.arc(LX[S.lane],S.ty,5,0,7);c.stroke();
+      c.fillStyle="rgba(0,0,0,.25)";c.beginPath();c.ellipse(bx,by+4,r,r*.5,0,0,7);c.fill();
+      c.fillStyle="#fff8e6";c.beginPath();c.arc(bx,by-r,r,0,7);c.fill();c.strokeStyle="#e6483d";c.lineWidth=1;c.beginPath();c.arc(bx,by-r,r,.5,2.6);c.stroke();
+    }
+    /* トロヒ */
+    const px2=S.pos<0?88:LX[S.pos],py2=S.phase==="atk"?NET+8:S.phase==="recv"&&S.pos>=0&&!S.out?Math.min(BASE-18,S.ty-10):118;
+    c.drawImage(HERO.up[1],px2-8,py2,16,16);
+    /* うえの じょうほう */
+    c.fillStyle="rgba(27,29,46,.7)";c.fillRect(0,0,176,8);c.fillStyle="#fff8e6";c.font="bold 7px sans-serif";c.textAlign="left";c.fillText(S.score+"てん",4,7);
+    c.textAlign="right";c.fillText("のこり "+"●".repeat(Math.max(0,S.life)),172,7);
+    if(S.phase==="recv"||S.phase==="atk"){c.fillStyle="#ffd84d";c.fillRect(0,166,176*Math.max(0,S.t/S.T),4)}
+    if(S.msgT>0){c.font="bold 13px sans-serif";c.textAlign="center";c.fillStyle=S.good?"#ffd84d":"#ffb0a0";c.strokeStyle="#1b1d2e";c.lineWidth=3;c.strokeText(S.msg,88,100);c.fillText(S.msg,88,100)}
+  }
+  let raf=0,last=0,alive=true;
+  function finish(){
+    if(S.over)return;S.over=true;run.stop();S.phase="end";draw();
+    f.mini=f.mini||{};const rec=S.score>(f.mini.volley||0);if(rec)f.mini.volley=S.score;
+    save();info.style.fontSize="";info.textContent=`おしまい！　${S.score}てん`+(rec&&S.score?"　さいこう きろく！":"");pad.remove();
+    const row=el("div");row.className="row";
+    const a=el("button",`もういちど（コイン ${MINI_FEE}まい）`);a.type="button";a.disabled=(f.coins||0)<MINI_FEE;a.addEventListener("click",()=>payMini("volley"));
+    const b=el("button","やめる");b.type="button";b.className="sub";b.addEventListener("click",openMini);
+    row.append(a,b);p.append(row);
+  }
+  function loop(ts){
+    if(!alive)return;
+    if(p.hidden||!p.contains(cv)){run.stop();return}
+    const dt=last?Math.min(.25,(ts-last)/1000):0;last=ts;
+    tick(dt);
+    if(S.over)return;
+    draw();raf=requestAnimationFrame(loop);
+  }
+  function tick(dt){
+    if(S.msgT>0)S.msgT-=dt;
+    S.t-=dt;
+    if(S.t<=0){
+      if(S.phase==="wait"){S.lastAtk=false;if(S.next==="atk"){S.next="";attack()}else serve()}
+      else if(S.phase==="recv"){
+        if(S.out){if(S.touched)result(false,"アウトの ボールに さわっちゃった",false);else result(true,"アウト！ ナイス ジャッジ",true)}
+        else if(S.pos===S.lane){S.next="atk";S.phase="wait";S.t=.5;S.msg="ナイス レシーブ！";S.msgT=.5;S.good=true;tone(520,.08,"triangle",.06)}
+        else result(false,S.touched?"とどかなかった……":"うごけなかった……",false);
+      }
+      else if(S.phase==="atk"){S.blk=[S.blk[0]+S.mv[0],S.blk[1]+S.mv[1]];S.mv=[0,0];S.lastAtk=true;result(false,"じかんぎれ……",false)}
+    }
+  }
+  const run=miniRun={S,press,serve,attack,finish,tick,draw,stop(){alive=false;cancelAnimationFrame(raf);if(miniRun===run)miniRun=null}};
+  ["ひだり","まんなか","みぎ"].forEach((t,i)=>{const b=el("button",t);b.type="button";b.style.cssText="flex:1;padding:.9em 0;font-size:1.1em;touch-action:none;user-select:none;-webkit-user-select:none";
+    b.addEventListener("pointerdown",e=>{e.preventDefault();audio();press(i)});pad.append(b)});
+  info.textContent=HINT.recv;p.append(cv,pad,info);
+  draw();raf=requestAnimationFrame(loop);
+}
 function openCameraQuiz(){
   const f=G.flags,p=menuPanel("とくべつ なぞなぞ");
   p.append(el("p","カメと ラクダと サイが かいものに きました。\nなんと いって、なにを かったでしょう？"));
@@ -3123,7 +3380,7 @@ function showPanel(kind){
   if(kind==="title"){
     const h=document.createElement("h1");h.textContent="トロヒの\nぼうけん";h.style.whiteSpace="pre-line";
     const s=document.createElement("p");s.textContent="りゅうの なみだを さがして";
-    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ25にち・とうきょう）";v.style.fontSize=".7em";v.style.opacity=".8";
+    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ27にち・かんこう）";v.style.fontSize=".7em";v.style.opacity=".8";
     p.append(h,s,v);
     panelBtn(p,"あそぶ",showSlots);
   }
