@@ -292,6 +292,10 @@ const GURI=[sprite(["......tt......","....tttttt....","...tAtAtAtt...","..tttttt
 const GURI2_P={...GURI_P,a:"#e0a040",A:"#a8691f",t:"#6a3a12"};
 const GURI2=[sprite(["..t...tt...t....",".ttt.tttt.ttt...","..tAtAtAtAtAt...",".tttttttttttt...",".aaaaaaaaaaaa...","aaaaeaaaaeaaaa..","aaaaeaaaaeaaaa..","aappccppccppaa..","aaaccccccccaaa..",".aaccccccccaa...","..aAaa..aaAa...."],GURI2_P),
   sprite(["..t...tt...t....",".ttt.tttt.ttt...","..tAtAtAtAtAt...",".tttttttttttt...",".aaaaaaaaaaaa...","aaaaeaaaaeaaaa..","aaaaeaaaaeaaaa..","aappccppccppaa..","aaaccccccccaaa..",".aaccccccccaa...",".aAaa....aaAa..."],GURI2_P)];
+const SHIZUKU=[sprite(["......bb......",".....bbbb.....","....bbwbbb....","...bbwbbbbb...","..bbbbbbbbbb..","..bbebbbbebb..","..bbebbbbebb..","..bbbbppbbbb..","...bbbbbbbb...","....dbbbbd....",".....d..d....."],P),
+  sprite(["......bb......",".....bbbb.....","....bbwbbb....","...bbwbbbbb...","..bbbbbbbbbb..","..bbebbbbebb..","..bbebbbbebb..","..bbbbppbbbb..","...bbbbbbbb...","....dbbbbd....","....d....d...."],P)];
+const SHIZUKU2=[sprite(["......w..w......",".......ww.......","....bbbbbbbb....","..bbbbbbbbbbbb..",".bbbbbbbbbbbbbbd",".bbebbbbbbebbbdd",".bbebbbbbbebbb.d",".bwwwwwwwwwwbb.d","..wwwwwwwwwwb...","...dwwwwwwd.....","....d....d......"],P),
+  sprite([".....w....w.....",".......ww.......","....bbbbbbbb....","..bbbbbbbbbbbb..",".bbbbbbbbbbbbbbd",".bbebbbbbbebbbdd",".bbebbbbbbebbb.d",".bwwwwwwwwwwbb.d","..wwwwwwwwwwb...","...dwwwwwwd.....","...d......d....."],P)];
 const HOO=sprite(["................","...nn......nn...","...nnnnnnnnnn...","..nnwwwnnwwwnn..","..nwwewnnwewwn..","..nnwwwyywwwnn..","..nnnnnyynnnnn..",".nnncccccccnnn..",".nnnccnccncnnn..",".nnncccccccnnn..",".nnnccnccncnnn..","..nnncccccnnn...","...nnnnnnnnn....","....yy...yy....."],P);
 const KON=sprite(["................","...a........a...","..aaa......aaa..","..awa......awa..","..aaaaaaaaaaaa..","..aaeaaaaaaeaa..","..aawwwwwwwwaa..","...wwwwkkwwww...","....wwwwwwww....",".....aaaaaa.....","....aaaaaaaa.ww.","....aaaaaaaaaaw.",".....aaaaaa.aa..",".....kk..kk....."],P);
 const UKKI=sprite(["................","....nnnnnnnn....","...nnnnnnnnnn...",".ssnnssssssnnss.",".ssnsesssseSnss.","...nssssssssn...","...nsssnnsssn...","....ssssssss....",".....nnnnnn.....","....nnnnnnnn....","...snnnnnnnns...","....nnnnnnnn....",".....nn..nn.....",".....ss..ss....."],P);
@@ -492,7 +496,9 @@ const SHIELDS=[null,{name:"きの たて",icon:sprite(["OOOOOO","OooooO","OoyyoO
 /* bestLv＝いちばん つよい ふつうの けん。swordLv＝いま もっている けん（5は やぶの けん） */
 function bestLv(){return G.flags.swordLv||(G.flags.gold?2:1)}
 function swordLv(){const f=G.flags;return f.equip===13&&f.darumaken?13:f.equip===12&&f.ichigoken?12:f.equip===11&&f.nebari?11:f.equip===10&&f.jishin?10:f.equip===9&&f.shinjuken?9:f.equip===8&&f.kaminari?8:f.equip===7&&f.minato?7:f.equip===6&&f.fuji?6:f.equip===5&&f.yabu?5:bestLv()}
-function buddy(){const f=G.flags;return f.guri&&f.buddy==="guri"?"guri":f.moko?"moko":null}
+function buddy(){const f=G.flags;return f.shizuku&&f.buddy==="shizuku"?"shizuku":f.guri&&f.buddy==="guri"?"guri":f.moko?"moko":null}
+function shizukuName(){return G.flags.shizukuEvo?"シズクジラ":"シズク"}
+function buddyName(){const b=buddy();return b==="shizuku"?shizukuName():b==="guri"?guriName():mokoName()}
 function guriName(){return G.flags.guriEvo?"グリドン":"グリ"}
 function nakaLv(who){return Math.min(5,Math.floor(((G.flags.naka||{})[who]||0)/4))}
 function mokoName(){return G.flags.mokoFinal?"モコガルド":G.flags.mokoEvo?"モコロン":"モコ"}
@@ -768,6 +774,7 @@ function setupScreen(name){
     else G.chests.push({id:"key",tx:9,ty:6});
   }
   if(name==="mura"&&G.flags.nihon)G.npcs.push({id:"hikouki",x:84,y:106,img:HIKOUKI,big:1});
+  if(name==="shizu1"&&kenDone("shizuoka")&&!G.flags.shizuku)G.npcs.push({id:"shizuku",x:3*TILE,y:5*TILE,img:SHIZUKU[0]});
   if(name==="shizu1")G.npcs.push({id:"hikouki",x:16,y:104,img:HIKOUKI,big:1},{id:"chako",x:1*TILE,y:3*TILE,img:CHAKO});
   /* にほんの たびの てきは つよい */
   if(/^shizu/.test(name))G.enemies.forEach(e=>{e.hp*=3;e.dmg=2});
@@ -1098,6 +1105,8 @@ function kbVec(){
 
 /* ---------- 会話 ---------- */
 function say(lines,done){
+  /* シズクを つれて いる ときは、なかまの なきごえを シズクの こえに する */
+  if(buddy()==="shizuku")lines=lines.map(l=>l[1]&&l[0]===shizukuName()&&/^モコ/.test(l[1])?[l[0],l[1].replace(/^モコ[^\n]*/,"ピチャッ！ ピチャピチャ！")]:l);
   G.dialog={lines,i:0,shown:0,done};G.mode="dialog";$("talk").hidden=false;drawTalk();
 }
 function drawTalk(){
@@ -1211,6 +1220,11 @@ function talkTo(id){
   if(id==="unagi")say([["はまなこの おおうなぎ","はまなこは、うなぎを そだてる ことで ゆうめいなんだ。\nしずおかに きたら、うなぎも おぼえて かえってね。"]]);
   if(id==="chatsumi"){chaPick();return}
   if(id==="chako"&&G.cha)return;
+  if(id==="shizuku"){
+    say([["あおい しずくの かたちの こが、こっちを みて いる。"],["？？？","ピチャ…… ピチャピチャ！\n（モヤを はらって くれて ありがとう！ ぼく、はまなこの しずくの こ なんだ）"],["？？？","ピチャッ！\n（ぼくも いっしょに いきたい！ みずでっぽうで てつだうよ！）"],["しずくの こ「シズク」が なかまに なった！\nとおくの てきに みずでっぽうを うって、おちて いる コインも あつめて くれるよ。"],["つれて いく なかまは、「もちもの」の「なかま」で かえられるよ。\nごはんを あげて なかよく なると、しんか するかも……？"]],
+      ()=>{f.shizuku=true;f.buddy="shizuku";G.npcs=G.npcs.filter(n=>n.id!=="shizuku");save();SFX.item();updateGoal()});
+    return;
+  }
   if(id==="chako"){
     if(!kenDone("shizuoka")&&(f.miyage||{}).ocha)say([["ちゃつみの チャコ","たいへん！ きたの はまなこから、また モヤが ながれて きたの。\nふじさんも また みえなく なっちゃった……"],["ちゃつみの チャコ","ひがしの はたけの モヤを はらうと、きたの みちが ひらくよ。\nおねがい、もとの モヤを とめて！"]]);
     else if(!kenDone("shizuoka"))say([["ちゃつみの チャコ","しずおかへ ようこそ！\nここは おちゃの はたけが たくさん ある ところだよ。"],["ちゃつみの チャコ","でも ひがしの はたけに くろい モヤが でて、おちゃが つめないの。\nふじさんも モヤで みえなく なっちゃった……"],["ちゃつみの チャコ","モヤは きたの はまなこから ながれて くるみたい。\nもとの モヤを とめて くれたら、おれいに とれたての おちゃを あげる！"]]);
@@ -1272,11 +1286,11 @@ function talkTo(id){
   if(id==="masamune")say([["まさむねくん",masaHearts()>=5?"ゴロゴロ……にゃーん！":"にゃっ！（ねこじゃらし！ おやつ！）"]],()=>openMasa());
   if(id==="kuro")say([[kuroName(),"にゃ！（とどけものなら まかせて！）"]],()=>openTodoke());
   if(id==="nacchan"){
-    if(!kenDone("tokyo"))say([["なっちゃん","トロヒ、いらっしゃい！ なっちゃんだよ。\nおかあさんの いもうとの。おぼえてる？"],["なっちゃん","モヤが はれたら、みんなで とうきょう かんこうに いこうね！"]]);
+    if(!kenDone("tokyo"))say([["なっちゃん","トロヒ〜！ まってたよ！\nあいたかった〜！"],["なっちゃん","モヤが はれたら、みんなで とうきょう かんこうに いこうね！"]]);
     else say([["なっちゃん",kankoLeft()?"モヤが はれたね！ ありがとう、トロヒ。\nさあ、みんなで とうきょう かんこうに いこう！":"また いっしょに でかける？"]],()=>openKanko());
   }
   if(id==="shouchan")say(kenDone("tokyo")?[["しょうちゃん","とうきょうには、でんしゃも ちかてつも たくさん はしって いるんだ。\nかんこうは なっちゃんに こえを かけてね。"]]:[["しょうちゃん","やあ、トロヒ。よく きたね。\nモヤの せいで、いっちゃんが タワーを みられなくて ざんねんがって いるんだ。"]]);
-  if(id==="icchan")say([["いっちゃん",kenDone("tokyo")?"タワー！ あかい！ たかーい！":"タワー、ない…… どこ？"],["いっちゃん","でんしゃ！ でんしゃ のる！"],["いっちゃんは 2さい。なっちゃんと しょうちゃんの こどもだよ。\nでんしゃが だいすき なんだ。"]]);
+  if(id==="icchan")say([["いっちゃん",kenDone("tokyo")?"タワー！ あかい！ たかーい！":"タワー、ない…… どこ？"],["いっちゃん","でんしゃ！ でんしゃ のる！"]]);
   if(id==="jiiji")say(!f.cleared?[["じぃじ","トロヒ、おかあさんの ことは じぃじと ばぁばが みて いるから、あんしんして いって おいで。"],["じぃじ","でも むりは するなよ。つかれたら やどやで やすむんだぞ。"]]
     :!f.nihon?[["じぃじ","トロヒ、よく やったなあ！\nおかあさんが げんきに なって、じぃじは うれしいよ。"]]
     :[["じぃじ","にほんじゅうを まわって いるんだってな。たいした もんだ。\nやまなしの ことも おしえて やろう。"],["じぃじ",pick(YM_FACTS)]]);
@@ -1309,7 +1323,7 @@ function talkTo(id){
       ["クマの ガンテツ","なんだと……！ モヤは この やまなしだけ じゃ なかったのか。\nにほんじゅうの 46の とどうふけんに ひろがって いるらしい。"],
       ["クマの ガンテツ","それに、もりの おくで ひろった その はぐるま。\nだれが つくった ものか、おれにも まだ わからん。"],
       ["トロヒ","ぼく、いくよ。\nにほんじゅうの モヤを、ぜんぶ はらって くる！"],
-      [buddy()==="guri"?guriName():mokoName(),buddy()==="guri"?"グリ！ グリグリ！":"モコ〜！"],
+      [buddyName(),buddy()==="guri"?"グリ！ グリグリ！":"モコ〜！"],
       ["クマの ガンテツ","よく いった！ やまなしの モヤを はらった おまえなら できる。"],
       ["ブーン……\nさっきの ひこうきが、むらに おりて きた！"],
       ["クマの ガンテツ","ひこうきに のせて もらえ。\nにほんじゅうの モヤを はらって こい！"]],
@@ -1482,7 +1496,7 @@ function afterSlide(){
   miniUnlockCheck();
   if(G.screen==="shizu3"&&G.boss&&!G.boss.calm&&!G.flags.unagiSeen){
     G.flags.unagiSeen=true;SFX.boom();
-    say([["ザバーン！\nはまなこから、くろい モヤに つつまれた おおうなぎが とびだした！"],[buddy()==="guri"?guriName():mokoName(),buddy()==="guri"?"グリッ！ グリグリ！\n（かべに ぶつかった ときが チャンスだって！）":"モコッ！ モコモコ！\n（かべに ぶつかった ときが チャンスだって！）"]]);
+    say([["ザバーン！\nはまなこから、くろい モヤに つつまれた おおうなぎが とびだした！"],[buddyName(),buddy()==="guri"?"グリッ！ グリグリ！\n（かべに ぶつかった ときが チャンスだって！）":"モコッ！ モコモコ！\n（かべに ぶつかった ときが チャンスだって！）"]]);
   }
   planeCheck();
   if(G.screen==="gunma1"&&!G.flags.gunmaSeen){
@@ -1491,7 +1505,7 @@ function afterSlide(){
   }
   if(G.screen==="gunma3"&&G.boss&&!G.boss.calm&&!G.flags.darumaSeen){
     G.flags.darumaSeen=true;SFX.boom();
-    say([["ゴロン、ゴロン……\nくろい モヤに つつまれた、おおきな だるまが あらわれた！"],["おおだるま","だ・る・ま・さ・ん・が……"],[buddy()==="guri"?guriName():mokoName(),buddy()==="guri"?"グリッ！ グリグリ！\n（うしろを むいて いる あいだに きって！ 「ころんだ！」で こっちを みたら、うごいちゃ だめ！）":"モコッ！ モコモコ！\n（うしろを むいて いる あいだに きって！ 「ころんだ！」で こっちを みたら、うごいちゃ だめ！）"]]);
+    say([["ゴロン、ゴロン……\nくろい モヤに つつまれた、おおきな だるまが あらわれた！"],["おおだるま","だ・る・ま・さ・ん・が……"],[buddyName(),buddy()==="guri"?"グリッ！ グリグリ！\n（うしろを むいて いる あいだに きって！ 「ころんだ！」で こっちを みたら、うごいちゃ だめ！）":"モコッ！ モコモコ！\n（うしろを むいて いる あいだに きって！ 「ころんだ！」で こっちを みたら、うごいちゃ だめ！）"]]);
   }
   if(G.screen==="tochigi1"&&!G.flags.tochigiSeen){
     G.flags.tochigiSeen=true;
@@ -1499,7 +1513,7 @@ function afterSlide(){
   }
   if(G.screen==="tochigi3"&&G.boss&&!G.boss.calm&&!G.flags.saruSeen){
     G.flags.saruSeen=true;SFX.boom();
-    say([["ウキキキッ！\nくろい モヤに つつまれた、3びきの サルが あらわれた！"],["めを かくして いるのが「みざる」。\nくちを かくして いるのが「いわざる」。\nみみを かくして いるのが「きかざる」。"],[buddy()==="guri"?guriName():mokoName(),buddy()==="guri"?"グリッ！ グリグリ！\n（うえに でる なまえの サルを きって！ ちがう サルを きると きのみが とんで くるよ！）":"モコッ！ モコモコ！\n（うえに でる なまえの サルを きって！ ちがう サルを きると きのみが とんで くるよ！）"]]);
+    say([["ウキキキッ！\nくろい モヤに つつまれた、3びきの サルが あらわれた！"],["めを かくして いるのが「みざる」。\nくちを かくして いるのが「いわざる」。\nみみを かくして いるのが「きかざる」。"],[buddyName(),buddy()==="guri"?"グリッ！ グリグリ！\n（うえに でる なまえの サルを きって！ ちがう サルを きると きのみが とんで くるよ！）":"モコッ！ モコモコ！\n（うえに でる なまえの サルを きって！ ちがう サルを きると きのみが とんで くるよ！）"]]);
   }
   if(G.screen==="ibaraki1"&&!G.flags.ibarakiSeen){
     G.flags.ibarakiSeen=true;
@@ -1507,7 +1521,7 @@ function afterSlide(){
   }
   if(G.screen==="ibaraki3"&&G.boss&&!G.boss.calm&&!G.flags.nebaSeen){
     G.flags.nebaSeen=true;SFX.boom();
-    say([["ねば〜…… ねば〜……\nくろい モヤに つつまれた、ねばねばの おばけが あらわれた！"],[buddy()==="guri"?guriName():mokoName(),buddy()==="guri"?"グリッ！ グリグリ！\n（きると 2つに わかれるよ！ ちいさく なるまで、ぜんぶ たおして！）":"モコッ！ モコモコ！\n（きると 2つに わかれるよ！ ちいさく なるまで、ぜんぶ たおして！）"]]);
+    say([["ねば〜…… ねば〜……\nくろい モヤに つつまれた、ねばねばの おばけが あらわれた！"],[buddyName(),buddy()==="guri"?"グリッ！ グリグリ！\n（きると 2つに わかれるよ！ ちいさく なるまで、ぜんぶ たおして！）":"モコッ！ モコモコ！\n（きると 2つに わかれるよ！ ちいさく なるまで、ぜんぶ たおして！）"]]);
   }
   if(G.screen==="saitama4"&&!G.flags.kurihashiSeen){
     G.flags.kurihashiSeen=true;
@@ -1519,7 +1533,7 @@ function afterSlide(){
   }
   if(G.screen==="saitama3"&&G.boss&&!G.boss.calm&&!G.flags.namaSeen){
     G.flags.namaSeen=true;SFX.boom();
-    say([["グラグラグラ……！\nかわの なかから、くろい モヤに つつまれた おおきな ナマズが あらわれた！"],[buddy()==="guri"?guriName():mokoName(),buddy()==="guri"?"グリッ！ グリグリ！\n（からだは きれない！ さきに 2ほんの ひげを きって！ あかく ひかったら はなれて！）":"モコッ！ モコモコ！\n（からだは きれない！ さきに 2ほんの ひげを きって！ あかく ひかったら はなれて！）"]]);
+    say([["グラグラグラ……！\nかわの なかから、くろい モヤに つつまれた おおきな ナマズが あらわれた！"],[buddyName(),buddy()==="guri"?"グリッ！ グリグリ！\n（からだは きれない！ さきに 2ほんの ひげを きって！ あかく ひかったら はなれて！）":"モコッ！ モコモコ！\n（からだは きれない！ さきに 2ほんの ひげを きって！ あかく ひかったら はなれて！）"]]);
   }
   if(G.screen==="chiba1"&&!G.flags.chibaSeen){
     G.flags.chibaSeen=true;
@@ -1527,7 +1541,7 @@ function afterSlide(){
   }
   if(G.screen==="chiba3"&&G.boss&&!G.boss.calm&&!G.flags.kaiSeen){
     G.flags.kaiSeen=true;SFX.boom();
-    say([["ザザーン……！\nすなはまに、くろい モヤに つつまれた おおきな ハマグリが あらわれた！"],[buddy()==="guri"?guriName():mokoName(),buddy()==="guri"?"グリッ！ グリグリ！\n（からが とじて いると きれない！ ひらいた ときに こうげき！ とじる ときは はなれて！）":"モコッ！ モコモコ！\n（からが とじて いると きれない！ ひらいた ときに こうげき！ とじる ときは はなれて！）"]]);
+    say([["ザザーン……！\nすなはまに、くろい モヤに つつまれた おおきな ハマグリが あらわれた！"],[buddyName(),buddy()==="guri"?"グリッ！ グリグリ！\n（からが とじて いると きれない！ ひらいた ときに こうげき！ とじる ときは はなれて！）":"モコッ！ モコモコ！\n（からが とじて いると きれない！ ひらいた ときに こうげき！ とじる ときは はなれて！）"]]);
   }
   if(G.screen==="tokyo1"&&!G.flags.tokyoSeen){
     G.flags.tokyoSeen=true;
@@ -1535,7 +1549,7 @@ function afterSlide(){
   }
   if(G.screen==="tokyo3"&&G.boss&&!G.boss.calm&&!G.flags.raiSeen){
     G.flags.raiSeen=true;SFX.boom();
-    say([["ゴロゴロゴロ…… ピシャーン！\nくろい モヤに つつまれた かみなりさまが あらわれた！"],[buddy()==="guri"?guriName():mokoName(),buddy()==="guri"?"グリッ！ グリグリ！\n（かみなりだまは けんで うちかえせる！ あたったら ふらふらに なるよ！）":"モコッ！ モコモコ！\n（かみなりだまは けんで うちかえせる！ あたったら ふらふらに なるよ！）"]]);
+    say([["ゴロゴロゴロ…… ピシャーン！\nくろい モヤに つつまれた かみなりさまが あらわれた！"],[buddyName(),buddy()==="guri"?"グリッ！ グリグリ！\n（かみなりだまは けんで うちかえせる！ あたったら ふらふらに なるよ！）":"モコッ！ モコモコ！\n（かみなりだまは けんで うちかえせる！ あたったら ふらふらに なるよ！）"]]);
   }
   if(G.screen==="kana1"&&!G.flags.kanaSeen){
     G.flags.kanaSeen=true;
@@ -1543,7 +1557,7 @@ function afterSlide(){
   }
   if(G.screen==="kana3"&&G.boss&&!G.boss.calm&&!G.flags.kamomeSeen){
     G.flags.kamomeSeen=true;SFX.boom();
-    say([["バサッ バサッ……！\nくろい モヤに つつまれた おおきな カモメが まいおりて きた！"],[buddy()==="guri"?guriName():mokoName(),buddy()==="guri"?"グリッ！ グリグリ！\n（あかい かげから にげて！ じめんに ささったら チャンス！）":"モコッ！ モコモコ！\n（あかい かげから にげて！ じめんに ささったら チャンス！）"]]);
+    say([["バサッ バサッ……！\nくろい モヤに つつまれた おおきな カモメが まいおりて きた！"],[buddyName(),buddy()==="guri"?"グリッ！ グリグリ！\n（あかい かげから にげて！ じめんに ささったら チャンス！）":"モコッ！ モコモコ！\n（あかい かげから にげて！ じめんに ささったら チャンス！）"]]);
   }
   if(G.screen==="oku1"&&!G.flags.okuSeen){
     G.flags.okuSeen=true;
@@ -1799,7 +1813,7 @@ function update(dt){
     }
     if(overlap(plBox(),box)&&e.flash<=0)hurt(e.dmg||1,e.x,e.y);
   });
-  {const bd=buddy();if(bd==="moko")updMoko(dt);else if(bd==="guri")updGuri(dt)}
+  {const bd=buddy();if(bd==="moko")updMoko(dt);else if(bd==="guri")updGuri(dt);else if(bd==="shizuku")updShizuku(dt)}
   G.enemies=G.enemies.filter(e=>{
     if(e.hp>0)return true;
     puff(e.x+8,e.y+8);freeCritter(e.x+3,e.y+6);SFX.poof();
@@ -2803,7 +2817,11 @@ function renderWorld(){
     list.push({y:B.h>2?999:B.y+14,draw(){drawRyu(B)}});
     B.fires.forEach(f=>list.push({y:f.y+4,draw(){drawFire(f)}}));
   }else if(B)list.push({y:B.y+10,draw(){B.kind==="unagi"?drawUnagi(B):drawBoss(B)}});
-  if(buddy()==="guri"){
+  if(buddy()==="shizuku"){
+    const pos=mokoPos(),evo=G.flags.shizukuEvo,M=G.sz,fr=Math.floor(G.time*6)%2,bob=Math.sin(G.time*5)*1.5;
+    list.push({y:pos[1],draw(){w.drawImage((evo?SHIZUKU2:SHIZUKU)[fr],Math.round(pos[0]+(evo?0:1)),Math.round(pos[1]+2+bob));
+      if(M&&M.atk>0){w.strokeStyle="#bfe9ff";w.lineWidth=2;w.beginPath();w.moveTo(pos[0]+8,pos[1]+8);w.lineTo(M.ax+8,M.ay+8);w.stroke();w.lineWidth=1}}});
+  }else if(buddy()==="guri"){
     let pos=mokoPos();const M=G.gr,dig=M&&M.dig>0;
     if(M&&M.atk>0){const k=1-Math.abs(M.atk-.15)/.15;pos=[pos[0]+(M.ax-pos[0])*k,pos[1]+(M.ay-pos[1])*k]}
     const fr=pl.moving||dig||(M&&M.atk>0)?Math.floor(G.time*8)%2:0;
@@ -2851,7 +2869,7 @@ function drawHud(){
   if(G.flags.sword){ctx.drawImage(SWORDS[swordLv()-1].icon,x,4);x-=12}
   if(G.flags.shield){ctx.drawImage(SHIELDS[G.flags.shield].icon,x+1,4);x-=10}
   if(G.flags.key&&!G.flags.gate||G.flags.quizKey&&!G.flags.quizGate){ctx.drawImage(KEY,x,4);x-=12}
-  if(G.flags.moko){const m=buddy()==="guri"?(G.flags.guriEvo?GURI2[0]:GURI[0]):G.flags.mokoFinal?MOKO3[0]:G.flags.mokoEvo?MOKO2[0]:MOKO[0];ctx.drawImage(m,0,0,m.width,11,x-3,3,m.width*.8,9)}
+  if(G.flags.moko){const m=buddy()==="shizuku"?(G.flags.shizukuEvo?SHIZUKU2[0]:SHIZUKU[0]):buddy()==="guri"?(G.flags.guriEvo?GURI2[0]:GURI[0]):G.flags.mokoFinal?MOKO3[0]:G.flags.mokoEvo?MOKO2[0]:MOKO[0];ctx.drawImage(m,0,0,m.width,11,x-3,3,m.width*.8,9)}
 }
 function render(){
   if(G.slide){
@@ -3352,7 +3370,7 @@ const KANKO={
   eki:{name:"とうきょうえき",photo:"tokyo_eki",lines:[
     ["なっちゃん","ここが とうきょうえき！\nあかレンガの えきしゃは 1914ねんに できたの。100ねん いじょう まえよ。"],
     ["しょうちゃん","ここから しんかんせんが、きたへも にしへも はしって いくんだ。"],
-    ["いっちゃん","でんしゃ！ しんかんせん！ はやーい！"],["でんしゃが だいすきな いっちゃんは、おおよろこび！"],
+    ["いっちゃん","でんしゃ！ しんかんせん！ はやーい！"],["いっちゃんは おおよろこび！"],
     ["トロヒ","レンガの えき、かっこいいなあ。\nみんなで しゃしんを とろう！"]]},
   kokkai:{name:"こっかいぎじどう",photo:"tokyo_kokkai",lines:[
     ["なっちゃん","これが こっかいぎじどう。\nくにの きまり（ほうりつ）を、はなしあって きめる ところよ。"],
@@ -4632,17 +4650,17 @@ function openKenPick(){
   subBack(p);
 }
 /* なかま：つれて いく こを えらぶ・ごはんを あげて なかよく なる */
-const FOOD=["donguri","kinomi","kinoko","mikan","nikuman","senbei","rakka","negi","renkon","ichigo","kyabetsu","banana"],SUKI={moko:["kinomi","mikan","ichigo"],guri:["donguri","kinoko","rakka"]};
+const FOOD=["donguri","kinomi","kinoko","mikan","nikuman","senbei","rakka","negi","renkon","ichigo","kyabetsu","banana"],SUKI={moko:["kinomi","mikan","ichigo"],guri:["donguri","kinoko","rakka"],shizuku:["nikuman","senbei","renkon"]};
 function openNakama(msg){
   const f=G.flags,p=menuPanel("なかま"),items=f.items=f.items||{},naka=f.naka=f.naka||{},cur=buddy();
   const star=who=>"★".repeat(nakaLv(who))+"☆".repeat(5-nakaLv(who));
-  [["moko",mokoName(),f.moko,"てきに たいあたり・ハートを なおす"],["guri",guriName(),f.guri,"つよい たいあたり・コインや どんぐりを ほりだす"]].forEach(([who,name,has,note])=>{
+  [["moko",mokoName(),f.moko,"てきに たいあたり・ハートを なおす"],["guri",guriName(),f.guri,"つよい たいあたり・コインや どんぐりを ほりだす"],["shizuku",shizukuName(),f.shizuku,"とおくの てきに みずでっぽう・コインを あつめる"]].forEach(([who,name,has,note])=>{
     if(!has)return;
     const b=el("button",name+"　"+star(who)+(cur===who?"（いま）":""));b.type="button";b.style.width="100%";if(cur!==who)b.className="sub";b.disabled=cur===who;
     b.addEventListener("click",()=>{f.buddy=who;save();SFX.clink();openNakama()});
     const d=el("p",note+"\nすきな もの："+SUKI[who].map(id=>ITEM[id]?ITEM[id].name:id).join("・"));d.style.fontSize=".85em";p.append(b,d);
   });
-  const nm=cur==="guri"?guriName():mokoName();
+  const nm=buddyName();
   p.append(el("p",msg||(nm+"に ごはんを あげよう。\nなかよく なると、おてつだいが はやく なるよ。")));
   const grid=el("div");grid.className="grid";let any=false;
   FOOD.forEach(id=>{const it=ITEM[id],n=items[id]||0;if(!it||!n)return;any=true;
@@ -4655,7 +4673,12 @@ function feedBuddy(id){
   const f=G.flags,who=buddy(),naka=f.naka=f.naka||{};if(!who||!(f.items[id]>0))return;
   const before=nakaLv(who),suki=SUKI[who].includes(id);
   f.items[id]--;naka[who]=(naka[who]||0)+(suki?2:1);save();SFX.heart();
-  const nm=who==="guri"?guriName():mokoName(),up=nakaLv(who)>before;
+  const nm=buddyName(),up=nakaLv(who)>before;
+  if(who==="shizuku"&&!f.shizukuEvo&&nakaLv("shizuku")>=3){
+    f.shizukuEvo=true;save();closeMenu();SFX.boom();
+    say([["シズクの からだが ひかりだした……！"],["シズクは「シズクジラ」に しんか した！\nみずでっぽうが もっと つよく、はやく なった！"],["シズクジラ","プシューッ！\n（いつも ごはんを ありがとう！）"]],()=>{SFX.item();updateGoal()});
+    return;
+  }
   if(who==="guri"&&!f.guriEvo&&nakaLv("guri")>=3){
     f.guriEvo=true;save();closeMenu();SFX.boom();
     say([["グリの からだが ひかりだした……！"],["グリは「グリドン」に しんか した！\nイガが おおきく なって、たいあたりが もっと つよく、はやく なった！"],["グリドン","グリッ！ グリドーン！\n（いつも ごはんを ありがとう！）"]],()=>{SFX.item();updateGoal()});
@@ -4672,6 +4695,22 @@ function miniUnlockCheck(){
   const u=f.miniOpen=f.miniOpen||{},x=MINI_OPEN.find(([id,k])=>!u[id]&&kenDone(k));if(!x)return;
   u[x[0]]=true;save();
   say(x[3].concat([["ミニゲーム「"+MINI[x[0]].name+"」で あそべるように なった！\n「もちもの」の「あそぶ」から えらべるよ。"]]),()=>{SFX.item()});
+}
+/* シズクの おてつだい：とおくの てきに みずでっぽう、おちて いる ものを ひきよせる */
+function updShizuku(dt){
+  const M=G.sz||(G.sz={cd:1.5,atk:0,ax:0,ay:0}),evo=G.flags.shizukuEvo;if(M.atk>0)M.atk-=dt;
+  if(G.mode!=="play")return;
+  M.cd-=dt;
+  if(M.cd<=0){
+    const [sx,sy]=mokoPos();
+    const e=G.enemies.filter(e=>e.hp>0&&Math.hypot(e.x-sx,e.y-sy)<(evo?130:105)).sort((a,b)=>Math.hypot(a.x-sx,a.y-sy)-Math.hypot(b.x-sx,b.y-sy))[0];
+    if(e){
+      e.hp-=evo?3:2;e.flash=.2;SFX.hit();M.atk=.18;M.ax=e.x;M.ay=e.y;M.cd=(evo?1.9:2.6)*(1-.05*nakaLv("shizuku"));
+      const a=Math.atan2(e.y-sy,e.x-sx);e.kx=Math.cos(a)*70;e.ky=Math.sin(a)*70;e.kt=.12;puff(e.x+8,e.y+8,6,"#bfe9ff");
+    }else M.cd=.3;
+  }
+  const R=evo?70:48;
+  G.pickups.forEach(p=>{const dx=pl.x+4-p.x,dy=pl.y+8-p.y,d=Math.hypot(dx,dy);if(d<R&&d>2){p.x+=dx/d*70*dt;p.y+=dy/d*70*dt}});
 }
 function openCameraQuiz(){
   const f=G.flags,p=menuPanel("とくべつ なぞなぞ");
@@ -4753,7 +4792,7 @@ function showPanel(kind){
   if(kind==="title"){
     const h=document.createElement("h1");h.textContent="トロヒの\nぼうけん";h.style.whiteSpace="pre-line";
     const s=document.createElement("p");s.textContent="りゅうの なみだを さがして";
-    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ27にち・なかまと クイズ）";v.style.fontSize=".7em";v.style.opacity=".8";
+    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ27にち・シズク）";v.style.fontSize=".7em";v.style.opacity=".8";
     p.append(h,s,v);
     panelBtn(p,"あそぶ",showSlots);
   }
