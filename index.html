@@ -135,6 +135,9 @@ const MAPS={
  ibaraki1:["yyyyyyyyyyy","yyyyyyyyyyy","yyyyyyyyyyy","T....O....T","T.........T","T....pppppp","T,...p....T","T....p...,T","TTTTTTTTTTT"],
  ibaraki2:["TTTTTpTTTTT","T,.ppppp.,T","T.p.....p.T","T.p.ppp.p.T","T.p.p,p.p.T","ppp.ppp.p.T","T.p.....p.T","T,ppppppp,T","TTTTTTTTTTT"],
  ibaraki3:["TTTTTTTTTTT","TpppppppppT","TpppppppppT","TpppppppppT","TpppppppppT","TpppppppppT","TpppppppppT","TpppppppppT","TTTTTpTTTTT"],
+ nagano1:["yyyyyyyyyyy","yyyyyyyyyyy","yyyyyyyyyyy","T....O....T","T.........T","T....pppppp","T,...p....T","T....p...,T","TTTTTTTTTTT"],
+ nagano2:["TTTTTpTTTTT","T,ppppppp,T","T.p.,.,.p.T","T.ppppppp.T","T.p.,.,.p.T","ppppppppp.T","T.p.,.,.p.T","T,ppppppp,T","TTTTTTTTTTT"],
+ nagano3:["TTTTTTTTTTT","T.........T","T.,.....,.T","T.........T","T....,....T","T.........T","T.,.....,.T","T.........T","TTTTTpTTTTT"],
  gunma1:["yyyyyyyyyyy","yyyyyyyyyyy","yyyyyyyyyyy","T....O....T","T.........T","T....pppppp","T,...p....T","T....p...,T","TTTTTTTTTTT"],
  gunma2:["TTTTTpTTTTT","T,ppppppp,T","T.p.,.,.p.T","T.ppppppp.T","T.p.,.,.p.T","ppppppppp.T","T.p.,.,.p.T","T,ppppppp,T","TTTTTTTTTTT"],
  gunma3:["TTTTTTTTTTT","T.........T","T.,.....,.T","T.........T","T....,....T","T.........T","T.,.....,.T","T.........T","TTTTTpTTTTT"],
@@ -153,7 +156,7 @@ const MAPS={
  doukutsu:["###########","#_________#","#_________#","#_________#","#_________#","#_________#","#_________#","#_________#","#####_#####"]
 };
 /* ばんの しるし。version.txt と ちがって いたら、あたらしい ばんを とりに いく */
-const VER="11がつ27にち・ハートは ちほうごと";
+const VER="11がつ27にち・ながの";
 (function(){
   if(location.hash||!/^https?:$/.test(location.protocol))return;
   const m=/[?&]v=(\d+)/.exec(location.search);if(m&&Date.now()-Number(m[1])<60000)return;
@@ -164,8 +167,8 @@ const VER="11がつ27にち・ハートは ちほうごと";
     location.replace(location.pathname+"?v="+Date.now());
   }).catch(()=>{});
 })();
-const LINKS={mura:{n:"sougen",e:"hama",s:"quiz"},quiz:{n:"mura"},sougen:{s:"mura",e:"mori",n:"doukutsu"},mori:{w:"sougen",e:"oku1"},oku1:{w:"mori",e:"oku2"},oku2:{w:"oku1",n:"oku3"},oku3:{s:"oku2"},shizu1:{e:"shizu2"},kana1:{e:"kana2"},tokyo1:{e:"tokyo2"},gunma1:{e:"gunma2"},gunma2:{w:"gunma1",n:"gunma3"},gunma3:{s:"gunma2"},tochigi1:{e:"tochigi2"},tochigi2:{w:"tochigi1",n:"tochigi3"},tochigi3:{s:"tochigi2"},ibaraki1:{e:"ibaraki2"},ibaraki2:{w:"ibaraki1",n:"ibaraki3"},ibaraki3:{s:"ibaraki2"},saitama1:{e:"saitama2",w:"saitama4"},saitama4:{e:"saitama1"},saitama2:{w:"saitama1",n:"saitama3"},saitama3:{s:"saitama2"},chiba1:{e:"chiba2"},chiba2:{w:"chiba1",n:"chiba3"},chiba3:{s:"chiba2"},tokyo2:{w:"tokyo1",n:"tokyo3"},tokyo3:{s:"tokyo2"},kana2:{w:"kana1",n:"kana3"},kana3:{s:"kana2"},shizu2:{w:"shizu1",n:"shizu3"},shizu3:{s:"shizu2"},doukutsu:{s:"sougen"},hama:{w:"mura",e:"misaki"},misaki:{w:"hama"},sora1:{e:"sora2"},sora2:{w:"sora1",n:"sora3"},sora3:{s:"sora2"},saba1:{e:"saba2"},saba2:{w:"saba1",n:"saba3"},saba3:{s:"saba2"},jan1:{e:"jan2"},jan2:{w:"jan1",n:"yuki3"},yuki3:{s:"jan2"},yuki1:{e:"yuki2"},yuki2:{w:"yuki1",n:"kori3"},kori3:{s:"yuki2"},hino1:{e:"hino2"},hino2:{w:"hino1",n:"hino3"},hino3:{s:"hino2"}};
-const START={quiz:[66,8],mura:[32,60],sougen:[80,112],mori:[4,60],oku1:[4,60],oku2:[4,62],oku3:[80,112],shizu1:[56,104],kana1:[88,104],tokyo1:[88,104],tokyo2:[4,72],tokyo3:[80,108],gunma1:[88,104],gunma2:[4,72],gunma3:[80,108],tochigi1:[88,104],tochigi2:[4,72],tochigi3:[80,108],ibaraki1:[88,104],ibaraki2:[4,72],ibaraki3:[80,108],saitama1:[88,104],saitama4:[140,72],saitama2:[4,72],saitama3:[80,108],chiba1:[88,104],chiba2:[4,72],chiba3:[80,108],kana2:[4,72],kana3:[80,108],shizu2:[4,72],shizu3:[80,108],doukutsu:[80,112],hama:[4,78],misaki:[4,78],sora1:[80,80],sora2:[4,62],sora3:[116,112],saba1:[80,80],saba2:[4,62],saba3:[80,112],yuki1:[80,80],yuki2:[4,62],yuki3:[80,112],jan1:[80,80],jan2:[4,62],kori3:[80,112],hino1:[88,56],hino2:[4,62],hino3:[80,112]};
+const LINKS={mura:{n:"sougen",e:"hama",s:"quiz"},quiz:{n:"mura"},sougen:{s:"mura",e:"mori",n:"doukutsu"},mori:{w:"sougen",e:"oku1"},oku1:{w:"mori",e:"oku2"},oku2:{w:"oku1",n:"oku3"},oku3:{s:"oku2"},shizu1:{e:"shizu2"},kana1:{e:"kana2"},tokyo1:{e:"tokyo2"},nagano1:{e:"nagano2"},nagano2:{w:"nagano1",n:"nagano3"},nagano3:{s:"nagano2"},gunma1:{e:"gunma2"},gunma2:{w:"gunma1",n:"gunma3"},gunma3:{s:"gunma2"},tochigi1:{e:"tochigi2"},tochigi2:{w:"tochigi1",n:"tochigi3"},tochigi3:{s:"tochigi2"},ibaraki1:{e:"ibaraki2"},ibaraki2:{w:"ibaraki1",n:"ibaraki3"},ibaraki3:{s:"ibaraki2"},saitama1:{e:"saitama2",w:"saitama4"},saitama4:{e:"saitama1"},saitama2:{w:"saitama1",n:"saitama3"},saitama3:{s:"saitama2"},chiba1:{e:"chiba2"},chiba2:{w:"chiba1",n:"chiba3"},chiba3:{s:"chiba2"},tokyo2:{w:"tokyo1",n:"tokyo3"},tokyo3:{s:"tokyo2"},kana2:{w:"kana1",n:"kana3"},kana3:{s:"kana2"},shizu2:{w:"shizu1",n:"shizu3"},shizu3:{s:"shizu2"},doukutsu:{s:"sougen"},hama:{w:"mura",e:"misaki"},misaki:{w:"hama"},sora1:{e:"sora2"},sora2:{w:"sora1",n:"sora3"},sora3:{s:"sora2"},saba1:{e:"saba2"},saba2:{w:"saba1",n:"saba3"},saba3:{s:"saba2"},jan1:{e:"jan2"},jan2:{w:"jan1",n:"yuki3"},yuki3:{s:"jan2"},yuki1:{e:"yuki2"},yuki2:{w:"yuki1",n:"kori3"},kori3:{s:"yuki2"},hino1:{e:"hino2"},hino2:{w:"hino1",n:"hino3"},hino3:{s:"hino2"}};
+const START={quiz:[66,8],mura:[32,60],sougen:[80,112],mori:[4,60],oku1:[4,60],oku2:[4,62],oku3:[80,112],shizu1:[56,104],kana1:[88,104],tokyo1:[88,104],tokyo2:[4,72],tokyo3:[80,108],nagano1:[88,104],nagano2:[4,72],nagano3:[80,108],gunma1:[88,104],gunma2:[4,72],gunma3:[80,108],tochigi1:[88,104],tochigi2:[4,72],tochigi3:[80,108],ibaraki1:[88,104],ibaraki2:[4,72],ibaraki3:[80,108],saitama1:[88,104],saitama4:[140,72],saitama2:[4,72],saitama3:[80,108],chiba1:[88,104],chiba2:[4,72],chiba3:[80,108],kana2:[4,72],kana3:[80,108],shizu2:[4,72],shizu3:[80,108],doukutsu:[80,112],hama:[4,78],misaki:[4,78],sora1:[80,80],sora2:[4,62],sora3:[116,112],saba1:[80,80],saba2:[4,62],saba3:[80,112],yuki1:[80,80],yuki2:[4,62],yuki3:[80,112],jan1:[80,80],jan2:[4,62],kori3:[80,112],hino1:[88,56],hino2:[4,62],hino3:[80,112]};
 const ENEMIES={
  sougen:[["moya",8,1],["moya",2,4],["moya",9,6],["moya",1,1],["moya",7,3],["toge",6,1]],
  mori:[["moya",2,3],["toge",9,1],["toge",9,5],["moya",5,1],["moya",4,7],["toge",9,7]],
@@ -175,6 +178,7 @@ const ENEMIES={
  chiba2:[["moya",5,2],["toge",8,4],["hebi",5,7],["moya",3,4],["toge",5,4],["hebi",7,6],["tobi",7,2],["tobi",3,7],["hebi",2,2],["toge",8,7],["moya",8,2]],
  saitama2:[["moya",5,2],["toge",8,4],["hebi",5,7],["moya",3,4],["toge",5,4],["hebi",7,6],["tobi",7,2],["tobi",3,7],["hebi",2,2],["toge",8,7],["moya",8,2],["tobi",5,5]],
  ibaraki2:[["moya",5,2],["toge",8,4],["hebi",5,7],["moya",3,4],["toge",5,4],["hebi",7,6],["tobi",7,2],["tobi",3,7],["hebi",2,2],["toge",8,7],["moya",8,2],["tobi",5,5]],
+ nagano2:[["moya",5,2],["toge",8,4],["hebi",5,7],["tobi",3,4],["tobi",5,4],["hebi",7,6],["tobi",7,2],["moya",3,7],["hebi",2,2],["toge",8,7],["moya",8,2],["toge",5,5]],
  gunma2:[["moya",5,2],["toge",8,4],["hebi",5,7],["moya",3,4],["tobi",5,4],["hebi",7,6],["tobi",7,2],["tobi",3,7],["hebi",2,2],["toge",8,7],["moya",8,2],["toge",5,5]],
  tochigi2:[["moya",5,2],["toge",8,4],["hebi",5,7],["moya",3,4],["toge",5,4],["hebi",7,6],["tobi",7,2],["tobi",3,7],["hebi",2,2],["toge",8,7],["moya",8,2],["tobi",5,5]],
  tokyo2:[["moya",5,2],["toge",8,4],["hebi",5,7],["moya",3,4],["toge",5,4],["hebi",7,6],["tobi",7,2],["tobi",3,7],["hebi",2,2],["toge",8,7]],
@@ -194,7 +198,7 @@ const ENEMIES={
 };
 const SOLID=new Set("TRWBH^DG#YkI~AoQFKjxXqLEtbcyOga".split(""));
 /* ひろえる もの。RAREは めったに でない */
-const FINDS={mura:["donguri","clover"],sougen:["donguri","kinomi","clover"],mori:["kinomi","donguri","kabuto"],oku1:["kinoko","donguri","hikarigoke"],oku2:["kinoko","donguri","hikarigoke"],oku3:["kinoko","donguri","hikarigoke"],shizu1:["mikan","kinomi","clover"],kana1:["nikuman","kaigara","hitode"],tokyo1:["senbei","donguri","clover"],tokyo2:["senbei","donguri","clover"],tokyo3:["senbei","donguri","clover"],gunma1:["kyabetsu","donguri","clover"],gunma2:["kyabetsu","kinomi","clover"],gunma3:["kyabetsu","kinomi","clover"],tochigi1:["ichigo","donguri","clover"],tochigi2:["ichigo","kinomi","clover"],tochigi3:["ichigo","kinomi","clover"],ibaraki1:["renkon","donguri","clover"],ibaraki2:["renkon","donguri","clover"],ibaraki3:["renkon","kinomi","clover"],saitama1:["negi","donguri","clover"],saitama4:["clover","donguri"],saitama2:["negi","donguri","clover"],saitama3:["negi","kinomi","clover"],chiba1:["rakka","kaigara","hitode"],chiba2:["rakka","donguri","clover"],chiba3:["rakka","kaigara","hitode"],kana2:["nikuman","kaigara","hitode"],kana3:["nikuman","kaigara","hitode"],shizu2:["mikan","kinomi","clover"],hama:["kaigara","kinomi","sakuragai"],misaki:["kaigara","kinomi"],sora1:["kumo","niji","hoshi"],sora2:["kumo","niji","hoshi"],sora3:["kumo","hoshi"],saba1:["sabahana","dachou","kintane"],saba2:["sabahana","dachou","kintane"],saba3:["sabahana","dachou"],yuki1:["kesshou","matsubo","aurora"],yuki2:["kesshou","matsubo","aurora"],yuki3:["kesshou","matsubo"],kori3:["kesshou","matsubo"],jan1:["banana","janhana","oumu"],jan2:["banana","janhana","oumu"],hino1:["kazanishi","hinohana","honoo"],hino2:["kazanishi","hinohana","honoo"],hino3:["kazanishi","hinohana"]};
+const FINDS={mura:["donguri","clover"],sougen:["donguri","kinomi","clover"],mori:["kinomi","donguri","kabuto"],oku1:["kinoko","donguri","hikarigoke"],oku2:["kinoko","donguri","hikarigoke"],oku3:["kinoko","donguri","hikarigoke"],shizu1:["mikan","kinomi","clover"],kana1:["nikuman","kaigara","hitode"],tokyo1:["senbei","donguri","clover"],tokyo2:["senbei","donguri","clover"],tokyo3:["senbei","donguri","clover"],nagano1:["ringo","donguri","clover"],nagano2:["ringo","kinomi","clover"],nagano3:["ringo","kinomi","clover"],gunma1:["kyabetsu","donguri","clover"],gunma2:["kyabetsu","kinomi","clover"],gunma3:["kyabetsu","kinomi","clover"],tochigi1:["ichigo","donguri","clover"],tochigi2:["ichigo","kinomi","clover"],tochigi3:["ichigo","kinomi","clover"],ibaraki1:["renkon","donguri","clover"],ibaraki2:["renkon","donguri","clover"],ibaraki3:["renkon","kinomi","clover"],saitama1:["negi","donguri","clover"],saitama4:["clover","donguri"],saitama2:["negi","donguri","clover"],saitama3:["negi","kinomi","clover"],chiba1:["rakka","kaigara","hitode"],chiba2:["rakka","donguri","clover"],chiba3:["rakka","kaigara","hitode"],kana2:["nikuman","kaigara","hitode"],kana3:["nikuman","kaigara","hitode"],shizu2:["mikan","kinomi","clover"],hama:["kaigara","kinomi","sakuragai"],misaki:["kaigara","kinomi"],sora1:["kumo","niji","hoshi"],sora2:["kumo","niji","hoshi"],sora3:["kumo","hoshi"],saba1:["sabahana","dachou","kintane"],saba2:["sabahana","dachou","kintane"],saba3:["sabahana","dachou"],yuki1:["kesshou","matsubo","aurora"],yuki2:["kesshou","matsubo","aurora"],yuki3:["kesshou","matsubo"],kori3:["kesshou","matsubo"],jan1:["banana","janhana","oumu"],jan2:["banana","janhana","oumu"],hino1:["kazanishi","hinohana","honoo"],hino2:["kazanishi","hinohana","honoo"],hino3:["kazanishi","hinohana"]};
 const RARE=new Set(["clover","kabuto","sakuragai","hane","hoshi","tategami","kintane","kiba","aurora","kumage","honoo","ryuuroko","kunshou","oumu","koriuroko","hikarigoke"]);
 
 /* ---------- 絵 ---------- */
@@ -290,6 +294,7 @@ ITEMS.push({id:"senbei",name:"せんべい",price:15,img:sprite(["..oooo..",".oO
 ITEMS.push({id:"rakka",name:"らっかせい",price:15,img:sprite(["..oooo..",".oOooOo.",".oooooo.","..oOoo..",".oooooo.",".oOooOo.","..oooo.."],P)});
 ITEMS.push({id:"negi",name:"ねぎ",price:15,img:sprite([".....lL.","....lL..","...lL...","..wl....",".ww.....","ww......","w......."],P)});
 ITEMS.push({id:"renkon",name:"れんこん",price:15,img:sprite(["..cccc..",".cCccCc.","ccccCccc","cCcccccc","cccCccCc",".cCcccc.","..cccc.."],P)});
+ITEMS.push({id:"ringo",name:"りんご",price:15,img:sprite(["....n...","...nL...","..rrrr..",".rrwrrr.",".rrrrrr.",".rrrrrr.","..rrrr.."],P)});
 ITEMS.push({id:"kyabetsu",name:"キャベツ",price:15,img:sprite(["..llll..",".lLllLl.","lLlLLlLl","llLllLll","lLlLLlLl",".lLllLl.","..llll.."],P)});
 ITEMS.push({id:"ichigo",name:"いちご",price:15,img:sprite(["..lLLl..","..rLLr..",".rryrrr.",".ryrryr.",".rrryrr.","..ryrr..","...rr..."],P)});
 ITEMS.push({id:"nikuman",name:"にくまん",price:15,img:sprite(["...ww...","..wwww..",".wwgwww.","wwwwwwww","wwwwwwww",".cccccc."],P)});
@@ -460,6 +465,7 @@ const MOKO3=[sprite(["........yy........",".......yyyy.......","..c....cccc....c
   sprite(["........yy........",".......yyyy.......","..c....cccc....c..",".ccc.cccccccc.ccc.","...cccccccccccc...","wwccceccccccecccww","wwccceccccccecccww","wwcppccccccccppcww","..cccccccppccccc..","..cccccccccccccc..","...cycccccccccyc...",".....cCc..cCc....."],P)];
 /* てきが おとす そざい。かじやで けんや たてに なる */
 const MATS=[
+ {id:"yamabiko",name:"やまびこの こえ",img:sprite(["........",".b...b..","b.b.b.b.","...b...b","..b.b...",".b...b..","........"],P)},
  {id:"darumahige",name:"だるまの ひげ",img:sprite(["........","kk....kk",".kk..kk.","..kkkk..",".kk..kk.","kk....kk"],P)},
  {id:"sarunomi",name:"サルの きのみ",img:sprite(["...LL...","..nnnn..",".nOOOOn.",".OOoOOO.",".OOOOOO.","..OOOO..","...OO..."],P)},
  {id:"nebaito",name:"ねばりの いと",img:sprite(["c.....c.",".c...c..","..c.c...","..ccc...",".cCcCc..","cCcccCc.",".ccccc.."],P)},
@@ -497,7 +503,8 @@ const SWORDS=[
  {name:"じしんの けん",dmg:4,blade:"#c9975b",shine:"#ffd84d",guard:"#34385a"},
  {name:"ねばりの けん",dmg:4,blade:"#e8c88f",shine:"#ffffff",guard:"#a06f3c"},
  {name:"いちごの けん",dmg:4,blade:"#e6483d",shine:"#ffd84d",guard:"#3f9a33"},
- {name:"だるまの けん",dmg:4,blade:"#ffffff",shine:"#e6483d",guard:"#f2b51f"}
+ {name:"だるまの けん",dmg:4,blade:"#ffffff",shine:"#e6483d",guard:"#f2b51f"},
+ {name:"やまびこの けん",dmg:4,blade:"#9fd7f7",shine:"#ffffff",guard:"#3f9a33"}
 ];
 SWORDS.forEach(k=>k.icon=sprite(["......gg","....gwg","....gwg.","...gwg..","O.gwg...",".Ogg....","..nn....",".n..n..."],{...P,g:k.blade,w:k.shine,O:k.guard}));
 const SHIELDS=[null,{name:"きの たて",icon:sprite(["OOOOOO","OooooO","OoyyoO","OooooO",".OooO.","..OO.."],P)},
@@ -507,14 +514,14 @@ const SHIELDS=[null,{name:"きの たて",icon:sprite(["OOOOOO","OooooO","OoyyoO
   {name:"ほのおの たて",icon:sprite(["dddddd","dbbbbd","dbwwbd","dbbbbd",".dbbd.","..dd.."],{...P,b:"#ff9a3c",d:"#e6483d",w:"#ffd84d"})}];
 /* bestLv＝いちばん つよい ふつうの けん。swordLv＝いま もっている けん（5は やぶの けん） */
 function bestLv(){return G.flags.swordLv||(G.flags.gold?2:1)}
-function swordLv(){const f=G.flags;return f.equip===13&&f.darumaken?13:f.equip===12&&f.ichigoken?12:f.equip===11&&f.nebari?11:f.equip===10&&f.jishin?10:f.equip===9&&f.shinjuken?9:f.equip===8&&f.kaminari?8:f.equip===7&&f.minato?7:f.equip===6&&f.fuji?6:f.equip===5&&f.yabu?5:bestLv()}
+function swordLv(){const f=G.flags;return f.equip===14&&f.yamabikoken?14:f.equip===13&&f.darumaken?13:f.equip===12&&f.ichigoken?12:f.equip===11&&f.nebari?11:f.equip===10&&f.jishin?10:f.equip===9&&f.shinjuken?9:f.equip===8&&f.kaminari?8:f.equip===7&&f.minato?7:f.equip===6&&f.fuji?6:f.equip===5&&f.yabu?5:bestLv()}
 function buddy(){const f=G.flags;return f.shizuku&&f.buddy==="shizuku"?"shizuku":f.guri&&f.buddy==="guri"?"guri":f.moko?"moko":null}
 function shizukuName(){return G.flags.shizukuEvo?"シズクジラ":"シズク"}
 function buddyName(){const b=buddy();return b==="shizuku"?shizukuName():b==="guri"?guriName():mokoName()}
 function guriName(){return G.flags.guriEvo?"グリドン":"グリ"}
 function nakaLv(who){return Math.min(5,Math.floor(((G.flags.naka||{})[who]||0)/4))}
 /* ハートは、ちほうの けんを ぜんぶ はらした ときに 1つ ふえる */
-const CHIHO={kanto:{name:"かんとうちほう",kens:["ibaraki","tochigi","gunma","saitama","chiba","tokyo","kanagawa"]}};
+const CHIHO={kanto:{name:"かんとうちほう",kens:["ibaraki","tochigi","gunma","saitama","chiba","tokyo","kanagawa"]},chubu:{name:"ちゅうぶちほう",kens:["shizuoka","nagano","niigata","toyama","ishikawa","fukui","gifu","aichi"]}};
 function chihoCheck(){
   const f=G.flags,got=f.chiho=f.chiho||{};G.chihoUp=null;
   Object.entries(CHIHO).forEach(([id,c])=>{if(!got[id]&&c.kens.every(k=>kenDone(k))){got[id]=true;G.maxHp+=2;G.chihoUp=c.name}});
@@ -645,6 +652,7 @@ function photoImg(k){
   const c=document.createElement("canvas");c.width=352;c.height=168;const g=c.getContext("2d");g.imageSmoothingEnabled=false;
   g.save();g.scale(2,2);
   if(k==="yamanashi"){drawFuji(g);g.fillStyle="#62bd4d";g.fillRect(0,48,176,36);g.fillStyle="#6d4426";for(let x=6;x<176;x+=34)g.fillRect(x,50,2,22);g.fillRect(0,50,176,2);g.fillStyle="#2f8a3a";g.fillRect(0,52,176,4);for(let x=2;x<176;x+=14){g.fillStyle="#8b5fbf";g.fillRect(x+2,56,6,3);g.fillRect(x+3,59,4,3);g.fillStyle="#67428f";g.fillRect(x+4,62,2,2)}}
+  if(k==="nagano")drawNagano(g,true);
   if(k==="gunma")drawGunma(g,true);
   if(k==="tochigi")drawTochigi(g,true);
   if(k==="ibaraki")drawIbaraki(g,true);
@@ -655,7 +663,7 @@ function photoImg(k){
   if(k==="kanagawa")drawMon(g);
   if(k==="shizuoka"){drawFuji(g);g.fillStyle="#62bd4d";g.fillRect(0,48,176,36);for(let y=52;y<84;y+=9){g.fillStyle="#2f8a3a";g.fillRect(0,y,176,5);g.fillStyle="#58b84a";g.fillRect(0,y,176,1)}}
   g.restore();
-  const T=HERO.down[1],who=k==="yamanashi"?[JIIJI,BAABA,T,NAUYU,MOTHER]:k==="kanagawa"?[MOMOJII,MOMOBAA,AKANEBAA,T,HARUNA,HARUMAMA]:k==="shizuoka"?[T,CHAKO]:k==="gunma"?[T,YUNO]:k==="tochigi"?[T,ICHIKA]:k==="ibaraki"?[T,MITO]:k==="saitama"?[T,KOBATO]:k==="chiba_shachi"?[SHIIKU,T,PAPA]:k==="chiba"?(G.flags.kuro?[PAPA,T,MASAMUNE,KURONEKO]:[PAPA,T,MASAMUNE]):k==="tokyo"?[T,MIYAKO]:/^tokyo_/.test(k)?[NACCHAN,T,ICCHAN,SHOUCHAN]:[T];
+  const T=HERO.down[1],who=k==="yamanashi"?[JIIJI,BAABA,T,NAUYU,MOTHER]:k==="kanagawa"?[MOMOJII,MOMOBAA,AKANEBAA,T,HARUNA,HARUMAMA]:k==="shizuoka"?[T,CHAKO]:k==="nagano"?[T,AZUSA]:k==="gunma"?[T,YUNO]:k==="tochigi"?[T,ICHIKA]:k==="ibaraki"?[T,MITO]:k==="saitama"?[T,KOBATO]:k==="chiba_shachi"?[SHIIKU,T,PAPA]:k==="chiba"?(G.flags.kuro?[PAPA,T,MASAMUNE,KURONEKO]:[PAPA,T,MASAMUNE]):k==="tokyo"?[T,MIYAKO]:/^tokyo_/.test(k)?[NACCHAN,T,ICCHAN,SHOUCHAN]:[T];
   const gap=36,x0=Math.round(176-who.length*gap/2);
   who.forEach((im,i)=>{const x=x0+i*gap+2,y=168-36;g.fillStyle="rgba(0,0,0,.22)";g.fillRect(x+4,y+30,24,4);g.drawImage(im,x,y,32,32)});
   return c;
@@ -665,10 +673,10 @@ const HIKOUKI=(()=>{const c=document.createElement("canvas");c.width=32;c.height
   r("#f4f8fc",2,9,24,7);r("#f4f8fc",26,10,3,5);r("#e6483d",2,3,4,7);r("#e6483d",10,14,10,4);r("#e6483d",11,6,8,3);r("#5cc8e8",19,10,5,3);r("#62687a",29,6,1,13);return c})();
 const CHAKO=sprite(["................","................","................","....CCCCCCCC....","...CyyyyyyyyC...","..CCCCCCCCCCCC..","....ssssssss....","....sesssses....","....ssssssss....",".....ssppss.....","....llllllll....","...sllLllLlls...","....llllllll....","....llllllll....","....nn....nn....","................"],P);
 /* にほんの たび。KENに ある けんだけ いける */
-const KEN={shizuoka:{name:"しずおか",start:"shizu1",miyage:"ocha"},kanagawa:{name:"かながわ",start:"kana1",miyage:"kamaboko",need:"shizuoka"},tokyo:{name:"とうきょう",start:"tokyo1",miyage:"ningyoyaki",need:"kanagawa"},chiba:{name:"ちば",start:"chiba1",miyage:"rakkasei",need:"tokyo"},saitama:{name:"さいたま",start:"saitama1",miyage:"soka",need:"chiba"},ibaraki:{name:"いばらき",start:"ibaraki1",miyage:"natto",need:"saitama"},tochigi:{name:"とちぎ",start:"tochigi1",miyage:"ichigo",need:"ibaraki"},gunma:{name:"ぐんま",start:"gunma1",miyage:"konnyaku",need:"tochigi"}};
+const KEN={shizuoka:{name:"しずおか",start:"shizu1",miyage:"ocha"},kanagawa:{name:"かながわ",start:"kana1",miyage:"kamaboko",need:"shizuoka"},tokyo:{name:"とうきょう",start:"tokyo1",miyage:"ningyoyaki",need:"kanagawa"},chiba:{name:"ちば",start:"chiba1",miyage:"rakkasei",need:"tokyo"},saitama:{name:"さいたま",start:"saitama1",miyage:"soka",need:"chiba"},ibaraki:{name:"いばらき",start:"ibaraki1",miyage:"natto",need:"saitama"},tochigi:{name:"とちぎ",start:"tochigi1",miyage:"ichigo",need:"ibaraki"},gunma:{name:"ぐんま",start:"gunma1",miyage:"konnyaku",need:"tochigi"},nagano:{name:"ながの",start:"nagano1",miyage:"soba",need:"gunma"}};
 const kenOf=nm=>Object.keys(KEN).find(k=>KEN[k].name===nm&&(!KEN[k].need||kenDone(KEN[k].need)));
-const MIYAGE={kinakomochi:{ken:"やまなしけん",note:"きなこを まぶした おもちに、くろみつを かけて たべる。やまなしの ゆうめいな おみやげ",name:"きなこと くろみつの おもち",img:sprite(["........","..CCCC..",".CcCCcC.",".CCnnCC.",".CcCCcC.","..CCCC.."],P)},budou:{ken:"やまなしけん",note:"ぶどう・もも・すももの とれる りょうが にほんいち。けんちょうが あるのは こうふし",name:"やまなしの ぶどうと もも",img:sprite(["...L....","..vvv...",".vvvvv..",".vVvVv..","..vvv...","..vVv...","...v...."],P)},konnyaku:{ken:"ぐんまけん",note:"こんにゃくいもから つくる。こんにゃくいもは、にほんの 9わり いじょうが ぐんまで とれる",name:"ぐんまの こんにゃく",img:sprite(["........",".gggggg.","gKggKggg","ggggggKg","gKgKgggg",".gggggg."],{...P,g:"#9a9aa8",K:"#5f6072"})},ichigo:{ken:"とちぎけん",note:"いちごの とれる りょうは、50ねん いじょう ずっと にほんいち",name:"とちぎの いちご",img:sprite(["..lLLl..","..rLLr..",".rryrrr.",".ryrryr.",".rrryrr.","..ryrr..","...rr..."],P)},natto:{ken:"いばらきけん",note:"みとの めいぶつ。だいずから つくる。いばらきは れんこんと メロンの とれる りょうが にほんいち",name:"みとの わらなっとう",img:sprite(["..CccC..",".cCccCc.",".cOccOc.",".cCccCc.",".cOccOc.",".cCccCc.","..CccC.."],P)},soka:{ken:"さいたまけん",note:"そうかしで うまれた、おこめの おかし。さいたまけんは うみに めんして いない",name:"そうか せんべい",img:sprite(["..oooo..",".oOOOOo.","oOoOOoOo","oOOooOOo","oOoOOoOo",".oOOOOo.","..oooo.."],P)},rakkasei:{ken:"ちばけん",note:"らっかせいの とれる りょうは にほんいち。にほんの やく 8わりが ちばけん",name:"ちばの らっかせい",img:sprite(["........","..oooo..",".oOooOo.",".oooooo.",".oOooOo.","..oooo.."],P)},ningyoyaki:{ken:"とうきょうと",note:"あさくさの めいぶつの おかし。とうきょうは にほんの しゅと",name:"にんぎょうやき",img:sprite(["........","..oooo..",".oOooOo.",".oooooo.",".oOOOOo.","..oooo.."],P)},kamaboko:{ken:"かながわけん",note:"おだわらの かまぼこが ゆうめい。よこはまには おおきな みなとが ある",name:"おだわらの かまぼこ",img:sprite(["........","..pppp..",".pwwwwp.",".pwwwwp.",".pwwwwp.","nnnnnnnn","nnnnnnnn"],P)},ocha:{ken:"しずおかけん",note:"あたたかくて、おちゃの はたけが たくさん ある",name:"しずおかの おちゃ",img:sprite(["..w..w..","...w.w..","........","cccccccc","cllllllc","cllllllc",".cllllc.","..cccc.."],P)}};
-const PHOTO={yamanashi:"ふじさんと ぶどうだな（やまなし）",shizuoka:"ふじさんと ちゃばたけ（しずおか）",kanagawa:"よこはま ちゅうかがいの もん（かながわ）",gunma:"くさつの ゆばたけ（ぐんま）",tochigi:"けごんの たき（とちぎ）",ibaraki:"つくばさんと ロケット（いばらき）",saitama:"かわごえの ときの かね（さいたま）",chiba:"しろい とうだいと うみ（ちば）",chiba_shachi:"シャチの ジャンプ（ちば）",tokyo:"とうきょうタワー（とうきょう）",tokyo_top:"とうきょうタワーの うえ（とうきょう）",tokyo_eki:"とうきょうえき（とうきょう）",tokyo_kokkai:"こっかいぎじどう（とうきょう）"};
+const MIYAGE={soba:{ken:"ながのけん",note:"ながのは そばで ゆうめい。レタスの とれる りょうは にほんいち、りんごは 2ばんめ",name:"しんしゅうの そば",img:sprite(["........",".CcCcCc.","CcCcCcCc",".CcCcCc.","kkkkkkkk",".kkkkkk.","..kkkk.."],P)},kinakomochi:{ken:"やまなしけん",note:"きなこを まぶした おもちに、くろみつを かけて たべる。やまなしの ゆうめいな おみやげ",name:"きなこと くろみつの おもち",img:sprite(["........","..CCCC..",".CcCCcC.",".CCnnCC.",".CcCCcC.","..CCCC.."],P)},budou:{ken:"やまなしけん",note:"ぶどう・もも・すももの とれる りょうが にほんいち。けんちょうが あるのは こうふし",name:"やまなしの ぶどうと もも",img:sprite(["...L....","..vvv...",".vvvvv..",".vVvVv..","..vvv...","..vVv...","...v...."],P)},konnyaku:{ken:"ぐんまけん",note:"こんにゃくいもから つくる。こんにゃくいもは、にほんの 9わり いじょうが ぐんまで とれる",name:"ぐんまの こんにゃく",img:sprite(["........",".gggggg.","gKggKggg","ggggggKg","gKgKgggg",".gggggg."],{...P,g:"#9a9aa8",K:"#5f6072"})},ichigo:{ken:"とちぎけん",note:"いちごの とれる りょうは、50ねん いじょう ずっと にほんいち",name:"とちぎの いちご",img:sprite(["..lLLl..","..rLLr..",".rryrrr.",".ryrryr.",".rrryrr.","..ryrr..","...rr..."],P)},natto:{ken:"いばらきけん",note:"みとの めいぶつ。だいずから つくる。いばらきは れんこんと メロンの とれる りょうが にほんいち",name:"みとの わらなっとう",img:sprite(["..CccC..",".cCccCc.",".cOccOc.",".cCccCc.",".cOccOc.",".cCccCc.","..CccC.."],P)},soka:{ken:"さいたまけん",note:"そうかしで うまれた、おこめの おかし。さいたまけんは うみに めんして いない",name:"そうか せんべい",img:sprite(["..oooo..",".oOOOOo.","oOoOOoOo","oOOooOOo","oOoOOoOo",".oOOOOo.","..oooo.."],P)},rakkasei:{ken:"ちばけん",note:"らっかせいの とれる りょうは にほんいち。にほんの やく 8わりが ちばけん",name:"ちばの らっかせい",img:sprite(["........","..oooo..",".oOooOo.",".oooooo.",".oOooOo.","..oooo.."],P)},ningyoyaki:{ken:"とうきょうと",note:"あさくさの めいぶつの おかし。とうきょうは にほんの しゅと",name:"にんぎょうやき",img:sprite(["........","..oooo..",".oOooOo.",".oooooo.",".oOOOOo.","..oooo.."],P)},kamaboko:{ken:"かながわけん",note:"おだわらの かまぼこが ゆうめい。よこはまには おおきな みなとが ある",name:"おだわらの かまぼこ",img:sprite(["........","..pppp..",".pwwwwp.",".pwwwwp.",".pwwwwp.","nnnnnnnn","nnnnnnnn"],P)},ocha:{ken:"しずおかけん",note:"あたたかくて、おちゃの はたけが たくさん ある",name:"しずおかの おちゃ",img:sprite(["..w..w..","...w.w..","........","cccccccc","cllllllc","cllllllc",".cllllc.","..cccc.."],P)}};
+const PHOTO={yamanashi:"ふじさんと ぶどうだな（やまなし）",shizuoka:"ふじさんと ちゃばたけ（しずおか）",kanagawa:"よこはま ちゅうかがいの もん（かながわ）",nagano:"まつもとじょうと アルプス（ながの）",gunma:"くさつの ゆばたけ（ぐんま）",tochigi:"けごんの たき（とちぎ）",ibaraki:"つくばさんと ロケット（いばらき）",saitama:"かわごえの ときの かね（さいたま）",chiba:"しろい とうだいと うみ（ちば）",chiba_shachi:"シャチの ジャンプ（ちば）",tokyo:"とうきょうタワー（とうきょう）",tokyo_top:"とうきょうタワーの うえ（とうきょう）",tokyo_eki:"とうきょうえき（とうきょう）",tokyo_kokkai:"こっかいぎじどう（とうきょう）"};
 const KEN_ALL=[["ほっかいどう・とうほく",["ほっかいどう","あおもり","いわて","みやぎ","あきた","やまがた","ふくしま"]],["かんとう",["いばらき","とちぎ","ぐんま","さいたま","ちば","とうきょう","かながわ"]],["ちゅうぶ",["にいがた","とやま","いしかわ","ふくい","やまなし","ながの","ぎふ","しずおか","あいち"]],["きんき",["みえ","しが","きょうと","おおさか","ひょうご","なら","わかやま"]],["ちゅうごく・しこく",["とっとり","しまね","おかやま","ひろしま","やまぐち","とくしま","かがわ","えひめ","こうち"]],["きゅうしゅう・おきなわ",["ふくおか","さが","ながさき","くまもと","おおいた","みやざき","かごしま","おきなわ"]]];
 /* にほんちずの かたち：Natural Earth（パブリックドメイン）の けんざかいを ちいさく した もの */
 const JMAP={"ほっかいどう":"M587,97L588,98L582,100L579,106L571,106L565,108L565,110L566,110L563,112L561,112L561,114L557,114L554,111L552,114L553,116L552,117L542,116L538,113L528,116L523,120L512,130L505,142L504,151L501,158L491,151L474,144L464,136L461,136L452,130L446,130L439,132L424,143L422,142L424,141L416,132L406,132L402,137L401,144L409,151L415,150L424,159L432,164L425,167L419,165L415,166L415,163L413,163L411,166L406,169L405,175L400,177L398,181L392,179L390,173L394,164L395,163L396,156L392,151L384,145L383,142L386,136L385,129L388,127L392,127L396,124L398,121L400,123L401,123L404,118L408,114L407,110L402,105L403,100L405,100L407,98L418,105L425,104L425,106L430,107L435,105L439,100L440,96L437,91L438,89L436,83L438,80L443,78L447,74L447,60L450,54L452,44L450,34L445,22L445,19L447,15L447,10L448,13L453,12L457,8L477,29L480,34L492,47L505,55L506,58L519,63L516,64L517,67L525,67L527,66L531,66L533,67L530,70L532,71L535,66L536,70L540,73L552,75L555,74L568,63L572,57L573,61L566,73L563,81L568,89L571,98L574,101L569,100L572,102L578,104L578,102L580,99L587,97ZM436,22L433,25L429,22L429,21L432,19L436,22ZM375,145L374,152L372,153L371,151L372,147L375,145ZM427,10L426,18L425,12L424,10L427,10Z","あおもり":"M389,221L389,217L386,214L392,207L395,208L400,206L402,196L403,198L403,196L405,196L402,196L401,193L399,192L402,191L402,186L406,190L409,188L412,189L414,202L416,204L420,202L420,200L419,199L421,197L429,203L431,201L432,198L434,191L432,186L430,186L427,190L422,190L418,192L417,190L422,174L434,183L438,182L440,179L438,191L439,209L441,216L444,217L448,220L444,224L435,224L425,231L422,229L423,220L420,219L413,222L409,222L405,219L401,221L393,220L389,221Z","いわて":"M448,220L453,230L452,232L455,234L453,236L457,240L459,250L457,256L460,255L461,258L457,262L459,263L460,261L460,264L457,265L457,266L455,268L458,267L458,268L455,270L455,271L457,271L456,272L455,273L456,274L453,275L456,277L452,278L454,279L453,279L454,280L449,280L450,283L448,283L448,282L446,282L442,282L440,289L439,290L436,289L432,292L429,289L429,287L417,283L418,279L416,277L418,274L413,265L418,255L418,251L419,248L417,246L420,245L419,237L421,230L422,229L425,230L435,224L444,224L448,220Z","みやぎ":"M446,283L448,288L446,286L445,286L445,289L442,291L444,294L440,296L443,297L441,299L443,302L441,305L441,307L443,307L442,308L443,312L440,311L439,307L436,306L432,307L430,310L429,308L427,308L426,310L427,311L424,315L422,321L422,328L420,329L420,332L416,333L413,328L400,325L400,322L404,320L406,317L407,312L411,304L409,297L411,296L412,292L409,286L418,284L424,287L429,287L429,290L432,292L436,289L439,290L440,289L442,282L446,283Z","あきた":"M387,277L392,260L393,251L390,244L388,244L383,245L380,240L385,241L390,234L392,224L389,221L393,220L401,221L405,219L409,222L413,222L420,219L423,220L424,223L422,229L420,232L420,245L417,246L419,248L418,251L418,254L413,265L418,274L416,277L418,279L417,283L409,287L402,281L398,281L392,277L387,277Z","やまがた":"M375,301L377,296L383,289L387,277L392,277L395,279L405,282L412,291L411,296L409,297L411,304L407,312L406,317L400,322L400,332L398,334L394,335L388,331L384,332L379,329L378,327L380,316L384,314L386,311L381,307L381,303L375,301Z","ふくしま":"M422,328L425,335L426,350L423,367L418,370L418,372L410,369L410,371L406,374L399,369L397,363L388,359L369,370L364,369L365,360L362,356L364,351L364,347L370,346L371,344L376,344L375,339L381,331L388,331L390,334L395,335L400,333L400,325L413,328L414,332L417,333L420,332L420,328L422,328Z","いばらき":"M418,372L412,386L412,392L410,396L413,407L420,419L409,412L397,414L390,411L384,404L381,403L379,399L383,398L386,395L390,392L397,390L399,386L398,379L400,377L399,369L406,374L410,371L410,369L418,372Z","とちぎ":"M372,396L368,391L372,383L367,380L369,373L368,371L369,370L387,360L394,361L397,363L399,366L400,377L398,379L399,386L397,391L389,392L381,399L379,399L377,396L372,396Z","ぐんま":"M360,364L364,368L369,370L368,371L369,373L367,380L372,383L368,392L372,396L377,397L380,401L361,396L358,402L349,406L347,409L344,406L344,403L342,400L343,400L344,391L342,390L338,391L336,389L336,386L340,378L350,376L356,370L356,367L360,364Z","さいたま":"M361,396L373,400L378,400L382,404L386,412L386,417L383,416L375,418L375,417L370,418L357,413L352,414L347,412L347,409L348,407L358,402L361,396Z","ちば":"M420,419L420,421L419,419L413,420L407,426L404,433L405,437L404,442L402,444L395,444L390,449L388,453L385,454L382,451L386,449L385,442L386,439L386,437L383,436L385,434L387,434L387,432L394,426L390,421L388,422L389,423L387,424L386,423L386,413L382,404L384,404L390,411L395,414L409,412L420,419Z","とうきょう":"M386,423L384,423L384,424L383,422L384,428L375,424L372,424L373,426L373,429L370,426L366,425L358,420L354,414L357,412L370,418L383,416L386,417L386,423ZM371,459L372,460L372,463L369,461L369,458L371,459Z","かながわ":"M384,428L379,430L380,431L380,433L378,433L379,437L382,439L382,441L379,441L380,444L378,444L378,441L375,436L371,436L363,438L362,440L362,444L361,443L360,444L357,443L356,440L356,433L353,433L355,431L360,428L361,422L370,426L373,429L373,426L372,424L375,424L384,428Z","にいがた":"M310,366L319,363L326,358L331,358L342,350L348,340L352,331L359,325L364,324L371,317L373,306L375,301L381,303L381,307L386,310L386,311L384,314L380,316L378,327L381,331L375,339L376,344L371,344L370,346L364,347L363,357L365,360L364,368L359,364L356,367L356,370L353,372L350,376L346,377L345,372L341,365L335,366L332,372L324,373L322,370L318,369L316,374L314,375L312,369L310,366ZM338,320L342,320L342,322L339,328L335,331L330,331L332,330L334,325L333,324L331,324L331,320L339,310L340,310L338,320Z","とやま":"M290,367L288,371L289,372L294,375L299,376L302,374L303,369L310,366L312,369L314,375L313,383L308,392L300,389L299,390L298,388L293,390L287,396L286,393L284,393L282,395L281,394L281,377L285,369L290,367Z","いしかわ":"M263,395L269,389L277,380L281,371L280,360L278,359L279,352L283,349L287,349L293,345L299,343L301,344L301,347L297,347L298,351L297,353L293,353L289,358L287,356L285,360L284,362L288,363L290,361L291,367L285,369L281,377L281,394L283,398L279,404L276,405L273,402L266,400L263,395Z","ふくい":"M237,427L240,429L243,427L243,429L246,428L245,426L249,427L248,425L250,425L248,422L252,424L254,423L253,419L256,417L256,421L257,422L258,417L255,412L254,407L259,399L259,397L263,395L265,398L266,400L273,402L276,405L279,404L279,410L282,414L281,416L271,418L266,417L264,422L259,422L260,425L258,428L254,429L252,428L251,433L246,435L238,434L236,430L236,428L237,427Z","やまなし":"M335,409L337,410L338,412L342,412L344,414L347,412L354,414L357,419L361,422L360,428L355,431L353,433L346,435L341,432L340,439L340,441L337,443L334,437L331,436L331,428L329,421L329,416L335,409Z","ながの":"M346,377L340,379L337,381L336,388L338,391L344,391L344,394L342,401L347,412L344,414L343,412L338,412L337,410L335,409L329,416L329,423L327,426L327,434L316,441L308,441L307,439L308,434L309,433L309,429L307,427L304,419L300,416L302,412L305,412L308,406L307,402L310,394L308,392L313,383L314,375L316,374L318,369L322,370L324,373L332,372L335,366L340,365L342,365L343,369L345,372L346,377Z","ぎふ":"M298,388L299,390L300,389L308,392L310,394L307,402L308,406L305,412L302,412L300,416L304,418L306,422L309,433L308,434L307,438L303,440L299,438L295,439L287,433L282,435L281,435L278,439L278,444L273,440L268,441L268,430L264,422L266,417L271,418L281,416L282,414L279,410L279,404L283,398L281,395L284,393L287,394L287,396L294,389L298,388Z","しずおか":"M360,444L359,447L360,447L360,450L362,452L362,455L357,461L357,464L355,464L351,466L348,462L348,454L350,453L349,450L350,448L354,448L350,444L346,444L342,445L340,448L340,450L341,449L340,450L335,453L334,457L330,461L329,464L331,466L322,463L316,465L305,463L305,457L310,455L315,446L316,441L327,434L327,426L329,423L331,428L331,437L334,437L337,442L340,441L342,432L346,435L356,433L356,441L357,443L360,444Z","あいち":"M305,463L289,467L291,463L293,465L298,461L299,462L300,461L298,457L295,458L295,459L289,459L287,456L288,453L286,459L288,462L284,460L283,451L285,446L284,448L283,446L283,448L280,448L278,444L278,439L281,435L287,433L295,439L299,438L303,440L307,438L308,441L316,441L315,446L310,454L305,457L305,463Z","みえ":"M280,448L277,450L272,463L274,466L276,467L286,473L286,476L285,476L286,476L285,480L282,481L282,480L283,481L284,478L279,479L279,477L276,480L273,480L272,482L271,481L265,485L265,488L263,487L262,488L264,491L264,493L263,492L262,493L263,494L258,496L255,505L250,500L250,498L255,492L258,491L259,481L257,475L262,472L260,469L257,468L256,465L257,464L255,459L258,458L259,455L263,455L268,452L270,444L268,441L273,440L278,444L280,448Z","しが":"M264,422L268,430L268,440L270,444L268,452L265,454L259,455L258,458L255,459L250,453L249,449L249,438L246,435L251,433L252,428L254,429L259,426L259,422L264,422Z","きょうと":"M216,422L218,422L224,418L229,417L231,421L230,422L227,426L229,425L230,426L229,427L232,428L232,431L233,429L235,429L232,427L237,424L236,430L238,434L246,435L249,438L249,449L250,455L254,457L256,462L246,461L241,452L239,453L232,449L234,447L234,445L228,442L226,439L224,440L219,437L218,433L221,434L222,433L222,428L218,428L216,422Z","おおさか":"M224,479L230,476L235,469L236,453L233,451L233,450L236,450L239,453L240,453L240,451L243,454L245,458L242,468L244,472L243,475L227,480L224,479Z","ひょうご":"M199,424L205,421L216,422L218,428L222,428L222,433L221,434L218,433L218,437L224,440L226,439L228,442L233,444L234,446L232,448L236,453L236,461L234,463L232,462L228,462L229,464L227,463L222,465L211,459L205,459L204,458L201,461L197,462L197,459L196,456L196,449L200,443L200,440L202,440L204,438L199,424ZM221,466L222,467L217,476L219,480L212,483L211,481L210,481L209,479L210,478L221,466Z","なら":"M256,461L257,464L256,465L257,468L262,471L257,475L259,481L258,491L255,491L250,498L249,497L246,497L242,497L241,492L239,489L243,483L245,482L243,476L244,472L242,468L245,459L249,462L256,461Z","わかやま":"M255,505L253,509L248,512L247,515L247,513L236,510L232,505L234,503L229,501L225,496L223,496L224,493L223,492L226,490L224,489L225,487L225,486L227,485L223,480L224,479L227,480L243,476L245,482L243,483L239,489L241,492L241,497L249,497L250,500L255,505Z","とっとり":"M162,427L162,429L167,430L173,427L178,428L188,428L199,424L204,436L203,440L193,443L191,438L187,437L186,436L182,438L181,439L179,437L173,436L170,442L166,443L165,445L162,447L157,447L158,441L163,438L164,432L160,428L162,427Z","しまね":"M108,463L114,461L121,453L130,447L133,442L141,437L142,433L141,431L152,428L156,424L158,426L163,425L160,428L164,432L162,439L158,441L157,447L147,447L141,454L142,456L136,458L127,459L124,461L121,472L119,474L119,476L117,479L111,478L111,474L108,473L108,463ZM165,396L166,399L164,399L164,401L159,399L160,395L163,393L165,396Z","おかやま":"M197,462L194,461L196,462L192,465L193,465L192,466L185,467L185,468L187,466L188,467L185,472L180,473L177,469L169,474L171,471L168,472L163,453L162,447L166,445L166,443L170,442L173,436L178,437L181,439L186,436L187,437L191,438L193,443L200,440L200,443L196,449L196,456L197,459L197,462Z","ひろしま":"M168,472L162,478L164,476L162,475L161,473L159,477L159,480L156,480L155,478L159,476L156,475L155,477L148,479L147,478L145,480L145,482L141,483L140,482L138,483L136,479L137,477L131,477L126,481L127,483L123,481L120,471L124,462L127,459L136,458L142,456L141,453L149,446L162,447L168,472Z","やまぐち":"M127,483L126,487L126,492L124,494L124,498L120,501L123,499L122,497L114,491L111,493L113,490L110,489L105,490L105,492L101,490L100,492L98,492L98,490L94,495L92,493L91,494L88,490L86,489L82,495L81,494L82,489L80,487L82,485L81,480L81,477L86,475L83,475L84,473L89,474L91,476L91,473L94,473L95,474L93,474L92,476L99,474L100,470L105,465L105,464L108,463L108,473L111,474L111,478L117,479L121,472L123,481L127,483ZM127,497L125,495L127,493L130,496L134,494L132,496L132,498L130,496L127,497Z","とくしま":"M202,483L209,481L208,484L209,484L207,491L211,494L209,498L212,498L201,506L199,509L197,511L193,510L192,506L189,505L187,499L184,500L175,497L175,491L181,487L186,488L193,485L201,485L202,483Z","かがわ":"M173,490L175,488L175,484L172,481L177,482L185,476L190,477L192,475L193,478L194,477L196,478L196,479L200,481L202,483L201,485L193,485L186,488L181,487L175,491L173,490ZM199,468L199,473L197,473L198,472L195,474L195,472L193,472L193,470L199,468Z","えひめ":"M141,537L138,536L136,538L135,532L133,531L132,533L133,530L135,531L134,529L136,528L132,525L135,525L135,526L138,524L137,522L135,522L137,520L132,520L133,519L132,517L133,515L129,514L123,518L123,517L119,519L133,511L136,507L142,503L143,500L145,492L150,489L149,486L151,485L157,494L164,492L170,493L173,490L175,491L176,494L175,497L159,501L153,513L146,515L149,520L142,528L140,527L142,535L141,537Z","こうち":"M197,511L193,523L184,513L178,511L174,512L169,514L168,517L163,518L161,527L159,528L156,532L155,532L153,534L153,539L152,539L151,541L154,545L150,543L146,544L143,542L140,544L140,542L143,538L141,537L142,533L140,527L142,528L146,523L149,521L146,515L153,513L159,501L172,498L184,500L187,499L189,505L192,506L193,510L197,511Z","ふくおか":"M52,514L53,513L57,511L54,509L58,505L61,509L64,508L65,505L63,506L61,504L64,505L67,502L66,500L68,497L72,496L74,494L79,494L81,496L85,493L84,499L85,499L88,507L92,508L90,513L84,513L81,516L79,519L79,530L74,528L70,530L68,533L66,534L65,530L63,526L69,519L69,516L65,517L60,514L52,514Z","さが":"M45,519L46,522L47,517L44,514L45,513L47,515L46,510L49,511L49,513L51,515L60,514L65,517L69,516L69,519L64,523L63,527L59,525L55,528L59,534L58,536L53,535L48,531L49,528L45,526L43,522L45,519Z","ながさき":"M58,536L55,539L56,540L59,539L63,539L64,544L63,547L57,550L55,547L58,544L57,542L54,542L51,544L50,543L47,548L42,552L45,548L44,546L46,545L45,545L39,536L40,529L42,531L42,534L43,533L45,534L44,537L44,536L44,539L46,540L47,539L51,540L49,536L49,533L47,531L42,531L43,528L42,528L41,527L40,529L40,527L39,525L36,524L37,521L37,518L39,518L40,517L41,519L44,519L43,522L45,526L49,528L48,531L53,535L58,536ZM32,465L33,468L29,474L30,474L31,477L28,479L29,476L27,477L27,475L27,477L25,476L26,476L28,464L30,464L33,462L34,465L32,465ZM13,547L14,548L10,548L9,551L8,550L3,550L4,547L5,548L5,543L7,544L10,542L13,547ZM28,480L29,479L26,486L24,487L23,487L24,478L25,478L25,479L27,478L28,480ZM20,534L23,534L20,537L19,541L17,535L19,534L19,532L20,532L21,526L20,534ZM36,516L35,520L32,525L30,526L29,524L31,526L30,524L32,519L36,516ZM43,501L44,502L42,502L41,504L39,502L39,501L40,502L39,500L40,497L43,498L43,501Z","くまもと":"M63,569L67,561L68,561L70,556L70,555L71,554L70,552L74,548L66,549L72,546L71,541L66,537L66,534L68,533L70,530L74,528L84,532L85,530L84,527L86,526L89,527L94,539L96,541L93,542L85,555L88,562L87,565L88,569L79,572L75,572L71,569L65,571L63,569ZM56,552L58,561L51,567L51,565L50,565L52,563L53,563L50,561L52,555L51,553L56,552ZM65,554L67,554L63,560L63,558L59,559L58,557L63,553L65,554Z","おおいた":"M92,508L97,509L103,505L108,505L110,509L110,513L109,516L107,516L105,519L102,518L102,522L113,523L116,522L112,528L116,528L115,530L117,530L118,531L119,530L119,531L117,531L116,534L118,536L122,536L119,537L118,540L119,541L115,542L115,545L112,541L110,541L109,543L103,544L101,541L97,542L94,539L92,532L87,526L84,527L85,532L79,530L79,519L81,516L84,513L90,513L92,508Z","みやざき":"M115,545L108,553L110,555L107,555L108,558L106,559L105,563L100,581L102,584L100,591L98,594L96,602L93,601L92,598L90,598L91,592L86,590L75,573L88,569L87,565L88,562L85,556L86,552L88,551L93,542L96,541L101,541L103,544L109,543L111,541L115,545Z","かごしま":"M90,598L87,599L85,602L88,604L87,606L89,606L85,608L83,612L73,617L74,614L76,612L78,603L75,598L75,594L71,593L74,591L76,594L79,590L77,588L74,587L72,589L69,598L70,604L73,606L73,610L69,611L66,607L59,607L57,604L58,603L55,600L56,600L59,601L62,597L62,592L57,584L57,582L59,583L58,581L58,578L57,575L58,573L57,571L59,570L61,571L63,569L65,571L71,569L75,572L78,577L81,580L81,584L84,585L87,591L91,593L90,598ZM74,644L71,649L67,650L66,649L64,643L68,640L74,644ZM87,624L88,627L87,634L84,638L84,644L81,644L80,644L80,640L83,637L83,631L87,624ZM44,584L44,586L42,590L40,591L39,590L44,584Z","おきなわ":"M113,39L112,45L108,50L104,51L103,55L98,56L92,62L87,63L86,64L91,72L86,71L82,79L85,80L84,83L82,84L80,87L76,87L75,78L80,73L80,63L84,62L86,60L92,57L93,55L93,53L89,51L88,46L94,46L95,50L98,49L101,47L101,45L107,39L109,33L113,39ZM30,69L29,72L28,70L25,69L26,67L28,66L30,69Z"};
@@ -762,6 +770,7 @@ function paintBg(){
     }
     if(G.screen==="mura")drawMuraSky(g);
     if(G.screen==="sougen")drawBudouBatake(g);
+    if(G.screen==="nagano1"){drawNagano(g);if(!kenDone("nagano")){g.fillStyle="rgba(58,40,84,.8)";g.fillRect(0,0,WW,48)}}
     if(G.screen==="gunma1"){drawGunma(g);if(!kenDone("gunma")){g.fillStyle="rgba(58,40,84,.8)";g.fillRect(0,0,WW,48)}}
     if(G.screen==="tochigi1"){drawTochigi(g);if(!kenDone("tochigi")){g.fillStyle="rgba(58,40,84,.8)";g.fillRect(0,0,WW,48)}}
     if(G.screen==="ibaraki1"){drawIbaraki(g);if(!kenDone("ibaraki")){g.fillStyle="rgba(58,40,84,.8)";g.fillRect(0,0,WW,48)}}
@@ -774,11 +783,11 @@ function paintBg(){
 }
 function setupScreen(name){
   G.screen=name;G.plane=null;G.cha=null;G.enemies=[];G.npcs=[];G.chests=[];G.pickups=[];G.parts=[];G.boss=null;G.clearTimer=0;
-  const foes=(name==="shizu2"&&(kenDone("shizuoka")||G.flags.clear_shizu2))||(name==="kana2"&&(kenDone("kanagawa")||G.flags.clear_kana2))||(name==="tokyo2"&&(kenDone("tokyo")||G.flags.clear_tokyo2))||(name==="chiba2"&&(kenDone("chiba")||G.flags.clear_chiba2))||(name==="saitama2"&&(kenDone("saitama")||G.flags.clear_saitama2))||(name==="ibaraki2"&&(kenDone("ibaraki")||G.flags.clear_ibaraki2))||(name==="tochigi2"&&(kenDone("tochigi")||G.flags.clear_tochigi2))||(name==="gunma2"&&(kenDone("gunma")||G.flags.clear_gunma2))?[]:(ENEMIES[name]||[]);
+  const foes=(name==="shizu2"&&(kenDone("shizuoka")||G.flags.clear_shizu2))||(name==="kana2"&&(kenDone("kanagawa")||G.flags.clear_kana2))||(name==="tokyo2"&&(kenDone("tokyo")||G.flags.clear_tokyo2))||(name==="chiba2"&&(kenDone("chiba")||G.flags.clear_chiba2))||(name==="saitama2"&&(kenDone("saitama")||G.flags.clear_saitama2))||(name==="ibaraki2"&&(kenDone("ibaraki")||G.flags.clear_ibaraki2))||(name==="tochigi2"&&(kenDone("tochigi")||G.flags.clear_tochigi2))||(name==="gunma2"&&(kenDone("gunma")||G.flags.clear_gunma2))||(name==="nagano2"&&(kenDone("nagano")||G.flags.clear_nagano2))?[]:(ENEMIES[name]||[]);
   /* きった やぶは、がめんを でて もどると また はえる */
   MAPS[name].forEach((r,y)=>[...r].forEach((c,x)=>{if("BQjqb".includes(c))G.map[name][y][x]=c}));
   /* モコが なかまに なる まえの もりには もどさない（モコの ばめんが さきに くる） */
-  const back=(name==="mori"&&!G.flags.moko)||(name==="oku3"&&!G.flags.guri)||name==="shizu2"||name==="kana2"||name==="tokyo2"||name==="chiba2"||name==="saitama2"||name==="ibaraki2"||name==="tochigi2"||name==="gunma2"?[]:foes.slice(0,3);
+  const back=(name==="mori"&&!G.flags.moko)||(name==="oku3"&&!G.flags.guri)||name==="shizu2"||name==="kana2"||name==="tokyo2"||name==="chiba2"||name==="saitama2"||name==="ibaraki2"||name==="tochigi2"||name==="gunma2"||name==="nagano2"?[]:foes.slice(0,3);
   (G.flags["clear_"+name]?back:foes).forEach(([type,tx,ty])=>G.enemies.push(enemy(type,tx,ty)));
   if(name==="mura"){
     G.npcs.push({id:"nauyu",x:3*TILE,y:5*TILE,img:NAUYU},{id:"granny",x:7*TILE,y:4*TILE,img:GRANNY},{id:"shop",x:7*TILE,y:6*TILE+2,img:MERCHANT},
@@ -809,6 +818,13 @@ function setupScreen(name){
   if(/^saitama/.test(name))G.enemies.forEach(e=>{e.hp*=7;e.dmg=2});
   if(/^ibaraki/.test(name))G.enemies.forEach(e=>{e.hp*=8;e.dmg=2});
   G.okita=false;
+  if(/^nagano/.test(name))G.enemies.forEach(e=>{e.hp*=11;e.dmg=2});
+  if(name==="nagano1")G.npcs.push({id:"hikouki",x:112,y:104,img:HIKOUKI,big:1},{id:"azusa",x:2*TILE,y:4*TILE,img:AZUSA});
+  if(name==="nagano2")G.map.nagano2[0][5]=G.flags.clear_nagano2||kenDone("nagano")?"p":"T";
+  if(name==="nagano3"){
+    if(!kenDone("nagano")){G.map.nagano3[8][5]="T";G.boss={kind:"yama",x:72,y:18,hp:18,round:0,seq:[],i:0,state:"rest",t:1.6,T:1,rocks:[],hitBy:-1,swingSeen:-1,flash:0,calm:false};}
+    else{G.map.nagano3[8][5]="p";G.boss={kind:"yama",x:72,y:24,hp:0,round:0,seq:[],i:0,state:"calm",t:0,T:1,rocks:[],hitBy:-1,swingSeen:-1,flash:0,calm:true};}
+  }
   if(/^gunma/.test(name))G.enemies.forEach(e=>{e.hp*=10;e.dmg=2});
   if(name==="gunma1")G.npcs.push({id:"hikouki",x:112,y:104,img:HIKOUKI,big:1},{id:"yuno",x:2*TILE,y:4*TILE,img:YUNO});
   if(name==="gunma2")G.map.gunma2[0][5]=G.flags.clear_gunma2||kenDone("gunma")?"p":"T";
@@ -962,12 +978,19 @@ function ch2Goal(){
   if(!f.buhin)return "もりの おくの たからばこを あけよう";
   if(!f.kami)return G.screen==="mura"?"そらを みて！ なにか とんで くる！":"やまなしの モヤが はれた！ むらへ かえろう";
   if(!f.nihon)return "そらから おちて きた かみを、ガンテツに みせよう";
+  const ng=G.screen.startsWith("nagano"),ngGoal=()=>{
+    if(!kenDone("nagano"))return G.screen==="nagano3"?"やじるしの じゅんばんを おぼえて、おなじ むきに けんを ふろう！":G.screen==="nagano2"?(f.clear_nagano2?"きたの やまへ すすもう":"りんごばたけの モヤを ぜんぶ はらおう"):ng?"ひがしの りんごばたけへ！ モヤを はらおう":"ひこうきで ながのへ いこう（やまなしの おとなりだよ）";
+    if(!(f.miyage||{}).soba)return "ながのが はれた！ アズサに はなしかけよう";
+    if(!f.yamabikoken)return "やまびこの こえを ガンテツに もって いこう（こえ 1・りんご 3・100コイン）";
+    if(f.camera&&!(f.album||{}).nagano)return "ながのの しゃしんスポットで しゃしんを とろう";
+    return "ながのは クリア！ つぎの けんは じゅんびちゅう";};
+  if(ng)return ngGoal();
   const gm=G.screen.startsWith("gunma"),gmGoal=()=>{
     if(!kenDone("gunma"))return G.screen==="gunma3"?"だるまが うしろを むいて いる あいだに きろう！ こっちを みたら うごかない！":G.screen==="gunma2"?(f.clear_gunma2?"きたの だるまの おてらへ すすもう":"キャベツばたけの モヤを ぜんぶ はらおう"):gm?"ひがしの キャベツばたけへ！ モヤを はらおう":"ひこうきで ぐんまへ いこう（おんせんと だるまの けん だよ）";
     if(!(f.miyage||{}).konnyaku)return "ぐんまが はれた！ ユノに はなしかけよう";
     if(!f.darumaken)return "だるまの ひげを ガンテツに もって いこう（ひげ 1・キャベツ 3・100コイン）";
     if(f.camera&&!(f.album||{}).gunma)return "ぐんまの しゃしんスポットで しゃしんを とろう";
-    return "ぐんまは クリア！ かんとうは ぜんぶ はれた！ つぎの けんは じゅんびちゅう";};
+    return ngGoal();};
   if(gm)return gmGoal();
   const tc=G.screen.startsWith("tochigi"),tcGoal=()=>{
     if(!kenDone("tochigi"))return G.screen==="tochigi3"?"うえに でる なまえの サルを きろう！（め＝みざる・くち＝いわざる・みみ＝きかざる）":G.screen==="tochigi2"?(f.clear_tochigi2?"きたの なすの こうげんへ すすもう":"いちごばたけの モヤを ぜんぶ はらおう"):tc?"ひがしの いちごばたけへ！ モヤを はらおう":"ひこうきで とちぎへ いこう（いちごの けん だよ）";
@@ -1258,10 +1281,10 @@ function talkTo(id){
     else say([["ちゃつみの チャコ","しずおかは おちゃと みかんで ゆうめいだよ。\nあたたかくて、おちゃが よく そだつんだ。はまなこの うなぎも ゆうめい！"],["ちゃつみの チャコ","ふじさんは しずおかと やまなしの あいだに ある、\nにほんで いちばん たかい やま。たかさは 3776メートル！"],["ちゃつみの チャコ",f.camera?"かんばんの ところで、ふじさんの しゃしんが とれるよ！":"かんばんの ところは しゃしんスポット。\nカメラが あったら、ふじさんを とって みてね！"],["ちゃつみの チャコ","そうだ、ちゃつみを して みない？"]],openChaAsk);
   }
   if(id==="kanban"){
-    const ym=G.screen==="mura",gm=G.screen.startsWith("gunma"),tc=G.screen.startsWith("tochigi"),ib=G.screen.startsWith("ibaraki"),st=G.screen.startsWith("saitama"),cb=G.screen.startsWith("chiba"),tk=G.screen.startsWith("tokyo"),kn=G.screen.startsWith("kana"),k=ym?"yamanashi":gm?"gunma":tc?"tochigi":ib?"ibaraki":st?"saitama":cb?"chiba":tk?"tokyo":kn?"kanagawa":"shizuoka",what=ym?"ふじさん":gm?"ゆばたけ":tc?"けごんの たき":ib?"つくばさんと ロケット":st?"ときの かね":cb?"しろい とうだい":tk?"とうきょうタワー":kn?"ちゅうかがいの もん":"ふじさん";
+    const ym=G.screen==="mura",ng=G.screen.startsWith("nagano"),gm=G.screen.startsWith("gunma"),tc=G.screen.startsWith("tochigi"),ib=G.screen.startsWith("ibaraki"),st=G.screen.startsWith("saitama"),cb=G.screen.startsWith("chiba"),tk=G.screen.startsWith("tokyo"),kn=G.screen.startsWith("kana"),k=ym?"yamanashi":ng?"nagano":gm?"gunma":tc?"tochigi":ib?"ibaraki":st?"saitama":cb?"chiba":tk?"tokyo":kn?"kanagawa":"shizuoka",what=ym?"ふじさん":ng?"まつもとじょう":gm?"ゆばたけ":tc?"けごんの たき":ib?"つくばさんと ロケット":st?"ときの かね":cb?"しろい とうだい":tk?"とうきょうタワー":kn?"ちゅうかがいの もん":"ふじさん";
     if(ym?!f.cleared:!kenDone(k))say([["「しゃしんスポット」と かいて ある。\nでも、モヤで なにも みえない……"]]);
     else if(!f.camera)say([["「しゃしんスポット」と かいて ある。\n"+what+"が きれいに みえる！"],["カメラが あれば とれるのに……\nクイズひろばの サルの ウッキーが もって いるらしい。"]]);
-    else say([[(f.album||{})[k]?"もう 1まい、カシャッ！":"カシャッ！\n"+(ym?"ふじさんと ぶどうだなの":gm?"くさつの ゆばたけの":tc?"けごんの たきの":ib?"つくばさんと ロケットの":st?"かわごえの ときの かねの":cb?"しろい とうだいと うみの":tk?"とうきょうタワーの":kn?"ちゅうかがいの もんの":"ふじさんと ちゃばたけの")+" しゃしんを とった！"]],()=>{const first=!(f.album||{})[k];f.album=f.album||{};f.album[k]=true;if(first)save();SFX.item();updateGoal();openAlbum(true)});
+    else say([[(f.album||{})[k]?"もう 1まい、カシャッ！":"カシャッ！\n"+(ym?"ふじさんと ぶどうだなの":ng?"まつもとじょうと アルプスの":gm?"くさつの ゆばたけの":tc?"けごんの たきの":ib?"つくばさんと ロケットの":st?"かわごえの ときの かねの":cb?"しろい とうだいと うみの":tk?"とうきょうタワーの":kn?"ちゅうかがいの もんの":"ふじさんと ちゃばたけの")+" しゃしんを とった！"]],()=>{const first=!(f.album||{})[k];f.album=f.album||{};f.album[k]=true;if(first)save();SFX.item();updateGoal();openAlbum(true)});
   }
   if(id==="kuma"&&G.boss&&G.boss.rai){say([["かみなりさま","とうきょうには、にほんじゅうから ひとが あつまって くる。\nあさくさは、むかしから にぎやかな まちなんじゃ。"]]);return}
   if(id==="nikumanya")say([["にくまんやの ホカホカさん","いらっしゃい！ ほかほかの にくまん、あるよ！\nおおぐい せんしゅけんも やってるよ！"]],openNikuman);
@@ -1276,6 +1299,13 @@ function talkTo(id){
   if(id==="neba")say([["わらなっとうの ワラじい","いばらきの かすみがうらは、びわこの つぎに おおきい みずうみ じゃ。\nにほんで 2ばんめ じゃよ。"],["わらなっとうの ワラじい","そうじゃ、なっとう ねばねば たいかいに でて みんか？"]],()=>openNebaTaikai());
   if(id==="saru")say([["さんびきの サル","なすは、うしが たくさん いる こうげん。\nおいしい ぎゅうにゅうが とれるんだ。おんせんも あるよ。ウキッ！"]]);
   if(id==="daruma")say([["おおだるま","たかさきは だるまづくりで ゆうめい。\nにほんの だるまの やく 8わりが、ここで つくられて いると いわれて おる。"],["おおだるま","わしの まゆげは つる、ひげは かめの かたち。\nどちらも えんぎの いい いきもの じゃ。"]]);
+  if(id==="yama")say([["やまびこ","ながのけんは、8つの けんと となりあって いる。\nにほんで いちばん おおいんだ。やまなしも おとなり だよ。 …だよ。 …だよ。"],["やまびこ","やまに むかって「ヤッホー」と いって ごらん。\nこえが かえって くるのが、やまびこ だよ。 …だよ。"]]);
+  if(id==="azusa"){
+    if(!kenDone("nagano"))say([["あんないにんの アズサ","ようこそ、ながのけんへ！ ここは まつもと。\nくろい おしろと、たかい やまが みえる まちよ。"],["あんないにんの アズサ","でも ひがしの りんごばたけに、くろい モヤが でて いるの。"],["あんないにんの アズサ","その さきの やまでは、やまびこが おかしく なって いるって……\nトロヒくん、おねがい！"]]);
+    else if(!(f.miyage||{}).soba)say([["あんないにんの アズサ","モヤが はれたわ！ ありがとう、トロヒくん。\nはい、これは しんしゅうの そば。ながのは むかし「しんしゅう」と よばれて いたの。"],["あんないにんの アズサ","ながのけんは、レタスの とれる りょうが にほんいち。\nりんごは にほんで 2ばんめ なのよ。"],["おみやげ「しんしゅうの そば」を てに いれた！\n「もちもの」の「おもいで」で みられるよ。"]],
+      ()=>{f.miyage=f.miyage||{};f.miyage.soba=true;save();SFX.item();updateGoal()});
+    else say([["あんないにんの アズサ","うしろの おしろは「まつもとじょう」。こくほうよ。\n400ねん いじょう まえに たてられた てんしゅが、いまも のこって いるの。"],["あんないにんの アズサ","むこうの たかい やまは「にほん アルプス」。\nながのけんの けんちょうが あるのは ながのし。うみに めんして いない けんよ。"],["あんないにんの アズサ","そうだ、そばきりを して いかない？"]],startSoba);
+  }
   if(id==="yuno"){
     if(!kenDone("gunma"))say([["あんないにんの ユノ","ようこそ、ぐんまけんへ！ ここは くさつ おんせん。\nまんなかの「ゆばたけ」から、あつい おゆが わいて いるの。"],["あんないにんの ユノ","でも ひがしの キャベツばたけに、くろい モヤが でて いるの。"],["あんないにんの ユノ","その さきの だるまの おてらでは、おおきな だるまが あばれて いるって……\nトロヒくん、おねがい！"]]);
     else if(!(f.miyage||{}).konnyaku)say([["あんないにんの ユノ","モヤが はれたわ！ ありがとう、トロヒくん。\nはい、これは ぐんまの こんにゃく。ぷるぷる よ。"],["あんないにんの ユノ","こんにゃくは「こんにゃくいも」から つくるの。\nにほんの こんにゃくいもの 9わり いじょうが、ぐんまで とれるのよ。"],["おみやげ「ぐんまの こんにゃく」を てに いれた！\n「もちもの」の おみやげの そうこで みられるよ。"]],
@@ -1441,7 +1471,7 @@ function goScreen(dir){
   G.entry=[pl.x,pl.y];
   if(to==="doukutsu"&&!G.flags.bossDown){pl.y=112;pl.x=80;pl.dir="up";G.entry=[80,112]}
   if(to==="tokyo3"&&!kenDone("tokyo")){pl.y=108;pl.x=80;pl.dir="up";G.entry=[80,108]}
-  {const bk={chiba3:"chiba",saitama3:"saitama",ibaraki3:"ibaraki",tochigi3:"tochigi",gunma3:"gunma"}[to];if(bk&&!kenDone(bk)){pl.y=108;pl.x=80;pl.dir="up";G.entry=[80,108]}}
+  {const bk={chiba3:"chiba",saitama3:"saitama",ibaraki3:"ibaraki",tochigi3:"tochigi",gunma3:"gunma",nagano3:"nagano"}[to];if(bk&&!kenDone(bk)){pl.y=108;pl.x=80;pl.dir="up";G.entry=[80,108]}}
   if(to==="kana3"&&!kenDone("kanagawa")){pl.y=108;pl.x=80;pl.dir="up";G.entry=[80,108]}
   if(to==="shizu3"&&!kenDone("shizuoka")){pl.y=108;pl.x=80;pl.dir="up";G.entry=[80,108]}
   if(to==="saba3"&&!G.flags.toraDown){pl.y=108;pl.x=80;pl.dir="up";G.entry=[80,108]}
@@ -1527,6 +1557,14 @@ function afterSlide(){
     say([["ザバーン！\nはまなこから、くろい モヤに つつまれた おおうなぎが とびだした！"],[buddyName(),buddy()==="guri"?"グリッ！ グリグリ！\n（かべに ぶつかった ときが チャンスだって！）":"モコッ！ モコモコ！\n（かべに ぶつかった ときが チャンスだって！）"]]);
   }
   planeCheck();
+  if(G.screen==="nagano1"&&!G.flags.naganoSeen){
+    G.flags.naganoSeen=true;
+    say([["トロヒ","ここが ながのけん。やまなしの おとなりだ！\nくうきが つめたくて、やまが たかい！"],["でも おしろの ほうは くろい モヤで みえない。\nあんないにんの おねえさんに はなしを きいて みよう。"]]);
+  }
+  if(G.screen==="nagano3"&&G.boss&&!G.boss.calm&&!G.flags.yamaSeen){
+    G.flags.yamaSeen=true;SFX.boom();
+    say([["ヤッホー…… ヤッホー…… ヤッホー……\nくろい モヤに つつまれた やまびこが あらわれた！"],[buddyName(),buddy()==="guri"?"グリッ！ グリグリ！\n（やじるしの じゅんばんを おぼえて！ おなじ むきに けんを ふると、やまびこが めを まわすよ！）":"モコッ！ モコモコ！\n（やじるしの じゅんばんを おぼえて！ おなじ むきに けんを ふると、やまびこが めを まわすよ！）"]]);
+  }
   if(G.screen==="gunma1"&&!G.flags.gunmaSeen){
     G.flags.gunmaSeen=true;
     say([["トロヒ","ここが ぐんまけん。\nゆげが もくもく して いる！ おんせんの においだ。"],["でも むこうは くろい モヤで みえない。\nあんないにんの おねえさんに はなしを きいて みよう。"]]);
@@ -1837,7 +1875,7 @@ function update(dt){
       e.hitBy=G.swingId;e.hp-=SWORDS[swordLv()-1].dmg;e.flash=.2;SFX.hit();
       if(swordLv()===9&&Math.random()<.2&&G.hp<G.maxHp){G.hp++;SFX.heart();puff(pl.x+8,pl.y+4,5,"#f7a8c0")}
       if(swordLv()===8)G.enemies.forEach(o=>{if(o!==e&&o.hp>0&&Math.hypot(o.x-e.x,o.y-e.y)<46){o.hp-=2;o.flash=.2;puff(o.x+8,o.y+8,6,"#ffd84d")}});
-      const a=Math.atan2(e.y-pl.y,e.x-pl.x);e.kx=Math.cos(a)*130;e.ky=Math.sin(a)*130;e.kt=.17;if(swordLv()===10){e.kx*=2.2;e.ky*=2.2;e.kt=.3;G.shake=.12}if(swordLv()===12&&e.hp<=0)G.pickups.push({x:e.x+2,y:e.y+2,t:8,kind:"coin",v:3},{x:e.x+9,y:e.y+7,t:8,kind:"coin",v:3});if(swordLv()===11){e.kx=0;e.ky=0;e.kt=1;puff(e.x+8,e.y+10,4,"#e8c88f")}
+      const a=Math.atan2(e.y-pl.y,e.x-pl.x);e.kx=Math.cos(a)*130;e.ky=Math.sin(a)*130;e.kt=.17;if(swordLv()===14&&e.hp>0){e.hp-=2;puff(e.x+8,e.y+8,5,"#bfe9ff")}if(swordLv()===10){e.kx*=2.2;e.ky*=2.2;e.kt=.3;G.shake=.12}if(swordLv()===12&&e.hp<=0)G.pickups.push({x:e.x+2,y:e.y+2,t:8,kind:"coin",v:3},{x:e.x+9,y:e.y+7,t:8,kind:"coin",v:3});if(swordLv()===11){e.kx=0;e.ky=0;e.kt=1;puff(e.x+8,e.y+10,4,"#e8c88f")}
     }
     if(overlap(plBox(),box)&&e.flash<=0)hurt(e.dmg||1,e.x,e.y);
   });
@@ -1859,14 +1897,14 @@ function update(dt){
     }
     return false;
   });
-  if(G.clearTimer>0){G.clearTimer-=dt;if(G.clearTimer<=0&&G.screen==="mori"&&!G.flags.moko)mokoJoins();else if(G.clearTimer<=0&&G.screen==="oku3"&&!G.flags.guri)guriJoins();else if(G.clearTimer<=0&&G.screen==="tochigi2"&&G.map.tochigi2[0][5]==="T"){G.map.tochigi2[0][5]="p";paintBg();SFX.item();puff(88,8,10)}else if(G.clearTimer<=0&&G.screen==="gunma2"&&G.map.gunma2[0][5]==="T"){G.map.gunma2[0][5]="p";paintBg();SFX.item();puff(88,8,10)}else if(G.clearTimer<=0&&G.screen==="ibaraki2"&&G.map.ibaraki2[0][5]==="T"){G.map.ibaraki2[0][5]="p";paintBg();SFX.item();puff(88,8,10)}else if(G.clearTimer<=0&&G.screen==="saitama2"&&G.map.saitama2[0][5]==="T"){G.map.saitama2[0][5]="p";paintBg();SFX.item();puff(88,8,10)}else if(G.clearTimer<=0&&G.screen==="chiba2"&&G.map.chiba2[0][5]==="T"){G.map.chiba2[0][5]="p";paintBg();SFX.item();puff(88,8,10)}else if(G.clearTimer<=0&&G.screen==="tokyo2"&&G.map.tokyo2[0][5]==="^"){G.map.tokyo2[0][5]="p";paintBg();SFX.item();puff(88,8,10,"#ffd84d");say([["なかみせの モヤが きえた！"],["でも きたの かみなりもんから、ゴロゴロ…… と おとが する。\nきたの みちが ひらいた！ すすもう。"]],updateGoal);if(!G.npcs.some(n=>n.id==="x"))0}else if(G.clearTimer<=0&&G.screen==="kana2"&&G.map.kana2[0][5]==="^"){if(!G.npcs.some(n=>n.id==="nikumanya"))G.npcs.push({id:"nikumanya",x:2*TILE,y:2*TILE,img:NIKUMANYA});G.map.kana2[0][5]="p";paintBg();SFX.item();puff(88,8,10,"#ffd84d");say([["ちゅうかがいの モヤが きえた！"],["でも きたの はとばから、まだ くろい モヤが ながれて くる……\nきたの もんが ひらいた！ みなとへ すすもう。"]],updateGoal)}else if(G.clearTimer<=0&&G.screen==="shizu2"&&G.map.shizu2[0][5]==="T"){G.map.shizu2[0][5]="p";paintBg();SFX.item();puff(88,8,10,"#ffd84d");say([["ちゃばたけの モヤが きえた！"],["でも きたの ほうから、まだ くろい モヤが ながれて くる……\nきたの みちが ひらいた！ はまなこへ すすもう。"]],updateGoal)}}
+  if(G.clearTimer>0){G.clearTimer-=dt;if(G.clearTimer<=0&&G.screen==="mori"&&!G.flags.moko)mokoJoins();else if(G.clearTimer<=0&&G.screen==="oku3"&&!G.flags.guri)guriJoins();else if(G.clearTimer<=0&&G.screen==="tochigi2"&&G.map.tochigi2[0][5]==="T"){G.map.tochigi2[0][5]="p";paintBg();SFX.item();puff(88,8,10)}else if(G.clearTimer<=0&&G.screen==="gunma2"&&G.map.gunma2[0][5]==="T"){G.map.gunma2[0][5]="p";paintBg();SFX.item();puff(88,8,10)}else if(G.clearTimer<=0&&G.screen==="nagano2"&&G.map.nagano2[0][5]==="T"){G.map.nagano2[0][5]="p";paintBg();SFX.item();puff(88,8,10)}else if(G.clearTimer<=0&&G.screen==="ibaraki2"&&G.map.ibaraki2[0][5]==="T"){G.map.ibaraki2[0][5]="p";paintBg();SFX.item();puff(88,8,10)}else if(G.clearTimer<=0&&G.screen==="saitama2"&&G.map.saitama2[0][5]==="T"){G.map.saitama2[0][5]="p";paintBg();SFX.item();puff(88,8,10)}else if(G.clearTimer<=0&&G.screen==="chiba2"&&G.map.chiba2[0][5]==="T"){G.map.chiba2[0][5]="p";paintBg();SFX.item();puff(88,8,10)}else if(G.clearTimer<=0&&G.screen==="tokyo2"&&G.map.tokyo2[0][5]==="^"){G.map.tokyo2[0][5]="p";paintBg();SFX.item();puff(88,8,10,"#ffd84d");say([["なかみせの モヤが きえた！"],["でも きたの かみなりもんから、ゴロゴロ…… と おとが する。\nきたの みちが ひらいた！ すすもう。"]],updateGoal);if(!G.npcs.some(n=>n.id==="x"))0}else if(G.clearTimer<=0&&G.screen==="kana2"&&G.map.kana2[0][5]==="^"){if(!G.npcs.some(n=>n.id==="nikumanya"))G.npcs.push({id:"nikumanya",x:2*TILE,y:2*TILE,img:NIKUMANYA});G.map.kana2[0][5]="p";paintBg();SFX.item();puff(88,8,10,"#ffd84d");say([["ちゅうかがいの モヤが きえた！"],["でも きたの はとばから、まだ くろい モヤが ながれて くる……\nきたの もんが ひらいた！ みなとへ すすもう。"]],updateGoal)}else if(G.clearTimer<=0&&G.screen==="shizu2"&&G.map.shizu2[0][5]==="T"){G.map.shizu2[0][5]="p";paintBg();SFX.item();puff(88,8,10,"#ffd84d");say([["ちゃばたけの モヤが きえた！"],["でも きたの ほうから、まだ くろい モヤが ながれて くる……\nきたの みちが ひらいた！ はまなこへ すすもう。"]],updateGoal)}}
   /* ひの あな：ひが でて いる あいだに ふむと いたい */
   if(G.screen.startsWith("hino")&&ventLit()){
     const vx=Math.floor((pl.x+8)/TILE),vy=Math.floor((pl.y+13)/TILE);
     if(tileAt(vx,vy)==="f")hurt(1,vx*TILE+8,vy*TILE+8);
   }
   /* ボス */
-  if(G.boss)(G.boss.kind==="daruma"?updDaruma:G.boss.kind==="saru"?updSaru:G.boss.kind==="neba"?updNeba:G.boss.kind==="nama"?updNama:G.boss.kind==="kai"?updKai:G.boss.kind==="washi"||G.boss.kind==="kamome"?updWashi:G.boss.kind==="lion"?updLion:G.boss.kind==="tora"?updTora:G.boss.kind==="kuma"?updKuma:G.boss.kind==="ryu"?updRyu:updBoss)(dt,sw);
+  if(G.boss)(G.boss.kind==="yama"?updYama:G.boss.kind==="daruma"?updDaruma:G.boss.kind==="saru"?updSaru:G.boss.kind==="neba"?updNeba:G.boss.kind==="nama"?updNama:G.boss.kind==="kai"?updKai:G.boss.kind==="washi"||G.boss.kind==="kamome"?updWashi:G.boss.kind==="lion"?updLion:G.boss.kind==="tora"?updTora:G.boss.kind==="kuma"?updKuma:G.boss.kind==="ryu"?updRyu:updBoss)(dt,sw);
   /* ハート・コイン・ひろいもの */
   G.pickups=G.pickups.filter(p=>{
     p.t-=dt;
@@ -2821,6 +2859,9 @@ function renderWorld(){
   }else if(B&&B.kind==="tora"){
     drawToraFx(B);
     list.push({y:B.y+10,draw(){drawTora(B)}});
+  }else if(B&&B.kind==="yama"){
+    list.push({y:B.y+30,draw(){drawYama(B)}});
+    B.rocks.forEach(r=>list.push({y:r.y+8,draw(){drawYamaRock(r)}}));
   }else if(B&&B.kind==="daruma"){
     list.push({y:B.y+30,draw(){drawDaruma(B)}});
   }else if(B&&B.kind==="saru"){
@@ -3041,9 +3082,9 @@ function openQuiz(id,st){
   row.after(quit);
 }
 function openMap(){
-  const f=G.flags,done=1+Object.keys(f.ken||{}).length,p=menuPanel(`にほんちず　はれた ${done} / 48`);
+  const f=G.flags,done=1+Object.keys(f.ken||{}).length,p=menuPanel(`にほんちず　はれた ${done} / 49`);
   p.append(el("p","いきたい けんを えらんでね"));
-  const info=nm=>{const k=kenOf(nm),home=nm==="やまなし",here=home?!/^(shizu|kana|tokyo|chiba|saitama|ibaraki|tochigi|gunma)/.test(G.screen):!!k&&G.screen.startsWith(KEN[k].start.replace(/\d+$/,""));return {k,home,here,clear:home||(!!k&&kenDone(k))}};
+  const info=nm=>{const k=kenOf(nm),home=nm==="やまなし",here=home?!/^(shizu|kana|tokyo|chiba|saitama|ibaraki|tochigi|gunma|nagano)/.test(G.screen):!!k&&G.screen.startsWith(KEN[k].start.replace(/\d+$/,""));return {k,home,here,clear:home||(!!k&&kenDone(k))}};
   {const NS="http://www.w3.org/2000/svg",sv=document.createElementNS(NS,"svg");sv.setAttribute("viewBox","0 0 610 665");sv.style.cssText="width:100%;max-width:420px;background:#22364a;border-radius:8px";
     const fr=document.createElementNS(NS,"rect");fr.setAttribute("x",4);fr.setAttribute("y",4);fr.setAttribute("width",150);fr.setAttribute("height",110);fr.setAttribute("fill","none");fr.setAttribute("stroke","#8a94a6");fr.setAttribute("stroke-width",2);sv.append(fr);
     Object.keys(JMAP).forEach(nm=>{const o=info(nm),pa=document.createElementNS(NS,"path");pa.setAttribute("d",JMAP[nm]);
@@ -3056,7 +3097,7 @@ function openMap(){
     p.append(el("p",area));
     const grid=el("div");grid.className="grid";
     list.forEach(nm=>{
-      const k=kenOf(nm),home=nm==="やまなし",here=home?!/^(shizu|kana|tokyo|chiba|saitama|ibaraki|tochigi|gunma)/.test(G.screen):k&&G.screen.startsWith(KEN[k].start.replace(/\d+$/,""));
+      const k=kenOf(nm),home=nm==="やまなし",here=home?!/^(shizu|kana|tokyo|chiba|saitama|ibaraki|tochigi|gunma|nagano)/.test(G.screen):k&&G.screen.startsWith(KEN[k].start.replace(/\d+$/,""));
       const c=el("button");c.type="button";c.className="cell";
       const clear=home||(k&&kenDone(k));
       c.append(el("span",nm),el("span",here?"いま ここ":clear?"はれた":k?"いける":"まだ"));
@@ -3072,7 +3113,7 @@ function openMap(){
 }
 /* おみやげの そうこ：どの けんの とくさんひんかが わかる */
 function openMiyage(){
-  const f=G.flags,mk=Object.keys(MIYAGE).filter(k=>(f.miyage||{})[k]),p=menuPanel(`おみやげの そうこ　${mk.length} / 48`);
+  const f=G.flags,mk=Object.keys(MIYAGE).filter(k=>(f.miyage||{})[k]),p=menuPanel(`おみやげの そうこ　${mk.length} / 49`);
   if(!mk.length)p.append(el("p","まだ おみやげが ないよ。\nけんの モヤを はらうと もらえるよ。"));
   mk.forEach(k=>{const m=MIYAGE[k],box=el("div");box.className="cell";box.style.width="100%";box.style.flexDirection="row";box.style.gap="10px";box.style.padding="8px";box.style.textAlign="left";
     const t=el("div");t.style.cssText="display:flex;flex-direction:column;gap:2px;align-items:flex-start";const kn=el("b",m.ken);kn.style.color="var(--sun)";t.append(kn,el("span",m.name+((f.todoke||{})[k]?"　★ママに とどいた":"")),el("span",m.note));t.lastChild.style.fontSize=".8em";
@@ -4664,7 +4705,7 @@ function openAsobu(){
 }
 function openOmoide(){
   const f=G.flags,p=menuPanel("おもいで"),mk=Object.keys(MIYAGE).filter(k=>(f.miyage||{})[k]);
-  const mb=el("button",`おみやげの そうこ（${mk.length} / 48）`);mb.type="button";mb.style.width="100%";mb.addEventListener("click",openMiyage);
+  const mb=el("button",`おみやげの そうこ（${mk.length} / 49）`);mb.type="button";mb.style.width="100%";mb.addEventListener("click",openMiyage);
   const ab=el("button",f.camera?`アルバム（${Object.keys(f.album||{}).length}まい）`:"アルバム（カメラが いるよ）");ab.type="button";ab.style.width="100%";ab.disabled=!f.camera;ab.addEventListener("click",()=>openAlbum());
   p.append(mb,ab);
   if(f.kuro){const kb=el("button",kuroName()+"に おみやげを とどけて もらう"+(todokeLeft().length?"（"+todokeLeft().length+"こ）":""));kb.type="button";kb.style.width="100%";kb.addEventListener("click",()=>openTodoke());p.append(kb)}
@@ -4672,9 +4713,9 @@ function openOmoide(){
 }
 function openKenPick(){
   const f=G.flags,p=menuPanel("けんを かえる");
-  const opts=[[SWORDS[bestLv()-1].name,swordLv()<5,()=>{delete f.equip}]].concat(f.yabu?[["やぶの けん",swordLv()===5,()=>{f.equip=5}]]:[]).concat(f.fuji?[["ふじの けん",swordLv()===6,()=>{f.equip=6}]]:[]).concat(f.minato?[["みなとの けん",swordLv()===7,()=>{f.equip=7}]]:[]).concat(f.kaminari?[["かみなりの けん",swordLv()===8,()=>{f.equip=8}]]:[]).concat(f.shinjuken?[["しんじゅの けん",swordLv()===9,()=>{f.equip=9}]]:[]).concat(f.jishin?[["じしんの けん",swordLv()===10,()=>{f.equip=10}]]:[]).concat(f.nebari?[["ねばりの けん",swordLv()===11,()=>{f.equip=11}]]:[]).concat(f.ichigoken?[["いちごの けん",swordLv()===12,()=>{f.equip=12}]]:[]).concat(f.darumaken?[["だるまの けん",swordLv()===13,()=>{f.equip=13}]]:[]);
+  const opts=[[SWORDS[bestLv()-1].name,swordLv()<5,()=>{delete f.equip}]].concat(f.yabu?[["やぶの けん",swordLv()===5,()=>{f.equip=5}]]:[]).concat(f.fuji?[["ふじの けん",swordLv()===6,()=>{f.equip=6}]]:[]).concat(f.minato?[["みなとの けん",swordLv()===7,()=>{f.equip=7}]]:[]).concat(f.kaminari?[["かみなりの けん",swordLv()===8,()=>{f.equip=8}]]:[]).concat(f.shinjuken?[["しんじゅの けん",swordLv()===9,()=>{f.equip=9}]]:[]).concat(f.jishin?[["じしんの けん",swordLv()===10,()=>{f.equip=10}]]:[]).concat(f.nebari?[["ねばりの けん",swordLv()===11,()=>{f.equip=11}]]:[]).concat(f.ichigoken?[["いちごの けん",swordLv()===12,()=>{f.equip=12}]]:[]).concat(f.darumaken?[["だるまの けん",swordLv()===13,()=>{f.equip=13}]]:[]).concat(f.yamabikoken?[["やまびこの けん",swordLv()===14,()=>{f.equip=14}]]:[]);
   opts.forEach(([t,on,fn])=>{const b=el("button",t+(on?"（いま）":""));b.type="button";b.style.width="100%";if(!on)b.className="sub";b.disabled=on;b.addEventListener("click",()=>{fn();save();SFX.clink();openKenPick()});p.append(b)});
-  if(f.yabu||f.fuji)p.append(el("p",swordLv()===13?"だるまの けん：ハートが なくなっても、1かい おきあがる（ばしょが かわると また つかえる）":swordLv()===12?"いちごの けん：たおした てきが コインを おおく おとす":swordLv()===11?"ねばりの けん：きった てきが ねばねばで うごけなく なる":swordLv()===10?"じしんの けん：きった てきを とおくへ ふきとばす":swordLv()===9?"しんじゅの けん：てきを きると ときどき ハートが もどる":swordLv()===8?"かみなりの けん：きると まわりの てきにも かみなりが あたる":swordLv()===7?"みなとの けん：とても ながい・とおくの てきに とどく":swordLv()===6?"ふじの けん：いちばん つよい・ボスに とても よく きく":swordLv()===5?"やぶの けん：イバラが きれる・やぶから かならず でる":SWORDS[bestLv()-1].name+"：たたかいに つよい"));
+  if(f.yabu||f.fuji)p.append(el("p",swordLv()===14?"やまびこの けん：きると、やまびこで もう 1かい あたる":swordLv()===13?"だるまの けん：ハートが なくなっても、1かい おきあがる（ばしょが かわると また つかえる）":swordLv()===12?"いちごの けん：たおした てきが コインを おおく おとす":swordLv()===11?"ねばりの けん：きった てきが ねばねばで うごけなく なる":swordLv()===10?"じしんの けん：きった てきを とおくへ ふきとばす":swordLv()===9?"しんじゅの けん：てきを きると ときどき ハートが もどる":swordLv()===8?"かみなりの けん：きると まわりの てきにも かみなりが あたる":swordLv()===7?"みなとの けん：とても ながい・とおくの てきに とどく":swordLv()===6?"ふじの けん：いちばん つよい・ボスに とても よく きく":swordLv()===5?"やぶの けん：イバラが きれる・やぶから かならず でる":SWORDS[bestLv()-1].name+"：たたかいに つよい"));
   subBack(p);
 }
 /* なかま：つれて いく こを えらぶ・ごはんを あげて なかよく なる */
@@ -4762,6 +4803,149 @@ function drawBudouBatake(g){
     g.fillStyle="#b99be0";g.fillRect(px+2,py+5,1,1);g.fillRect(px+10,py+5,1,1);
   }
 }
+/* ---------- ながの：まつもとじょう・りんごばたけ・やまびこ・そばきり ---------- */
+const AZUSA=recolor(MOTHER,{"#3e93e6":"#8b5fbf","#2a65ad":"#67428f"});
+function drawNagano(g,full){
+  g.fillStyle="#9ad4f5";g.fillRect(0,0,176,full?84:48);
+  const by=full?70:48;
+  /* にほん アルプス */
+  [[20,4,70],[78,8,60],[126,2,70]].forEach(([cx,top,wd])=>{for(let i=0;i<by-top;i++){const w2=Math.min(wd,4+i*3);g.fillStyle=i<7?"#ffffff":"#6f8fb5";g.fillRect(Math.round(cx-w2/2),top+i,w2,1)}});
+  g.fillStyle="#5f8f6a";g.fillRect(0,by-10,176,10);
+  /* まつもとじょう：くろい てんしゅ */
+  const cx=88,b=by-4;
+  g.fillStyle="#b9b2a2";g.fillRect(cx-26,b-6,52,6);
+  [[40,10],[32,8],[24,7],[16,6]].forEach(([wd,h],i)=>{const y=b-6-[10,18,25,31][i];g.fillStyle="#1b1d2e";g.fillRect(cx-wd/2,y,wd,h);g.fillStyle="#f4f4f4";g.fillRect(cx-wd/2+1,y+h-3,wd-2,2);g.fillStyle="#34385a";g.fillRect(cx-wd/2-3,y-1,wd+6,2)});
+  g.fillStyle="#34385a";g.fillRect(cx-5,b-41,10,4);g.fillStyle="#ffd84d";g.fillRect(cx-6,b-42,2,2);g.fillRect(cx+4,b-42,2,2);
+  /* おほり */
+  g.fillStyle="#3e93e6";g.fillRect(0,by-4,60,4);g.fillRect(116,by-4,60,4);
+  if(full){g.fillStyle="#cfc8b8";g.fillRect(0,70,176,14);g.fillStyle="#b9b2a2";[[14,74],[64,79],[112,73],[152,78]].forEach(([x,y])=>g.fillRect(x,y,6,1))}
+}
+const YAMA_DIR=["up","right","down","left"],YAMA_ARROW={up:"↑",right:"→",down:"↓",left:"←"};
+function yamaShow(B){const n=Math.min(5,3+Math.floor(B.round/2));B.seq=Array.from({length:n},()=>YAMA_DIR[Math.floor(Math.random()*4)]);B.i=0;B.state="show";B.T=B.t=n*.75+.4}
+function updYama(dt,sw){
+  const B=G.boss;B.flash=Math.max(0,B.flash-dt);if(B.calm)return;B.t-=dt;
+  B.rocks=B.rocks.filter(r=>{r.t-=dt;if(r.t<=0&&!r.hit){r.hit=true;G.shake=.2;SFX.boom();puff(r.x+8,r.y+8,8,"#8a8f99");if(overlap(plBox(),{x:r.x,y:r.y,w:16,h:16}))hurt(1,r.x+8,r.y+8)}return r.t>-.25});
+  if(B.state==="rest"){if(B.t<=0)yamaShow(B)}
+  else if(B.state==="show"){if(B.t<=0){B.state="input";B.T=B.t=4+B.seq.length*1.2;B.i=0;B.swingSeen=G.swingId}}
+  else if(B.state==="input"){
+    if(sw&&G.swingId!==B.swingSeen&&G.mode==="play"){
+      B.swingSeen=G.swingId;
+      if(pl.dir===B.seq[B.i]){B.i++;SFX.clink();
+        if(B.i>=B.seq.length){B.state="dizzy";B.T=B.t=3.2;B.round++;SFX.item();toast("せいかい！ やまびこが めを まわした！ いまだ！")}
+      }else{SFX.hurt();toast("ちがう！ いわが おちて くる！");B.rocks.push({x:pl.x,y:pl.y,t:.9});B.state="rest";B.t=1.6}
+    }else if(B.t<=0){toast("じかんぎれ！ いわが おちて くる！");B.rocks.push({x:pl.x,y:pl.y,t:.9});B.state="rest";B.t=1.6}
+  }else if(B.state==="dizzy"){
+    if(sw&&B.hitBy!==G.swingId&&G.mode==="play"&&overlap(sw,{x:B.x+2,y:B.y+2,w:28,h:30})){
+      B.hitBy=G.swingId;const d=SWORDS[swordLv()-1].dmg;B.hp-=d>=5?3:d>=4?2:1;B.flash=.2;SFX.hit();puff(B.x+16,B.y+16,8,"#ffd84d");
+      if(B.hp<=0){yamaDown();return}
+    }
+    if(B.t<=0){B.state="rest";B.t=1}
+  }
+}
+/* やじるしは もじでは なく、かたちで かく（きかいに よって もじが かわる ため） */
+function yamaArrow(cx,cy,dir,col){
+  const a={up:0,right:1,down:2,left:3}[dir]*Math.PI/2;
+  w.save();w.translate(Math.round(cx),Math.round(cy));w.rotate(a);w.fillStyle=col;
+  w.beginPath();w.moveTo(0,-7);w.lineTo(6,0);w.lineTo(2,0);w.lineTo(2,7);w.lineTo(-2,7);w.lineTo(-2,0);w.lineTo(-6,0);w.closePath();w.fill();w.restore();
+}
+function drawYamaRock(r){
+  const x=Math.round(r.x),y=Math.round(r.y);
+  if(r.t>0){w.fillStyle="rgba(0,0,0,"+(.15+.3*(1-r.t/.9)).toFixed(2)+")";w.beginPath();w.ellipse(x+8,y+13,8*(1-r.t/.9)+2,3,0,0,6.283);w.fill();const fy=y-r.t*150;w.fillStyle="#8a8f99";w.fillRect(x+2,fy,12,12);w.fillStyle="#b9c0cc";w.fillRect(x+4,fy+2,4,3)}
+  else{w.fillStyle="#8a8f99";w.fillRect(x+2,y+2,12,12);w.fillStyle="#b9c0cc";w.fillRect(x+4,y+4,4,3)}
+}
+function drawYama(B){
+  const x=Math.round(B.x),y=Math.round(B.y+(B.calm||B.state==="dizzy"?0:Math.sin(G.time*3)*2)),calm=B.calm;
+  const body=calm?"#7fc8a0":"#8f89a8",dk=calm?"#4f9a72":"#5d4385";
+  w.fillStyle="rgba(0,0,0,.22)";w.beginPath();w.ellipse(x+16,y+33,12,3,0,0,6.283);w.fill();
+  if(!(B.flash>0&&Math.floor(G.time*24)%2)){
+    w.fillStyle=body;w.fillRect(x+13,y,6,3);w.fillRect(x+9,y+3,14,4);w.fillRect(x+5,y+7,22,6);w.fillRect(x+2,y+13,28,14);w.fillRect(x+5,y+27,22,4);
+    w.fillStyle="#ffffff";w.fillRect(x+13,y,6,2);w.fillRect(x+11,y+2,10,2);
+    w.fillStyle=dk;w.fillRect(x+2,y+25,28,2);w.fillRect(x+5,y+29,22,2);
+    w.fillStyle="#1b1d2e";
+    if(B.state==="dizzy"){w.fillRect(x+9,y+14,4,1);w.fillRect(x+10,y+13,1,3);w.fillRect(x+19,y+14,4,1);w.fillRect(x+20,y+13,1,3)}
+    else{w.fillRect(x+9,y+13,3,4);w.fillRect(x+20,y+13,3,4)}
+    w.fillStyle=calm?"#e8505b":"#3a1020";w.fillRect(x+12,y+19,8,B.state==="show"||calm?5:2);
+    if(B.state==="dizzy")for(let i=0;i<3;i++){const a=G.time*5+i*2.1;w.fillStyle="#ffd84d";w.fillRect(x+15+Math.cos(a)*13,y-4+Math.sin(a)*3,3,3)}
+  }
+  if(!calm&&(B.state==="show"||B.state==="input")){
+    const n=B.seq.length,show=B.state==="show",k=show?Math.min(n,Math.floor((B.T-B.t)/.75)+1):n;
+    w.font="bold 11px sans-serif";w.textAlign="center";
+    w.fillStyle="rgba(27,29,46,.88)";w.fillRect(30,58,116,19);
+    for(let i=0;i<n;i++){const cx=88+(i-(n-1)/2)*20;
+      if(show){if(i<k)yamaArrow(cx,68,B.seq[i],i===k-1?"#ffd84d":"#fff8e6")}
+      else if(i<B.i)yamaArrow(cx,68,B.seq[i],"#7fd65c");else{w.fillStyle="#62687a";w.fillText("？",cx,72)}}
+    if(!show){w.fillStyle="#ffd84d";w.fillRect(30,77,116*Math.max(0,B.t/B.T),2)}
+    w.font="bold 8px sans-serif";w.fillStyle="#fff8e6";w.fillText(show?"おぼえて！":"おなじ むきに けんを ふろう",88,56);
+    w.textAlign="left";
+  }
+}
+function yamaDown(){
+  const B=G.boss,f=G.flags;B.calm=true;B.state="calm";B.flash=0;B.rocks=[];B.y=24;
+  puff(88,40,16);SFX.poof();G.shake=.4;
+  G.map.nagano3[8][5]="p";paintBg();G.enemies=[];
+  f.ken=f.ken||{};f.ken.nagano=true;f.yamabiko=true;f.mats=f.mats||{};f.mats.yamabiko=(f.mats.yamabiko||0)+1;chihoCheck();G.hp=G.maxHp;save();
+  say([["くろい モヤが はれて いく……"],
+    ["やまびこ","ヤッホー！ ……あれ、ぼくは なにを して いたんだろう。 …だろう。\nたすけて くれて ありがとう！ …がとう！"],
+    ["やまびこ","やまびこは、やまに むかって だした こえが、はねかえって もどって くる こと。\nおとは、ものに あたると はねかえるんだよ。 …だよ。"],
+    [chihoLine()],
+    ["やまびこの こえを てに いれた！\nむらの ガンテツに もって いくと、ながのの けんを つくって くれるよ。"],
+    ["ながのの モヤが はれた！\nあんないにんの アズサの ところへ もどって みよう。"]],
+    ()=>{SFX.item();updateGoal()});
+}
+/* そばきり：ほうちょうが ちょうど いい ところに きたら おす */
+function startSoba(){
+  const f=G.flags,p=menuPanel("そばきり"),N=10;
+  if(miniRun)miniRun.stop();
+  const info=el("p","しるしが みどりの ところに きたら、がめんを おそう！\n10かい きって、ほそく きれた かずを きそうよ。");info.style.fontSize=".9em";
+  const cv=document.createElement("canvas");cv.width=352;cv.height=352;cv.style.cssText="width:100%;max-width:352px;border:3px solid #fff8e6;border-radius:6px;touch-action:none;user-select:none;-webkit-user-select:none";
+  const c=cv.getContext("2d"),S={ready:1.8,t:0,n:0,cut:0,pos:0,dir:1,zone:88,msg:"",msgT:0,wait:0,over:false,res:[]};
+  const zw=()=>Math.max(14,34-S.cut*2),sp=()=>110+S.cut*16;
+  function tap(){
+    if(S.over||S.ready>0||S.wait>0)return;
+    const ok=Math.abs(S.pos-S.zone)<=zw()/2;S.res.push(ok);S.cut++;if(ok){S.n++;S.msg="ほそい！ じょうず！";SFX.clink()}else{S.msg="ふとく なっちゃった";SFX.hurt()}
+    S.msgT=.6;S.wait=.5;
+    if(S.cut>=N){S.wait=9;setTimeout(finish,500);return}
+    S.zone=40+Math.random()*96;
+  }
+  cv.addEventListener("pointerdown",e=>{e.preventDefault();audio();tap()});
+  function tick(dt){
+    if(S.msgT>0)S.msgT-=dt;if(S.wait>0){S.wait-=dt;return}
+    S.pos+=S.dir*sp()*dt;if(S.pos>160){S.pos=160;S.dir=-1}if(S.pos<16){S.pos=16;S.dir=1}
+  }
+  function draw(){
+    c.setTransform(2,0,0,2,0,0);
+    c.fillStyle="#e8c88f";c.fillRect(0,0,176,176);c.fillStyle="#c9975b";c.fillRect(0,120,176,56);
+    /* そばの きじと、きった そば */
+    c.fillStyle="#b9a98c";c.fillRect(16+S.cut*14,60,144-S.cut*14,40);
+    S.res.forEach((ok,i)=>{c.fillStyle="#9a8a6c";const x=18+i*14;if(ok){for(let k=0;k<4;k++)c.fillRect(x+k*3,60,2,40)}else{c.fillRect(x,60,5,40);c.fillRect(x+7,60,5,40)}});
+    /* めもり */
+    c.fillStyle="rgba(27,29,46,.8)";c.fillRect(12,128,152,14);c.fillStyle="#7fd65c";c.fillRect(S.zone-zw()/2,128,zw(),14);
+    c.fillStyle="#fff8e6";c.fillRect(Math.round(S.pos)-1,124,3,22);
+    /* ほうちょう */
+    c.fillStyle="#d9dee8";c.fillRect(Math.round(S.pos)-10,30,20,24);c.fillStyle="#6d4426";c.fillRect(Math.round(S.pos)-3,18,6,12);
+    c.fillStyle="rgba(27,29,46,.75)";c.fillRect(0,0,176,13);c.fillStyle="#fff8e6";c.font="bold 9px sans-serif";c.textAlign="left";c.fillText("ほそく きれた "+S.n+"かい",4,10);
+    c.textAlign="right";c.fillText(S.ready>0?"よーい……":"のこり "+(N-S.cut)+"かい",172,10);
+    if(S.msgT>0){c.font="bold 11px sans-serif";c.textAlign="center";c.fillStyle="#fff8e6";c.strokeStyle="#1b1d2e";c.lineWidth=3;c.strokeText(S.msg,88,116);c.fillText(S.msg,88,116)}
+  }
+  let raf=0,last=0,alive=true;
+  function finish(){
+    if(S.over)return;S.over=true;run.stop();draw();
+    const rec=S.n>(f.soba||0);if(rec)f.soba=S.n;save();SFX.item();
+    info.style.fontSize="";info.textContent=`おしまい！　10かいの うち ${S.n}かい、ほそく きれた！`+(rec&&S.n?"　さいこう きろく！":"")+(S.n>=8?"\nそばうち めいじん！":"");
+    const row=el("div");row.className="row";
+    const a=el("button","もういちど");a.type="button";a.addEventListener("click",startSoba);
+    const b=el("button","やめる");b.type="button";b.className="sub";b.addEventListener("click",closeMenu);row.append(a,b);p.append(row);
+  }
+  function loop(ts){
+    if(!alive)return;
+    if(p.hidden||!p.contains(cv)){run.stop();return}
+    const dt=last?Math.min(.25,(ts-last)/1000):0;last=ts;
+    if(S.ready>0){S.ready-=dt;if(S.ready<=0)SFX.item()}else{S.t+=dt;tick(dt)}
+    draw();raf=requestAnimationFrame(loop);
+  }
+  const run=miniRun={S,tap,tick,draw,finish,stop(){alive=false;cancelAnimationFrame(raf);if(miniRun===run)miniRun=null}};
+  p.append(info,cv);draw();raf=requestAnimationFrame(loop);
+}
 function openCameraQuiz(){
   const f=G.flags,p=menuPanel("とくべつ なぞなぞ");
   p.append(el("p","カメと ラクダと サイが かいものに きました。\nなんと いって、なにを かったでしょう？"));
@@ -4796,6 +4980,7 @@ function openFly(list){
   const b=el("button","やめる");b.type="button";b.className="sub";b.addEventListener("click",closeMenu);p.append(b);
 }
 const RECIPES=[
+ {name:"やまびこの けん",need:{yamabiko:1,ringo:3},coins:100,show:f=>f.yamabiko,ok:f=>!f.yamabikoken,make:f=>{f.yamabikoken=true;f.equip=14},note:"ながのの けん。きると、やまびこで もう 1かい あたる"},
  {name:"だるまの けん",need:{darumahige:1,kyabetsu:3},coins:100,show:f=>f.daruma,ok:f=>!f.darumaken,make:f=>{f.darumaken=true;f.equip=13},note:"ぐんまの けん。ハートが なくなっても、1かい おきあがる"},
  {name:"いちごの けん",need:{sarunomi:1,ichigo:3},coins:100,show:f=>f.saru,ok:f=>!f.ichigoken,make:f=>{f.ichigoken=true;f.equip=12},note:"とちぎの けん。たおした てきが コインを おおく おとす"},
  {name:"ねばりの けん",need:{nebaito:1,renkon:3},coins:100,show:f=>f.neba,ok:f=>!f.nebari,make:f=>{f.nebari=true;f.equip=11},note:"いばらきの けん。きった てきが ねばねばで、しばらく うごけなく なる"},
