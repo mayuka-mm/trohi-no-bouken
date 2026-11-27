@@ -2640,6 +2640,7 @@ function openBag(){
   const f=G.flags,items=f.items||{},found=f.found||{};
   const p=menuPanel("もちもの");
   p.append(el("p",`コイン ${f.coins||0}　　くすり ${f.potions||0}`));
+  {const tb=el("button","でんしゃで あそぼう");tb.type="button";tb.addEventListener("click",openTrain);p.append(tb)}
   if(f.nihon){const gb=el("button","ミニゲームで あそぶ");gb.type="button";gb.addEventListener("click",openMini);p.append(gb)}
   /* おみやげの そうこと アルバムは、いちばん うえに おおきく だす */
   if(f.nihon){
@@ -3305,6 +3306,136 @@ function startVolley(){
   info.textContent=HINT.recv;p.append(cv,pad,info);
   draw();raf=requestAnimationFrame(loop);
 }
+/* ---------- でんしゃで あそぼう（かぞくで あそぶ コーナー。コインは いらない） ---------- */
+const TR_NAZO=[["パンは パンでも、たべられない パンは？","フライパン"],["うえは おおみず、したは おおかじ。なーんだ？","おふろ"],["とっても とっても へらない ものは？","しゃしん"],["かけば かくほど みじかく なる ものは？","えんぴつ"],["おとうさんが きらいな くだものは？","パパイヤ（パパ、いや！）"],["さかさに すると かるく なる どうぶつは？","イルカ（かるい）"],["トラが 9ひき のって いる のりものは？","トラック"],["めが 3つ、あしが 1ぽん。なーんだ？","しんごうき"],["あさに なると ふっとんで いく ものは？","ふとん"],["そらの ほしは ほし。じゃあ すっぱい ほしは？","うめぼし"],["ぼうしの なかに かくれて いる どうぶつは？","うし（ぼ・うし）"],["れいぞうこの なかに いる どうぶつは？","ぞう"],["イスは イスでも、つめたくて あまい イスは？","アイス"],["くりは くりでも、おどろく くりは？","びっくり"],["とりは とりでも、ごみを あつめる とりは？","ちりとり"],["いりぐちは 1つ、でぐちは 2つ。なーんだ？","ズボン"],["たべると ほっと する ケーキは？","ホットケーキ"],["すいかの なかに いる いきものは？","いか"],["パンダの なかに ある たべものは？","パン"],["カレーに そっくりな なまえの さかなは？","カレイ"],["ふけば ふくほど おおきく なる ものは？","ふうせん"],["あしが 4ほん あるのに あるけない ものは？","つくえ（いす）"],["アリが 10ぴきで いう ことばは？","ありがとう"],["「せかい」の まんなかに いる むしは？","か（せ・か・い）"],["あしが ないのに ながれて いく ものは？","かわ"],["1ねんに 1かい だけ、としを とる ひは？","たんじょうび"],["たたかれると いい おとが する がっきは？","たいこ"],["かんは かんでも、かわを むいて たべる かんは？","みかん"]];
+const TR_DARE=[["ふじさん","にほんで いちばん たかいよ","しずおかけんと やまなしけんに あるよ","たかさは 3776メートル"],["とうきょうタワー","あかと しろの しましまだよ","たかさは 333メートル","とうきょうに ある タワーだよ"],["とうきょうスカイツリー","ぎんいろで とても せが たかいよ","にほんで いちばん たかい タワーだよ","たかさは 634メートル"],["キリン","くびが とても ながいよ","きいろに ちゃいろの もようが あるよ","たかい きの はっぱを たべるよ"],["ペンギン","とりだけど そらを とべないよ","およぐのが とくいだよ","さむい ところに すんで いて、よちよち あるくよ"],["ゾウ","とても おおきいよ","みみも おおきいよ","ながい はなで ものを つかむよ"],["しんかんせん","とても はやいよ","せんろの うえを はしるよ","とうきょうえきから にほんじゅうへ いくよ"],["バレーボール","6にんの チームで するよ","まんなかに ネットが あるよ","ボールを ゆかに おとしたら あいての てん"],["ぶどう","むらさきや みどりの つぶつぶ","ふさに なって いるよ","やまなしけんで たくさん とれる くだもの"],["おちゃ","みどりいろの のみもの","はっぱから つくるよ","しずおかけんで たくさん つくられて いるよ"],["にくまん","しろくて ほかほか","なかに おにくが はいって いるよ","よこはまの ちゅうかがいの めいぶつ"],["とけい","はりが 2ほんか 3ぼん あるよ","チクタク うごくよ","じかんを おしえて くれるよ"],["かさ","ひらいたり とじたり するよ","てに もって つかうよ","あめの ひに さすよ"],["にじ","そらに でるよ","あめの あとに みえるよ","7つの いろの はしみたい"],["つき","そらに あるよ","かたちが まいにち すこしずつ かわるよ","よるに ひかって みえるよ"],["れいぞうこ","だいどころに あるよ","なかは つめたいよ","たべものを ひやして おく はこ"]];
+const TR_GES=["ゾウ","ペンギン","カエル","サル","ゴリラ","うさぎ","ねこ","バレーの アタック","バレーの レシーブ","サッカー","やきゅうの バッター","すいえい","スキー","さかなつり","はみがき","ラーメンを たべる","にくまんを たべる","ねむい ひと","けんを ふる ゆうしゃ","ひこうき","カメラマン","りょうりにん","おすもうさん","ロボット","にんじゃ","かいだんを のぼる ひと","さむい ひと","おおきな にもつを もつ ひと"];
+const TR_EKAKI=["ふじさん","とうきょうタワー","でんしゃ","ひこうき","ねこ","いぬ","りんご","バナナ","くるま","いえ","さかな","たいよう","ゆきだるま","かさ","めがね","ケーキ","ロケット","きょうりゅう","りゅう","けん","ぶどう","にくまん","バレーボール","ペンギン","ゾウ","はな","ふね","じてんしゃ","おにぎり","ほし"];
+const TR_SHIBARI=["たべものだけで しりとり","いきものだけで しりとり","3もじの ことばだけで しりとり","4もじ いじょうの ことばだけで しりとり","がっこうに ある ものだけで しりとり","ふつうの しりとり。ただし 「い」で おわったら まけ","あたまとり：まえの ことばの さいしょの もじで おわる ことばを いう（りんご → くすり）"];
+const TR_ATSUME=["あかい もの","まるい もの","しかくい もの","くだもの","やさい","のりもの","どうぶつ","うみの いきもの","がっこうに ある もの","えきに ある もの","だいどころに ある もの","スポーツ","バレーで つかう ことば","とどうふけんの なまえ","つめたい もの","あまい もの","そらに ある もの","やまなしに ある もの","くにの なまえ","むし"];
+const TR_KANA="あいうえおかきくけこさしすせそたちつてとなにのはひふへほまみむめもやゆよらりれわ";
+const TR_MADO=["かわ","はし","トンネル","ふみきり","あかい くるま","しろい くるま","トラック","バス","じてんしゃの ひと","いぬ","とり","こうえん","がっこう","おてら か じんじゃ","たんぼ か はたけ","やま","たかい ビル","あかい やね","あおい かんばん","しんごう","ほかの でんしゃ","えきの ホームの ひと","でんちゅう 10ぽん","くも","はた"];
+const TR_IRO=[["しろ","#ffffff"],["くろ","#1b1d2e"],["ぎんいろ","#b9c0cc"],["あか","#e6483d"],["あお","#3e93e6"],["きいろ","#ffd84d"],["その ほか","#67c94a"]];
+/* イントロ：むかしから ある メロディだけ（ドレミの ばんごう・ながさ）。60＝まんなかの ド */
+const TR_SONG=[["きらきらぼし",[[60,1],[60,1],[67,1],[67,1],[69,1],[69,1],[67,2],[65,1],[65,1],[64,1],[64,1],[62,1],[62,1],[60,2]]],
+ ["かえるの がっしょう",[[60,1],[62,1],[64,1],[65,1],[64,1],[62,1],[60,2],[64,1],[65,1],[67,1],[69,1],[67,1],[65,1],[64,2]]],
+ ["メリーさんの ひつじ",[[64,1.5],[62,.5],[60,1],[62,1],[64,1],[64,1],[64,2],[62,1],[62,1],[62,2],[64,1],[67,1],[67,2]]],
+ ["ちょうちょう",[[67,1],[64,1],[64,2],[65,1],[62,1],[62,2],[60,1],[62,1],[64,1],[65,1],[67,1],[67,1],[67,2]]],
+ ["ロンドンばし",[[67,1.5],[69,.5],[67,1],[65,1],[64,1],[65,1],[67,2],[62,1],[64,1],[65,2],[64,1],[65,1],[67,2]]],
+ ["ジングルベル",[[64,1],[64,1],[64,2],[64,1],[64,1],[64,2],[64,1],[67,1],[60,1.5],[62,.5],[64,4]]],
+ ["よろこびの うた",[[64,1],[64,1],[65,1],[67,1],[67,1],[65,1],[64,1],[62,1],[60,1],[60,1],[62,1],[64,1],[64,1.5],[62,.5],[62,2]]],
+ ["ハッピー バースデー",[[67,.75],[67,.25],[69,1],[67,1],[72,1],[71,2],[67,.75],[67,.25],[69,1],[67,1],[74,1],[72,2]]],
+ ["ぶんぶんぶん",[[67,1],[65,1],[64,2],[62,.5],[64,.5],[65,.5],[62,.5],[60,2]]],
+ ["こぎつね",[[60,.5],[62,.5],[64,.5],[65,.5],[67,1],[67,1],[69,.5],[65,.5],[72,.5],[69,.5],[67,2]]],
+ ["きよし この よる",[[67,1.5],[69,.5],[67,1],[64,3],[67,1.5],[69,.5],[67,1],[64,3],[74,2],[74,1],[71,3],[72,2],[72,1],[67,3]]],
+ ["アルプス いちまんじゃく",[[60,.5],[60,.5],[62,.5],[64,.5],[60,.5],[64,.5],[62,1],[60,.5],[60,.5],[62,.5],[64,.5],[60,1],[59,1]]]];
+const trPick=a=>a[Math.floor(Math.random()*a.length)],trShuf=a=>a.slice().sort(()=>Math.random()-.5);
+function trBack(p,again){
+  const row=el("div");row.className="row";
+  if(again){const a=el("button","つぎの もんだい");a.type="button";a.addEventListener("click",again);row.append(a)}
+  const b=el("button","もどる");b.type="button";b.className="sub";b.addEventListener("click",openTrain);row.append(b);p.append(row);
+}
+const TRAIN=[["なぞなぞ","こたえは ボタンを おすと でるよ",trNazo],["イントロ ドン","さいしょの おとで きょくを あてよう（おとは ちいさく）",trIntro],["わたしは だれ？","3つの ヒントで あてよう",trDare],["くるまの いろ あてっこ","なんだいめの くるまは なにいろ？",trKuruma],["まどの そと ビンゴ","みつけたら おして、1れつ そろえよう",trBingo],["おえかき クイズ","かいた えを あてて もらおう",trEkaki],["ジェスチャー","こえを ださずに からだで つたえよう",trGes],["ことば あそび","しりとりの ルールと、ことば あつめ",trKotoba],["なにが きえた？","おぼえて、きえた ものを あてよう",trKieta]];
+function openTrain(){
+  if(miniRun)miniRun.stop();
+  const p=menuPanel("でんしゃで あそぼう");
+  p.append(el("p","かぞくで あそべる ゲームだよ。コインは いらないよ。\nでんしゃの なかでは しずかにね。"));
+  TRAIN.forEach(([n,h,fn])=>{const b=el("button",n);b.type="button";b.style.width="100%";b.addEventListener("click",()=>{audio();fn()});const d=el("p",h);d.style.fontSize=".8em";d.style.margin="0 0 .4em";p.append(b,d)});
+  const b=el("button","もどる");b.type="button";b.className="sub";b.addEventListener("click",openBag);p.append(b);
+}
+function trNazo(){
+  const p=menuPanel("なぞなぞ"),[q,a]=trPick(TR_NAZO);
+  const qq=el("p",q),ans=el("p",""),b=el("button","こたえを みる");b.type="button";b.style.width="100%";ans.style.cssText="font-size:1.3em;color:#ffd84d;min-height:1.6em";
+  b.addEventListener("click",()=>{ans.textContent=a;SFX.item();b.remove()});
+  p.append(qq,b,ans);trBack(p,trNazo);
+}
+function trIntro(){
+  const p=menuPanel("イントロ ドン"),[name,notes]=trPick(TR_SONG);let n=4,done=false;
+  const play=()=>{audio();let at=0;notes.slice(0,n).forEach(([m,d])=>{tone(440*Math.pow(2,(m-69)/12),d*.34,"triangle",.07,0,at);at+=d*.36})};
+  const info=el("p","この きょくは なに？\nおとが ちいさいから、みみを ちかづけてね。（「おと：なし」だと きこえないよ）"),msg=el("p","");msg.style.cssText="font-size:1.2em;color:#ffd84d;min-height:1.6em";
+  const row=el("div");row.className="row";
+  const a=el("button","♪ きく");a.type="button";a.addEventListener("click",play);
+  const m=el("button","もう すこし きく");m.type="button";m.className="sub";m.addEventListener("click",()=>{n=Math.min(notes.length,n+3);play()});
+  row.append(a,m);
+  const col=el("div");col.className="row";col.style.cssText="flex-direction:column;align-items:stretch;width:100%";
+  trShuf([name].concat(trShuf(TR_SONG.map(s=>s[0]).filter(x=>x!==name)).slice(0,2))).forEach(t=>{const b=el("button",t);b.type="button";
+    b.addEventListener("click",()=>{if(done)return;done=true;const ok=t===name;ok?SFX.item():SFX.hurt();msg.textContent=(ok?"せいかい！ ":"ざんねん！ ")+"「"+name+"」でした";n=notes.length;setTimeout(play,700)});col.append(b)});
+  p.append(info,row,col,msg);trBack(p,trIntro);setTimeout(play,400);
+}
+function trDare(){
+  const p=menuPanel("わたしは だれ？"),it=trPick(TR_DARE);let i=1;
+  const h=el("p","ヒント 1：わたしは "+it[1]),ans=el("p","");ans.style.cssText="font-size:1.3em;color:#ffd84d;min-height:1.6em";
+  const row=el("div");row.className="row";
+  const nx=el("button","つぎの ヒント");nx.type="button";nx.addEventListener("click",()=>{if(i<3){i++;h.textContent+="\nヒント "+i+"："+it[i];SFX.talk()}if(i>=3)nx.disabled=true});
+  const sh=el("button","こたえを みる");sh.type="button";sh.className="sub";sh.addEventListener("click",()=>{ans.textContent=it[0]+"（ヒント "+i+"こで わかったら "+(4-i)+"てん）";SFX.item();row.remove()});
+  row.append(nx,sh);p.append(h,row,ans);trBack(p,trDare);
+}
+function trKuruma(){
+  const p=menuPanel("くるまの いろ あてっこ"),T=window._trK=window._trK||{hit:0,all:0},N=3+Math.floor(Math.random()*5);let guess=null,cnt=0;
+  const info=el("p","いまから かぞえて "+N+"だいめに みえる くるまは なにいろ？\nみんなで よそう して、1つ えらぼう。"),st=el("p","あたり "+T.hit+"かい ／ "+T.all+"かい");st.style.fontSize=".85em";
+  const grid=el("div");grid.className="row";grid.style.cssText="width:100%;flex-wrap:wrap;gap:6px";
+  const mk=fn=>{grid.textContent="";TR_IRO.forEach(([n,c])=>{const b=el("button",n);b.type="button";b.style.cssText="flex:1 0 28%;border-left:14px solid "+c;b.addEventListener("click",()=>fn(n));grid.append(b)})};
+  const count=el("button","");count.type="button";count.style.width="100%";
+  mk(n=>{guess=n;info.textContent="よそうは「"+n+"」。\nくるまが 1だい みえたら、したの ボタンを おしてね。";grid.textContent="";count.textContent="1だい みえた（0 / "+N+"）";p.insertBefore(count,st)});
+  count.addEventListener("click",()=>{cnt++;tone(700,.05,"square",.04);count.textContent="1だい みえた（"+cnt+" / "+N+"）";
+    if(cnt>=N){count.remove();info.textContent=N+"だいめ！ なにいろ だった？";p.insertBefore(grid,st);
+      mk(n=>{T.all++;const ok=n===guess;if(ok)T.hit++;ok?SFX.item():SFX.hurt();info.textContent=ok?"あたり！ よそう どおり「"+n+"」！":"はずれ！ よそうは「"+guess+"」、ほんとうは「"+n+"」。";grid.remove();st.textContent="あたり "+T.hit+"かい ／ "+T.all+"かい"})}});
+  p.append(info,grid,st);trBack(p,trKuruma);
+}
+function trBingo(fresh){
+  if(fresh===true||!window._trB)window._trB={c:trShuf(TR_MADO).slice(0,9),on:Array(9).fill(false)};
+  const B=window._trB,p=menuPanel("まどの そと ビンゴ"),msg=el("p","まどの そとに みつけたら おそう。\nたて・よこ・ななめ、1れつ そろえば ビンゴ！");
+  const g=el("div");g.style.cssText="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%";
+  const lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  const check=()=>{const n=lines.filter(l=>l.every(i=>B.on[i])).length;msg.textContent=n?"ビンゴ！ "+n+"れつ そろった！":"まどの そとに みつけたら おそう。\nたて・よこ・ななめ、1れつ そろえば ビンゴ！";return n};
+  B.c.forEach((t,i)=>{const b=el("button",t);b.type="button";b.style.cssText="min-height:4.2em;font-size:.85em;padding:.3em";const paint=()=>{b.className=B.on[i]?"":"sub";b.textContent=(B.on[i]?"✓ ":"")+t};paint();
+    b.addEventListener("click",()=>{const before=check();B.on[i]=!B.on[i];paint();const n=check();n>before?SFX.item():tone(700,.05,"square",.04)});g.append(b)});
+  check();p.append(msg,g);
+  const row=el("div");row.className="row";const a=el("button","あたらしい カード");a.type="button";a.addEventListener("click",()=>trBingo(true));
+  const b=el("button","もどる");b.type="button";b.className="sub";b.addEventListener("click",openTrain);row.append(a,b);p.append(row);
+}
+function trEkaki(){
+  const p=menuPanel("おえかき クイズ"),odai=trPick(TR_EKAKI);
+  const info=el("p","かく ひとだけ「おだいを みる」を おしてね。\nほかの ひとは えを みて あてよう！"),od=el("p","");od.style.cssText="font-size:1.2em;color:#ffd84d;min-height:1.6em";
+  const cv=document.createElement("canvas");cv.width=320;cv.height=260;cv.style.cssText="width:100%;max-width:352px;background:#fff8e6;border-radius:6px;touch-action:none";
+  const c=cv.getContext("2d");c.lineWidth=5;c.lineCap="round";c.lineJoin="round";c.strokeStyle="#1b1d2e";let down=false;
+  const pos=e=>{const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*cv.width/r.width,(e.clientY-r.top)*cv.height/r.height]};
+  cv.addEventListener("pointerdown",e=>{e.preventDefault();down=true;try{cv.setPointerCapture(e.pointerId)}catch(_){}const[x,y]=pos(e);c.beginPath();c.moveTo(x,y);c.lineTo(x+.1,y+.1);c.stroke()});
+  cv.addEventListener("pointermove",e=>{if(!down)return;e.preventDefault();const[x,y]=pos(e);c.lineTo(x,y);c.stroke()});
+  ["pointerup","pointercancel"].forEach(t=>cv.addEventListener(t,()=>{down=false}));
+  const row=el("div");row.className="row";let shown=false;
+  const a=el("button","おだいを みる");a.type="button";a.addEventListener("click",()=>{shown=!shown;od.textContent=shown?"おだい：「"+odai+"」":"";a.textContent=shown?"おだいを かくす":"おだいを みる"});
+  const k=el("button","けす");k.type="button";k.className="sub";k.addEventListener("click",()=>c.clearRect(0,0,cv.width,cv.height));
+  row.append(a,k);p.append(info,row,od,cv);trBack(p,trEkaki);
+}
+function trGes(){
+  const p=menuPanel("ジェスチャー"),odai=trPick(TR_GES);let shown=false;
+  const info=el("p","やる ひとだけ おだいを みてね。\nこえを ださずに、からだの うごきだけで つたえよう！\n（すわった ままで できる うごきでね）"),od=el("p","");od.style.cssText="font-size:1.4em;color:#ffd84d;min-height:1.8em";
+  const a=el("button","おだいを みる");a.type="button";a.style.width="100%";a.addEventListener("click",()=>{shown=!shown;od.textContent=shown?"「"+odai+"」":"";a.textContent=shown?"おだいを かくす":"おだいを みる"});
+  p.append(info,a,od);trBack(p,trGes);
+}
+function trKotoba(){
+  const p=menuPanel("ことば あそび"),out=el("p","");out.style.cssText="font-size:1.15em;color:#ffd84d;min-height:3.2em";
+  const tm=el("p","");let left=0,iv=0;
+  const run=miniRun={stop(){clearInterval(iv);if(miniRun===run)miniRun=null}};
+  const a=el("button","しりとりの ルールを ひく");a.type="button";a.style.width="100%";a.addEventListener("click",()=>{out.textContent=trPick(TR_SHIBARI);SFX.talk()});
+  const b=el("button","ことば あつめの おだいを ひく");b.type="button";b.style.width="100%";b.addEventListener("click",()=>{out.textContent=Math.random()<.5?"「"+trPick([...TR_KANA])+"」で はじまる ことばを、じゅんばんに いおう。\nいえなく なったら まけ！":"「"+trPick(TR_ATSUME)+"」を、じゅんばんに いおう。\nいえなく なったら まけ！";SFX.talk()});
+  const t=el("button","1ぷん タイマー");t.type="button";t.className="sub";t.addEventListener("click",()=>{clearInterval(iv);left=60;tm.textContent="のこり 60びょう";iv=setInterval(()=>{if(p.hidden||!p.contains(tm)){clearInterval(iv);return}left--;tm.textContent=left>0?"のこり "+left+"びょう":"おしまい！";if(left<=0){clearInterval(iv);SFX.item()}},1000)});
+  p.append(el("p","おだいを ひいて、みんなで あそぼう。"),a,b,out,t,tm);trBack(p);
+}
+function trKieta(){
+  const T=window._trM=window._trM||{lv:0},n=Math.min(9,5+T.lv),set=trShuf(ITEMS).slice(0,n),gone=trPick(set),p=menuPanel("なにが きえた？");
+  const info=el("p",n+"この ものを おぼえよう！\nおぼえたら ボタンを おしてね。（れんぞく せいかい "+T.lv+"かい）"),box=el("div");box.style.cssText="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;background:#fff8e6;border-radius:6px;padding:8px;box-sizing:border-box";
+  const show=list=>{box.textContent="";list.forEach(it=>{const d=el("div");d.style.cssText="text-align:center;color:#1b1d2e;font-size:.7em";const im=itemImg(it);im.style.cssText="width:36px;height:36px;image-rendering:pixelated;display:block;margin:0 auto";d.append(im,document.createTextNode(it.name));box.append(d)})};
+  show(set);
+  const ok=el("button","おぼえた！");ok.type="button";ok.style.width="100%";
+  const col=el("div");col.className="row";col.style.cssText="flex-direction:column;align-items:stretch;width:100%";
+  ok.addEventListener("click",()=>{ok.remove();show(trShuf(set.filter(x=>x!==gone)));info.textContent="1つ きえたよ。なにが きえた？";
+    trShuf([gone].concat(trShuf(ITEMS.filter(x=>!set.includes(x))).slice(0,2))).forEach(it=>{const b=el("button",it.name);b.type="button";
+      b.addEventListener("click",()=>{const hit=it===gone;hit?SFX.item():SFX.hurt();T.lv=hit?T.lv+1:0;info.textContent=(hit?"せいかい！ ":"ざんねん！ ")+"きえたのは「"+gone.name+"」";col.remove()});col.append(b)});
+    p.insertBefore(col,p.lastChild)});
+  p.append(info,box,ok);trBack(p,trKieta);
+}
 function openCameraQuiz(){
   const f=G.flags,p=menuPanel("とくべつ なぞなぞ");
   p.append(el("p","カメと ラクダと サイが かいものに きました。\nなんと いって、なにを かったでしょう？"));
@@ -3380,7 +3511,7 @@ function showPanel(kind){
   if(kind==="title"){
     const h=document.createElement("h1");h.textContent="トロヒの\nぼうけん";h.style.whiteSpace="pre-line";
     const s=document.createElement("p");s.textContent="りゅうの なみだを さがして";
-    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ27にち・かんこう2）";v.style.fontSize=".7em";v.style.opacity=".8";
+    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ27にち・でんしゃ）";v.style.fontSize=".7em";v.style.opacity=".8";
     p.append(h,s,v);
     panelBtn(p,"あそぶ",showSlots);
   }
