@@ -128,7 +128,8 @@ const MAPS={
  chiba1:["yyyyyyyyyyy","yyyyyyyyyyy","yyyyyyyyyyy","T....O....T","T.........T","T....pppppp","T,...p....T","T....p...,T","TTTTTTTTTTT"],
  chiba2:["TTTTTpTTTTT","T,..ppp..,T","T.ppppppp.T","T.p.,.,.p.T","T.ppppppp.T","pppp.,.pp.T","T.ppppppp.T","T,.......,T","TTTTTTTTTTT"],
  chiba3:["WWWWWWWWWWW","WsssssssssW","WsssssssssW","WsssssssssW","WsssssssssW","WsssssssssW","WsssssssssW","WsssssssssW","WWWWWsWWWWW"],
- saitama1:["yyyyyyyyyyy","yyyyyyyyyyy","yyyyyyyyyyy","T....O....T","T.........T","T....pppppp","T,...p....T","T....p...,T","TTTTTTTTTTT"],
+ saitama4:["TTTTTTTTTTT","T,..,...,.T","T.........T","T...,.,...T","T.........T","T....pppppp","T..,....,.T","T.........T","TTTTTTTTTTT"],
+ saitama1:["yyyyyyyyyyy","yyyyyyyyyyy","yyyyyyyyyyy","T....O....T","T.........T","ppppppppppp","T,...p....T","T....p...,T","TTTTTTTTTTT"],
  saitama2:["TTTTTpTTTTT","T.,.ppp.,.T","T.pp.p.pp.T","T.p..p..p.T","T.ppppppp.T","pppp,.,pp.T","T.p.ppp.p.T","T,.......,T","TTTTTTTTTTT"],
  saitama3:["WWWWWWWWWWW","WsssssssssW","WsssssssssW","WsssssssssW","WsssssssssW","WsssssssssW","WsssssssssW","WsssssssssW","WWWWWsWWWWW"],
  tokyo1:["yyyyyyyyyyy","yyyyyyyyyyy","yyyyyyyyyyy","T....O....T","T.........T","T....pppppp","T,...p....T","T....p...,T","TTTTTTTTTTT"],
@@ -142,8 +143,8 @@ const MAPS={
  shizu2:["TTTTTpTTTTT","T.,.....,.T","T.cc.B.cc.T","T.........T","T.cc...cc.T","p.........T","T.cc.B.cc.T","T,.......,T","TTTTTTTTTTT"],
  doukutsu:["###########","#_________#","#_________#","#_________#","#_________#","#_________#","#_________#","#_________#","#####_#####"]
 };
-const LINKS={mura:{n:"sougen",e:"hama",s:"quiz"},quiz:{n:"mura"},sougen:{s:"mura",e:"mori",n:"doukutsu"},mori:{w:"sougen",e:"oku1"},oku1:{w:"mori",e:"oku2"},oku2:{w:"oku1",n:"oku3"},oku3:{s:"oku2"},shizu1:{e:"shizu2"},kana1:{e:"kana2"},tokyo1:{e:"tokyo2"},saitama1:{e:"saitama2"},saitama2:{w:"saitama1",n:"saitama3"},saitama3:{s:"saitama2"},chiba1:{e:"chiba2"},chiba2:{w:"chiba1",n:"chiba3"},chiba3:{s:"chiba2"},tokyo2:{w:"tokyo1",n:"tokyo3"},tokyo3:{s:"tokyo2"},kana2:{w:"kana1",n:"kana3"},kana3:{s:"kana2"},shizu2:{w:"shizu1",n:"shizu3"},shizu3:{s:"shizu2"},doukutsu:{s:"sougen"},hama:{w:"mura",e:"misaki"},misaki:{w:"hama"},sora1:{e:"sora2"},sora2:{w:"sora1",n:"sora3"},sora3:{s:"sora2"},saba1:{e:"saba2"},saba2:{w:"saba1",n:"saba3"},saba3:{s:"saba2"},jan1:{e:"jan2"},jan2:{w:"jan1",n:"yuki3"},yuki3:{s:"jan2"},yuki1:{e:"yuki2"},yuki2:{w:"yuki1",n:"kori3"},kori3:{s:"yuki2"},hino1:{e:"hino2"},hino2:{w:"hino1",n:"hino3"},hino3:{s:"hino2"}};
-const START={quiz:[66,8],mura:[32,60],sougen:[80,112],mori:[4,60],oku1:[4,60],oku2:[4,62],oku3:[80,112],shizu1:[56,104],kana1:[88,104],tokyo1:[88,104],tokyo2:[4,72],tokyo3:[80,108],saitama1:[88,104],saitama2:[4,72],saitama3:[80,108],chiba1:[88,104],chiba2:[4,72],chiba3:[80,108],kana2:[4,72],kana3:[80,108],shizu2:[4,72],shizu3:[80,108],doukutsu:[80,112],hama:[4,78],misaki:[4,78],sora1:[80,80],sora2:[4,62],sora3:[116,112],saba1:[80,80],saba2:[4,62],saba3:[80,112],yuki1:[80,80],yuki2:[4,62],yuki3:[80,112],jan1:[80,80],jan2:[4,62],kori3:[80,112],hino1:[88,56],hino2:[4,62],hino3:[80,112]};
+const LINKS={mura:{n:"sougen",e:"hama",s:"quiz"},quiz:{n:"mura"},sougen:{s:"mura",e:"mori",n:"doukutsu"},mori:{w:"sougen",e:"oku1"},oku1:{w:"mori",e:"oku2"},oku2:{w:"oku1",n:"oku3"},oku3:{s:"oku2"},shizu1:{e:"shizu2"},kana1:{e:"kana2"},tokyo1:{e:"tokyo2"},saitama1:{e:"saitama2",w:"saitama4"},saitama4:{e:"saitama1"},saitama2:{w:"saitama1",n:"saitama3"},saitama3:{s:"saitama2"},chiba1:{e:"chiba2"},chiba2:{w:"chiba1",n:"chiba3"},chiba3:{s:"chiba2"},tokyo2:{w:"tokyo1",n:"tokyo3"},tokyo3:{s:"tokyo2"},kana2:{w:"kana1",n:"kana3"},kana3:{s:"kana2"},shizu2:{w:"shizu1",n:"shizu3"},shizu3:{s:"shizu2"},doukutsu:{s:"sougen"},hama:{w:"mura",e:"misaki"},misaki:{w:"hama"},sora1:{e:"sora2"},sora2:{w:"sora1",n:"sora3"},sora3:{s:"sora2"},saba1:{e:"saba2"},saba2:{w:"saba1",n:"saba3"},saba3:{s:"saba2"},jan1:{e:"jan2"},jan2:{w:"jan1",n:"yuki3"},yuki3:{s:"jan2"},yuki1:{e:"yuki2"},yuki2:{w:"yuki1",n:"kori3"},kori3:{s:"yuki2"},hino1:{e:"hino2"},hino2:{w:"hino1",n:"hino3"},hino3:{s:"hino2"}};
+const START={quiz:[66,8],mura:[32,60],sougen:[80,112],mori:[4,60],oku1:[4,60],oku2:[4,62],oku3:[80,112],shizu1:[56,104],kana1:[88,104],tokyo1:[88,104],tokyo2:[4,72],tokyo3:[80,108],saitama1:[88,104],saitama4:[140,72],saitama2:[4,72],saitama3:[80,108],chiba1:[88,104],chiba2:[4,72],chiba3:[80,108],kana2:[4,72],kana3:[80,108],shizu2:[4,72],shizu3:[80,108],doukutsu:[80,112],hama:[4,78],misaki:[4,78],sora1:[80,80],sora2:[4,62],sora3:[116,112],saba1:[80,80],saba2:[4,62],saba3:[80,112],yuki1:[80,80],yuki2:[4,62],yuki3:[80,112],jan1:[80,80],jan2:[4,62],kori3:[80,112],hino1:[88,56],hino2:[4,62],hino3:[80,112]};
 const ENEMIES={
  sougen:[["moya",8,1],["moya",2,4],["moya",9,6],["moya",1,1],["moya",7,3],["toge",6,1]],
  mori:[["moya",2,3],["toge",9,1],["toge",9,5],["moya",5,1],["moya",4,7],["toge",9,7]],
@@ -169,7 +170,7 @@ const ENEMIES={
 };
 const SOLID=new Set("TRWBH^DG#YkI~AoQFKjxXqLEtbcyOga".split(""));
 /* ひろえる もの。RAREは めったに でない */
-const FINDS={mura:["donguri","clover"],sougen:["donguri","kinomi","clover"],mori:["kinomi","donguri","kabuto"],oku1:["kinoko","donguri","hikarigoke"],oku2:["kinoko","donguri","hikarigoke"],oku3:["kinoko","donguri","hikarigoke"],shizu1:["mikan","kinomi","clover"],kana1:["nikuman","kaigara","hitode"],tokyo1:["senbei","donguri","clover"],tokyo2:["senbei","donguri","clover"],tokyo3:["senbei","donguri","clover"],saitama1:["negi","donguri","clover"],saitama2:["negi","donguri","clover"],saitama3:["negi","kinomi","clover"],chiba1:["rakka","kaigara","hitode"],chiba2:["rakka","donguri","clover"],chiba3:["rakka","kaigara","hitode"],kana2:["nikuman","kaigara","hitode"],kana3:["nikuman","kaigara","hitode"],shizu2:["mikan","kinomi","clover"],hama:["kaigara","hitode","sakuragai"],misaki:["kaigara","hitode"],sora1:["kumo","niji","hoshi"],sora2:["kumo","niji","hoshi"],sora3:["kumo","hoshi"],saba1:["sabahana","dachou","kintane"],saba2:["sabahana","dachou","kintane"],saba3:["sabahana","dachou"],yuki1:["kesshou","matsubo","aurora"],yuki2:["kesshou","matsubo","aurora"],yuki3:["kesshou","matsubo"],kori3:["kesshou","matsubo"],jan1:["banana","janhana","oumu"],jan2:["banana","janhana","oumu"],hino1:["kazanishi","hinohana","honoo"],hino2:["kazanishi","hinohana","honoo"],hino3:["kazanishi","hinohana"]};
+const FINDS={mura:["donguri","clover"],sougen:["donguri","kinomi","clover"],mori:["kinomi","donguri","kabuto"],oku1:["kinoko","donguri","hikarigoke"],oku2:["kinoko","donguri","hikarigoke"],oku3:["kinoko","donguri","hikarigoke"],shizu1:["mikan","kinomi","clover"],kana1:["nikuman","kaigara","hitode"],tokyo1:["senbei","donguri","clover"],tokyo2:["senbei","donguri","clover"],tokyo3:["senbei","donguri","clover"],saitama1:["negi","donguri","clover"],saitama4:["clover","donguri"],saitama2:["negi","donguri","clover"],saitama3:["negi","kinomi","clover"],chiba1:["rakka","kaigara","hitode"],chiba2:["rakka","donguri","clover"],chiba3:["rakka","kaigara","hitode"],kana2:["nikuman","kaigara","hitode"],kana3:["nikuman","kaigara","hitode"],shizu2:["mikan","kinomi","clover"],hama:["kaigara","hitode","sakuragai"],misaki:["kaigara","hitode"],sora1:["kumo","niji","hoshi"],sora2:["kumo","niji","hoshi"],sora3:["kumo","hoshi"],saba1:["sabahana","dachou","kintane"],saba2:["sabahana","dachou","kintane"],saba3:["sabahana","dachou"],yuki1:["kesshou","matsubo","aurora"],yuki2:["kesshou","matsubo","aurora"],yuki3:["kesshou","matsubo"],kori3:["kesshou","matsubo"],jan1:["banana","janhana","oumu"],jan2:["banana","janhana","oumu"],hino1:["kazanishi","hinohana","honoo"],hino2:["kazanishi","hinohana","honoo"],hino3:["kazanishi","hinohana"]};
 const RARE=new Set(["clover","kabuto","sakuragai","hane","hoshi","tategami","kintane","kiba","aurora","kumage","honoo","ryuuroko","kunshou","oumu","koriuroko","hikarigoke"]);
 
 /* ---------- 絵 ---------- */
@@ -721,7 +722,8 @@ function setupScreen(name){
   if(/^tokyo/.test(name))G.enemies.forEach(e=>{e.hp*=5;e.dmg=2});
   if(/^chiba/.test(name))G.enemies.forEach(e=>{e.hp*=6;e.dmg=2});
   if(/^saitama/.test(name))G.enemies.forEach(e=>{e.hp*=7;e.dmg=2});
-  if(name==="saitama1")G.npcs.push({id:"hikouki",x:112,y:104,img:HIKOUKI,big:1},{id:"kobato",x:2*TILE,y:4*TILE,img:KOBATO},{id:"ohaka",x:8*TILE,y:4*TILE,img:OHAKA});
+  if(name==="saitama1")G.npcs.push({id:"hikouki",x:112,y:104,img:HIKOUKI,big:1},{id:"kobato",x:2*TILE,y:4*TILE,img:KOBATO});
+  if(name==="saitama4")G.npcs.push({id:"ohaka",x:5*TILE,y:3*TILE,img:OHAKA});
   if(name==="saitama2")G.map.saitama2[0][5]=G.flags.clear_saitama2||kenDone("saitama")?"p":"T";
   if(name==="saitama3"){
     if(!kenDone("saitama")){G.map.saitama3[8][5]="W";G.boss={kind:"nama",x:72,y:30,hp:36,state:"swim",t:2.5,wh:[6,6],shots:[],hitBy:-1,flash:0,calm:false};}
@@ -1135,13 +1137,13 @@ function talkTo(id){
     else say([["パパ","ちばけんの けんちょうが あるのは ちばし。\nなりたには、せかいじゅうへ ひこうきが とぶ おおきな くうこうも あるんだよ。"],["パパ","みさきの しろい とうだいは、いぬぼうさきの とうだい。\nたかさは 31メートル。1874ねんに できて、なかの かいだんは 99だん あるんだ。"],["パパ",f.camera?"かんばんの ところで、いっしょに しゃしんを とろう！":"また いつでも あそびに おいで。まさむねも まってるよ。"]]);
   }
   if(id==="nama")say([["おおナマズ","あらかわは、ちちぶの やまから とうきょうわんまで ながれて いるよ。\nながとろでは、ふねで かわを くだれるんだ。"]]);
-  if(id==="ohaka")say([["ひいじいちゃんと ひいばあちゃんの おはかだ。\nきれいな はなが そなえて ある。"],["トロヒは そっと てを あわせた。"],["トロヒ","ひいじいちゃん、ひいばあちゃん。\nぼく、にほんじゅうを ぼうけん して いるよ。みんな げんきだよ。"],["……やさしい かぜが ふいて、はなが ゆれた。\nこころが ぽかぽか あたたかく なった。"]],()=>{G.hp=G.maxHp;if(!f.ohaka){f.ohaka=true;save()}SFX.heart()});
+  if(id==="ohaka")say([["くりはしに ある、ひいじいちゃんと ひいばあちゃんの おはかだ。\nきれいな はなが そなえて ある。"],["トロヒは そっと てを あわせた。"],["トロヒ","ひいじいちゃん、ひいばあちゃん。\nぼく、にほんじゅうを ぼうけん して いるよ。みんな げんきだよ。"],["……やさしい かぜが ふいて、はなが ゆれた。\nこころが ぽかぽか あたたかく なった。"]],()=>{G.hp=G.maxHp;if(!f.ohaka){f.ohaka=true;save()}SFX.heart()});
   if(id==="sendou")say([["せんどうさん","ながとろ めいぶつ、かわくだり！\nいわを よけて、どこまで くだれるか やって みるかい？"]],startKawa);
   if(id==="kobato"){
-    if(!kenDone("saitama"))say([["あんないにんの コバト","ようこそ、さいたまけんへ！ ここは かわごえ。\nむかしの まちなみが のこって いて、「こえど」と よばれて いるの。"],["あんないにんの コバト","さいたまけんは、やまなしけんと おなじで うみが ないの。\nでも おおきな かわが ながれて いるわ。"],["あんないにんの コバト","その かわの うえの ながとろに、くろい モヤが でて いるの。\nひがしの ねぎばたけを ぬけて、たすけて くれない？"]]);
+    if(!kenDone("saitama"))say([["あんないにんの コバト","ようこそ、さいたまけんへ！ ここは かわごえ。\nむかしの まちなみが のこって いて、「こえど」と よばれて いるの。"],["あんないにんの コバト","さいたまけんは、やまなしけんと おなじで うみが ないの。\nでも おおきな かわが ながれて いるわ。"],["あんないにんの コバト","その かわの うえの ながとろに、くろい モヤが でて いるの。\nひがしの ねぎばたけを ぬけて、たすけて くれない？"],["あんないにんの コバト","そうそう、にしへ いくと くりはし。\nおはかまいりも できるわよ。"]]);
     else if(!(f.miyage||{}).soka)say([["あんないにんの コバト","モヤが はれたわ！ ありがとう、トロヒくん。\nはい、これは さいたまの めいぶつ、そうか せんべい。"],["あんないにんの コバト","おこめから つくって、1まい 1まい やいて いるのよ。"],["おみやげ「そうか せんべい」を てに いれた！\n「もちもの」の おみやげの そうこで みられるよ。"]],
       ()=>{f.miyage=f.miyage||{};f.miyage.soka=true;save();SFX.item();updateGoal()});
-    else say([["あんないにんの コバト","かわごえの「ときの かね」は、たかさ やく 16メートル。\n1にちに 4かい、かねが なって じかんを しらせるの。"],["あんないにんの コバト","くろい かべの「くらづくり」の いえは、かじに つよい つくり。\nむかし おおきな かじが あって、それから たくさん たてられたのよ。"],["あんないにんの コバト","さいたまけんの けんちょうが あるのは さいたまし。\n"+(f.camera?"かんばんの ところで、ときの かねの しゃしんが とれるわよ！":"ながとろでは かわくだりも できるわよ。")]]);
+    else say([["あんないにんの コバト","かわごえの「ときの かね」は、たかさ やく 16メートル。\n1にちに 4かい、かねが なって じかんを しらせるの。"],["あんないにんの コバト","くろい かべの「くらづくり」の いえは、かじに つよい つくり。\nむかし おおきな かじが あって、それから たくさん たてられたのよ。"],["あんないにんの コバト","さいたまけんの けんちょうが あるのは さいたまし。\n"+(f.camera?"かんばんの ところで、ときの かねの しゃしんが とれるわよ！":"ながとろでは かわくだりも できるわよ。")],["あんないにんの コバト","にしへ いくと くりはし。\nトロヒくんの ひいおじいさんと ひいおばあさんの おはかが あるんでしょう？ おまいり して いってね。"]]);
   }
   if(id==="shiiku")say([["しいくいんさん","こんにちは！ かもがわの うみの すいぞくかんへ ようこそ。\nうみの いきものの クイズ、やって みる？"]],()=>openSui());
   if(id==="masamune")say([["まさむねくん",masaHearts()>=5?"ゴロゴロ……にゃーん！":"にゃっ！（ねこじゃらし！ おやつ！）"]],()=>openMasa());
@@ -1357,6 +1359,10 @@ function afterSlide(){
     say([["ザバーン！\nはまなこから、くろい モヤに つつまれた おおうなぎが とびだした！"],[buddy()==="guri"?"グリ":mokoName(),buddy()==="guri"?"グリッ！ グリグリ！\n（かべに ぶつかった ときが チャンスだって！）":"モコッ！ モコモコ！\n（かべに ぶつかった ときが チャンスだって！）"]]);
   }
   planeCheck();
+  if(G.screen==="saitama4"&&!G.flags.kurihashiSeen){
+    G.flags.kurihashiSeen=true;
+    say([["ここは くりはし。しずかな ところだ。\nひいじいちゃんと ひいばあちゃんの おはかが ある。"]]);
+  }
   if(G.screen==="saitama1"&&!G.flags.saitamaSeen){
     G.flags.saitamaSeen=true;
     say([["トロヒ","ここが さいたまけん。\nくろい かべの いえが ならんで いる。むかしの まち みたいだ！"],["でも たかい やぐらは くろい モヤで みえない。\nあんないにんの おねえさんに はなしを きいて みよう。"]]);
@@ -4051,7 +4057,7 @@ function showPanel(kind){
   if(kind==="title"){
     const h=document.createElement("h1");h.textContent="トロヒの\nぼうけん";h.style.whiteSpace="pre-line";
     const s=document.createElement("p");s.textContent="りゅうの なみだを さがして";
-    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ27にち・さいたま）";v.style.fontSize=".7em";v.style.opacity=".8";
+    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ27にち・くりはし）";v.style.fontSize=".7em";v.style.opacity=".8";
     p.append(h,s,v);
     panelBtn(p,"あそぶ",showSlots);
   }
