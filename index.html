@@ -153,7 +153,7 @@ const MAPS={
  doukutsu:["###########","#_________#","#_________#","#_________#","#_________#","#_________#","#_________#","#_________#","#####_#####"]
 };
 /* ばんの しるし。version.txt と ちがって いたら、あたらしい ばんを とりに いく */
-const VER="11がつ27にち・やまなしの けしき";
+const VER="11がつ27にち・ハートは ちほうごと";
 (function(){
   if(location.hash||!/^https?:$/.test(location.protocol))return;
   const m=/[?&]v=(\d+)/.exec(location.search);if(m&&Date.now()-Number(m[1])<60000)return;
@@ -513,6 +513,17 @@ function shizukuName(){return G.flags.shizukuEvo?"シズクジラ":"シズク"}
 function buddyName(){const b=buddy();return b==="shizuku"?shizukuName():b==="guri"?guriName():mokoName()}
 function guriName(){return G.flags.guriEvo?"グリドン":"グリ"}
 function nakaLv(who){return Math.min(5,Math.floor(((G.flags.naka||{})[who]||0)/4))}
+/* ハートは、ちほうの けんを ぜんぶ はらした ときに 1つ ふえる */
+const CHIHO={kanto:{name:"かんとうちほう",kens:["ibaraki","tochigi","gunma","saitama","chiba","tokyo","kanagawa"]}};
+function chihoCheck(){
+  const f=G.flags,got=f.chiho=f.chiho||{};G.chihoUp=null;
+  Object.entries(CHIHO).forEach(([id,c])=>{if(!got[id]&&c.kens.every(k=>kenDone(k))){got[id]=true;G.maxHp+=2;G.chihoUp=c.name}});
+}
+function chihoLine(){
+  if(G.chihoUp)return G.chihoUp+"の モヤが ぜんぶ はれた！\nおれいに ハートが 1つ ふえた！";
+  const c=Object.values(CHIHO).find(c=>c.kens.some(k=>kenDone(k))&&!c.kens.every(k=>kenDone(k)));
+  return "ちからが わいて きた！ ハートが ぜんぶ もどった！"+(c?"\n（"+c.name+"は あと "+c.kens.filter(k=>!kenDone(k)).length+"つ。ぜんぶ はらすと ハートが ふえるよ）":"");
+}
 function mokoName(){return G.flags.mokoFinal?"モコガルド":G.flags.mokoEvo?"モコロン":"モコ"}
 
 function tileCanvas(fn){const c=document.createElement("canvas");c.width=c.height=TILE;fn(c.getContext("2d"));return c}
@@ -1875,11 +1886,11 @@ function unagiDown(){
   const B=G.boss,f=G.flags;B.calm=true;B.flash=0;
   for(let i=0;i<4;i++)puff(B.x+6+i*7,B.y+10+i%2*9,12);SFX.poof();G.shake=.4;
   G.map.shizu3[8][5]=".";paintBg();G.enemies=[];
-  f.ken=f.ken||{};f.ken.shizuoka=true;f.unagi=true;f.fujiGot=true;f.mats=f.mats||{};f.mats.fujiishi=(f.mats.fujiishi||0)+1;G.maxHp+=2;G.hp=G.maxHp;save();
+  f.ken=f.ken||{};f.ken.shizuoka=true;f.unagi=true;f.fujiGot=true;f.mats=f.mats||{};f.mats.fujiishi=(f.mats.fujiishi||0)+1;chihoCheck();G.hp=G.maxHp;save();
   say([["くろい モヤが はれて いく……"],
     ["はまなこの おおうなぎ","……ふう、くるしかった。\nモヤを はらって くれて、ありがとう。"],
     ["はまなこの おおうなぎ","ここは はまなこ。うなぎで ゆうめいな みずうみだよ。\nうみと つながって いて、しおみずが まじって いるんだ。"],
-    ["おれいに ハートが 1つ ふえた！"],
+    [chihoLine()],
     ["はまなこの おおうなぎ","それと、これを もって いきなさい。\nふじさんの いただきから ながれて きた 「ふじの いし」だよ。"],
     ["ふじの いしを てに いれた！\nむらの ガンテツに もって いくと、しずおかの けんを つくって くれるよ。"],
     ["しずおかの モヤが はれた！\nチャコの ところへ もどって みよう。"]],()=>{SFX.item();updateGoal()});
@@ -2030,11 +2041,11 @@ function kamomeDown(){
   const B=G.boss,f=G.flags;B.calm=true;B.state="calm";B.h=0;B.flash=0;
   for(let i=0;i<4;i++)puff(B.gx-12+i*8,B.gy-10,12);SFX.poof();G.shake=.4;
   G.map.kana3[8][5]="p";paintBg();G.enemies=[];
-  f.ken=f.ken||{};f.ken.kanagawa=true;f.kamome=true;f.mats=f.mats||{};f.mats.kamomehane=(f.mats.kamomehane||0)+1;G.maxHp+=2;G.hp=G.maxHp;save();
+  f.ken=f.ken||{};f.ken.kanagawa=true;f.kamome=true;f.mats=f.mats||{};f.mats.kamomehane=(f.mats.kamomehane||0)+1;chihoCheck();G.hp=G.maxHp;save();
   say([["くろい モヤが はれて いく……"],
     ["みなとの おおカモメ","……ああ、やっと そらが みえる。\nたすけて くれて ありがとう。"],
     ["みなとの おおカモメ","よこはまは、がいこくの ふねも やって くる おおきな みなと。\nカモメは かながわけんの とり なんだよ。"],
-    ["おれいに ハートが 1つ ふえた！"],
+    [chihoLine()],
     ["カモメの はねを てに いれた！\nむらの ガンテツに もって いくと、かながわの けんを つくって くれるよ。"],
     ["かながわの モヤが はれた！\nももばぁばの ところへ もどって みよう。"]],
     ()=>{G.boss=null;G.npcs.push({id:"kamome",x:72,y:34,img:KAMOME_CALM});SFX.item();updateGoal()});
@@ -2342,12 +2353,12 @@ function raiDown(){
   const B=G.boss,f=G.flags;B.calm=true;B.state="calm";B.h=0;B.flash=0;B.ball=null;
   for(let i=0;i<4;i++)puff(B.x+4+i*8,B.y+12,12);SFX.poof();G.shake=.4;
   G.map.tokyo3[8][5]="p";paintBg();G.enemies=[];
-  f.ken=f.ken||{};f.ken.tokyo=true;f.rai=true;f.mats=f.mats||{};f.mats.raitaiko=(f.mats.raitaiko||0)+1;G.maxHp+=2;G.hp=G.maxHp;save();
+  f.ken=f.ken||{};f.ken.tokyo=true;f.rai=true;f.mats=f.mats||{};f.mats.raitaiko=(f.mats.raitaiko||0)+1;chihoCheck();G.hp=G.maxHp;save();
   say([["くろい モヤが はれて いく……"],
     ["かみなりさま","……おや？ わしは なにを して おったんじゃ。\nあたまの なかが ゴロゴロ して、とまらなかったんじゃ。"],
     ["かみなりさま","たすけて くれて ありがとう。\nあさくさの かみなりもんは、おおきな あかい ちょうちんが めじるしじゃ。"],
     ["かみなりさま","もんには、かぜの かみさま 「ふうじん」と、かみなりの かみさま 「らいじん」の ぞうが たって おるぞ。"],
-    ["おれいに ハートが 1つ ふえた！"],
+    [chihoLine()],
     ["かみなりの たいこを てに いれた！\nむらの ガンテツに もって いくと、とうきょうの けんを つくって くれるよ。"],
     ["とうきょうの モヤが はれた！\nあんないにんの ミヤコの ところへ もどって みよう。"]],
     ()=>{SFX.item();updateGoal()});
@@ -2872,13 +2883,13 @@ function drawHud(){
   ctx.fillStyle="#141a26";ctx.fillRect(0,0,WW,HUD);
   const n=G.maxHp/2;
   for(let i=0;i<n;i++){
-    const x=4+i*9,y=4,v=G.hp-i*2;
+    const x=4+(i%10)*9,y=n>10?(i<10?1:9):4,v=G.hp-i*2;if(i>=20)break;
     ctx.drawImage(HEART0,x,y);
     if(v>=2)ctx.drawImage(HEART,x,y);
     else if(v===1)ctx.drawImage(HEART,0,0,4,7,x,y,4,7);
   }
   if(G.flags.sword){
-    const cx=8+n*9;ctx.drawImage(COIN,cx,5);
+    const cx=8+Math.min(n,10)*9;ctx.drawImage(COIN,cx,5);
     ctx.fillStyle="#ffd84d";ctx.font="8px DotGothic16,sans-serif";ctx.textBaseline="top";
     ctx.fillText(String(G.flags.coins||0),cx+8,4);
   }
@@ -3939,11 +3950,11 @@ function kaiDown(){
   const B=G.boss,f=G.flags;B.calm=true;B.state="calm";B.flash=0;B.shots=[];
   for(let i=0;i<4;i++)puff(B.x+4+i*8,B.y+12,12);SFX.poof();G.shake=.4;
   G.map.chiba3[8][5]="s";paintBg();G.enemies=[];
-  f.ken=f.ken||{};f.ken.chiba=true;f.kai=true;f.mats=f.mats||{};f.mats.shinju=(f.mats.shinju||0)+1;G.maxHp+=2;G.hp=G.maxHp;save();
+  f.ken=f.ken||{};f.ken.chiba=true;f.kai=true;f.mats=f.mats||{};f.mats.shinju=(f.mats.shinju||0)+1;chihoCheck();G.hp=G.maxHp;save();
   say([["くろい モヤが はれて いく……"],
     ["おおハマグリ","……ぷはあ。やっと くちが かるく なった。\nモヤが からに はさまって、くるしかったんだ。"],
     ["おおハマグリ","たすけて くれて ありがとう。\nここは くじゅうくりはま。やく 60キロメートルも つづく、ながーい すなはま だよ。"],
-    ["おれいに ハートが 1つ ふえた！"],
+    [chihoLine()],
     ["おおきな しんじゅを てに いれた！\nむらの ガンテツに もって いくと、ちばの けんを つくって くれるよ。"],
     ["ちばの モヤが はれた！\nパパの ところへ もどって みよう。"]],
     ()=>{SFX.item();updateGoal()});
@@ -4098,12 +4109,12 @@ function namaDown(){
   const B=G.boss,f=G.flags;B.calm=true;B.state="calm";B.flash=0;B.shots=[];
   for(let i=0;i<4;i++)puff(B.x+4+i*8,B.y+12,12);SFX.poof();G.shake=.4;
   G.map.saitama3[8][5]="s";paintBg();G.enemies=[];
-  f.ken=f.ken||{};f.ken.saitama=true;f.nama=true;f.mats=f.mats||{};f.mats.namahige=(f.mats.namahige||0)+1;G.maxHp+=2;G.hp=G.maxHp;save();
+  f.ken=f.ken||{};f.ken.saitama=true;f.nama=true;f.mats=f.mats||{};f.mats.namahige=(f.mats.namahige||0)+1;chihoCheck();G.hp=G.maxHp;save();
   say([["くろい モヤが はれて いく……"],
     ["おおナマズ","……ふう。ひげが ムズムズ して、あばれて しまったよ。\nきって くれて すっきり した。ありがとう。"],
     ["おおナマズ","ここは ながとろ。あらかわの ながれが いわを けずって できた、\nたたみを しいた ような「いわだたみ」が ゆうめい だよ。"],
     ["おおナマズ","あらかわは、かわはばが にほんいち。\nひろい ところでは、ていぼうから ていぼうまで 2537メートルも あるんだ。"],
-    ["おれいに ハートが 1つ ふえた！"],
+    [chihoLine()],
     ["ナマズの ひげを てに いれた！\nむらの ガンテツに もって いくと、さいたまの けんを つくって くれるよ。"],
     ["さいたまの モヤが はれた！\nあんないにんの コバトの ところへ もどって みよう。"]],
     ()=>{SFX.item();updateGoal()});
@@ -4221,11 +4232,11 @@ function nebaDown(){
   const B=G.boss,f=G.flags;B.calm=true;B.state="calm";B.blobs=[];B.x=72;B.y=40;
   for(let i=0;i<4;i++)puff(B.x+4+i*8,B.y+12,12);SFX.poof();G.shake=.4;
   G.map.ibaraki3[8][5]="p";paintBg();G.enemies=[];
-  f.ken=f.ken||{};f.ken.ibaraki=true;f.neba=true;f.mats=f.mats||{};f.mats.nebaito=(f.mats.nebaito||0)+1;G.maxHp+=2;G.hp=G.maxHp;save();
+  f.ken=f.ken||{};f.ken.ibaraki=true;f.neba=true;f.mats=f.mats||{};f.mats.nebaito=(f.mats.nebaito||0)+1;chihoCheck();G.hp=G.maxHp;save();
   say([["くろい モヤが はれて いく……"],
     ["わらなっとうの ワラじい","……おやおや。わしは みとの なっとう じゃよ。\nモヤの せいで ねばねばが とまらなく なって しもうた。"],
     ["わらなっとうの ワラじい","たすけて くれて ありがとう。\nなっとうは だいずから つくる。みとの めいぶつ じゃ。"],
-    ["おれいに ハートが 1つ ふえた！"],
+    [chihoLine()],
     ["ねばりの いとを てに いれた！\nむらの ガンテツに もって いくと、いばらきの けんを つくって くれるよ。"],
     ["いばらきの モヤが はれた！\nあんないにんの ミトの ところへ もどって みよう。"]],
     ()=>{SFX.item();updateGoal()});
@@ -4384,11 +4395,11 @@ function saruDown(){
   const B=G.boss,f=G.flags;B.calm=true;B.state="calm";B.flash=0;B.shots=[];B.mk=ZARU_POS.map(([x,y],i)=>({x,y:y+8,pose:i,hop:0}));B.x=76;B.y=30;
   for(let i=0;i<3;i++)puff(ZARU_POS[i][0]+12,ZARU_POS[i][1]+14,12);SFX.poof();G.shake=.4;
   G.map.tochigi3[8][5]="p";paintBg();G.enemies=[];
-  f.ken=f.ken||{};f.ken.tochigi=true;f.saru=true;f.mats=f.mats||{};f.mats.sarunomi=(f.mats.sarunomi||0)+1;G.maxHp+=2;G.hp=G.maxHp;save();
+  f.ken=f.ken||{};f.ken.tochigi=true;f.saru=true;f.mats=f.mats||{};f.mats.sarunomi=(f.mats.sarunomi||0)+1;chihoCheck();G.hp=G.maxHp;save();
   say([["くろい モヤが はれて いく……"],
     ["さんびきの サル","ウキッ！ ……あれ、ぼくたち なにを して いたんだろう。\nたすけて くれて ありがとう！"],
     ["さんびきの サル","ぼくたちは にっこうの 「さんざる」。\nみざる、いわざる、きかざる。わるい ことは、みない、いわない、きかない、と いう おしえ だよ。"],
-    ["おれいに ハートが 1つ ふえた！"],
+    [chihoLine()],
     ["サルの きのみを てに いれた！\nむらの ガンテツに もって いくと、とちぎの けんを つくって くれるよ。"],
     ["とちぎの モヤが はれた！\nあんないにんの イチカの ところへ もどって みよう。"]],
     ()=>{SFX.item();updateGoal()});
@@ -4518,11 +4529,11 @@ function darumaDown(){
   const B=G.boss,f=G.flags;B.calm=true;B.state="calm";B.flash=0;B.x=B.tx=72;B.y=22;
   puff(88,40,16);SFX.poof();G.shake=.4;
   G.map.gunma3[8][5]="p";paintBg();G.enemies=[];
-  f.ken=f.ken||{};f.ken.gunma=true;f.daruma=true;f.mats=f.mats||{};f.mats.darumahige=(f.mats.darumahige||0)+1;G.maxHp+=2;G.hp=G.maxHp;save();
+  f.ken=f.ken||{};f.ken.gunma=true;f.daruma=true;f.mats=f.mats||{};f.mats.darumahige=(f.mats.darumahige||0)+1;chihoCheck();G.hp=G.maxHp;save();
   say([["7かいめ、ゴロン！\nくろい モヤが はれて いく……"],
     ["おおだるま","……はっ。わしは なにを して おったんじゃ。\nたすけて くれて ありがとう！"],
     ["おおだるま","7かい ころんでも、8かい おきあがる。\nこれを「ななころび やおき」と いうんじゃ。\nなんど しっぱい しても、あきらめずに がんばる、と いう いみ じゃよ。"],
-    ["おれいに ハートが 1つ ふえた！"],
+    [chihoLine()],
     ["だるまの ひげを てに いれた！\nむらの ガンテツに もって いくと、ぐんまの けんを つくって くれるよ。"],
     ["ぐんまの モヤが はれた！\nあんないにんの ユノの ところへ もどって みよう。"]],
     ()=>{SFX.item();updateGoal()});
