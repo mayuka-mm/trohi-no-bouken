@@ -152,6 +152,18 @@ const MAPS={
  shizu2:["TTTTTpTTTTT","T.,.....,.T","T.cc.B.cc.T","T.........T","T.cc...cc.T","p.........T","T.cc.B.cc.T","T,.......,T","TTTTTTTTTTT"],
  doukutsu:["###########","#_________#","#_________#","#_________#","#_________#","#_________#","#_________#","#_________#","#####_#####"]
 };
+/* ばんの しるし。version.txt と ちがって いたら、あたらしい ばんを とりに いく */
+const VER="11がつ27にち・じどう こうしん";
+(function(){
+  if(location.hash||!/^https?:$/.test(location.protocol))return;
+  const m=/[?&]v=(\d+)/.exec(location.search);if(m&&Date.now()-Number(m[1])<60000)return;
+  fetch("version.txt?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.text():"").then(t=>{
+    t=t.trim();if(!t||t===VER)return;
+    let tried="";try{tried=sessionStorage.getItem("trohi-upd")||""}catch(e){}
+    if(tried===t)return;try{sessionStorage.setItem("trohi-upd",t)}catch(e){}
+    location.replace(location.pathname+"?v="+Date.now());
+  }).catch(()=>{});
+})();
 const LINKS={mura:{n:"sougen",e:"hama",s:"quiz"},quiz:{n:"mura"},sougen:{s:"mura",e:"mori",n:"doukutsu"},mori:{w:"sougen",e:"oku1"},oku1:{w:"mori",e:"oku2"},oku2:{w:"oku1",n:"oku3"},oku3:{s:"oku2"},shizu1:{e:"shizu2"},kana1:{e:"kana2"},tokyo1:{e:"tokyo2"},gunma1:{e:"gunma2"},gunma2:{w:"gunma1",n:"gunma3"},gunma3:{s:"gunma2"},tochigi1:{e:"tochigi2"},tochigi2:{w:"tochigi1",n:"tochigi3"},tochigi3:{s:"tochigi2"},ibaraki1:{e:"ibaraki2"},ibaraki2:{w:"ibaraki1",n:"ibaraki3"},ibaraki3:{s:"ibaraki2"},saitama1:{e:"saitama2",w:"saitama4"},saitama4:{e:"saitama1"},saitama2:{w:"saitama1",n:"saitama3"},saitama3:{s:"saitama2"},chiba1:{e:"chiba2"},chiba2:{w:"chiba1",n:"chiba3"},chiba3:{s:"chiba2"},tokyo2:{w:"tokyo1",n:"tokyo3"},tokyo3:{s:"tokyo2"},kana2:{w:"kana1",n:"kana3"},kana3:{s:"kana2"},shizu2:{w:"shizu1",n:"shizu3"},shizu3:{s:"shizu2"},doukutsu:{s:"sougen"},hama:{w:"mura",e:"misaki"},misaki:{w:"hama"},sora1:{e:"sora2"},sora2:{w:"sora1",n:"sora3"},sora3:{s:"sora2"},saba1:{e:"saba2"},saba2:{w:"saba1",n:"saba3"},saba3:{s:"saba2"},jan1:{e:"jan2"},jan2:{w:"jan1",n:"yuki3"},yuki3:{s:"jan2"},yuki1:{e:"yuki2"},yuki2:{w:"yuki1",n:"kori3"},kori3:{s:"yuki2"},hino1:{e:"hino2"},hino2:{w:"hino1",n:"hino3"},hino3:{s:"hino2"}};
 const START={quiz:[66,8],mura:[32,60],sougen:[80,112],mori:[4,60],oku1:[4,60],oku2:[4,62],oku3:[80,112],shizu1:[56,104],kana1:[88,104],tokyo1:[88,104],tokyo2:[4,72],tokyo3:[80,108],gunma1:[88,104],gunma2:[4,72],gunma3:[80,108],tochigi1:[88,104],tochigi2:[4,72],tochigi3:[80,108],ibaraki1:[88,104],ibaraki2:[4,72],ibaraki3:[80,108],saitama1:[88,104],saitama4:[140,72],saitama2:[4,72],saitama3:[80,108],chiba1:[88,104],chiba2:[4,72],chiba3:[80,108],kana2:[4,72],kana3:[80,108],shizu2:[4,72],shizu3:[80,108],doukutsu:[80,112],hama:[4,78],misaki:[4,78],sora1:[80,80],sora2:[4,62],sora3:[116,112],saba1:[80,80],saba2:[4,62],saba3:[80,112],yuki1:[80,80],yuki2:[4,62],yuki3:[80,112],jan1:[80,80],jan2:[4,62],kori3:[80,112],hino1:[88,56],hino2:[4,62],hino3:[80,112]};
 const ENEMIES={
@@ -4793,7 +4805,7 @@ function showPanel(kind){
   if(kind==="title"){
     const h=document.createElement("h1");h.textContent="トロヒの\nぼうけん";h.style.whiteSpace="pre-line";
     const s=document.createElement("p");s.textContent="りゅうの なみだを さがして";
-    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ27にち・ハマグリ なおし）";v.style.fontSize=".7em";v.style.opacity=".8";
+    const v=document.createElement("p");v.textContent="あたらしい ばん（"+VER+"）";v.style.fontSize=".7em";v.style.opacity=".8";
     p.append(h,s,v);
     panelBtn(p,"あそぶ",showSlots);
   }
