@@ -1414,6 +1414,7 @@ function goScreen(dir){
   G.entry=[pl.x,pl.y];
   if(to==="doukutsu"&&!G.flags.bossDown){pl.y=112;pl.x=80;pl.dir="up";G.entry=[80,112]}
   if(to==="tokyo3"&&!kenDone("tokyo")){pl.y=108;pl.x=80;pl.dir="up";G.entry=[80,108]}
+  {const bk={chiba3:"chiba",saitama3:"saitama",ibaraki3:"ibaraki",tochigi3:"tochigi",gunma3:"gunma"}[to];if(bk&&!kenDone(bk)){pl.y=108;pl.x=80;pl.dir="up";G.entry=[80,108]}}
   if(to==="kana3"&&!kenDone("kanagawa")){pl.y=108;pl.x=80;pl.dir="up";G.entry=[80,108]}
   if(to==="shizu3"&&!kenDone("shizuoka")){pl.y=108;pl.x=80;pl.dir="up";G.entry=[80,108]}
   if(to==="saba3"&&!G.flags.toraDown){pl.y=108;pl.x=80;pl.dir="up";G.entry=[80,108]}
@@ -4792,7 +4793,7 @@ function showPanel(kind){
   if(kind==="title"){
     const h=document.createElement("h1");h.textContent="トロヒの\nぼうけん";h.style.whiteSpace="pre-line";
     const s=document.createElement("p");s.textContent="りゅうの なみだを さがして";
-    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ27にち・シズク）";v.style.fontSize=".7em";v.style.opacity=".8";
+    const v=document.createElement("p");v.textContent="あたらしい ばん（11がつ27にち・ハマグリ なおし）";v.style.fontSize=".7em";v.style.opacity=".8";
     p.append(h,s,v);
     panelBtn(p,"あそぶ",showSlots);
   }
